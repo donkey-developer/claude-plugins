@@ -1,6 +1,8 @@
-# References — SRE Domain
+# References -- SRE Domain
 
 > Source attribution for all frameworks, concepts, and terminology used in the SRE review domain. Cite these when asked about the origin of a concept. Update this file when new sources are introduced.
+>
+> For shared project history and cross-domain references, see `../review-standards/references.md`.
 
 ## Framework Origins
 
@@ -13,24 +15,14 @@
 ### SEEMS (Shared fate, Excessive load, Excessive latency, Misconfiguration, Single points of failure)
 
 **Origin:** To be confirmed. The acronym and categories appear to derive from common SRE failure taxonomy. If this is original to the project, declare it as such. If it comes from a specific author or publication, cite here.
-**Status:** Used as the "offensive" analytical lens — identifies how code can fail.
+**Status:** Used as the "offensive" analytical lens -- identifies how code can fail.
 **How it's used:** Each ROAD pillar focuses on specific SEEMS categories (see `framework-map.md`). Findings are categorised by SEEMS failure mode.
 
 ### FaCTOR (Fault isolation, Availability, Capacity, Timeliness, Output correctness, Redundancy)
 
 **Origin:** To be confirmed. Similar attribution question as SEEMS.
-**Status:** Used as the "defensive" analytical lens — verifies resilience properties.
+**Status:** Used as the "defensive" analytical lens -- verifies resilience properties.
 **How it's used:** Paired with SEEMS to form the duality (attack/defence). Recommendations suggest strengthening specific FaCTOR properties.
-
-### Maturity Model (Hygiene, L1, L2, L3)
-
-**Origin:** Original to this project.
-**Design history:**
-- PR #13/Issue #13: Initial maturity scoring concept — hygiene factors vs aspirational targets
-- PR #18: Added domain-specific maturity criteria to all 4 review domains
-- PR #19: Rewrote as universal Hygiene gate (Irreversible/Total/Regulated) with outcome-based levels. Removed technique names from criteria.
-
-**Key design decision (PR #19):** The Hygiene gate uses consequence-severity tests, not domain-specific checklists. This ensures the same escalation logic across Architecture, SRE, Security, and Data domains.
 
 ## Books and Publications
 
@@ -39,7 +31,7 @@
 **Authors:** Betsy Beyer, Chris Jones, Jennifer Petoff, Niall Richard Murphy
 **Published:** 2016, O'Reilly Media
 **ISBN:** 978-1491929124
-**Relevance:** Foundational SRE concepts — SLOs, error budgets, toil reduction, incident response, postmortem culture. Informs the Availability and Response pillars.
+**Relevance:** Foundational SRE concepts -- SLOs, error budgets, toil reduction, incident response, postmortem culture. Informs the Availability and Response pillars.
 **Specific chapters referenced:**
 - Chapter 4: Service Level Objectives
 - Chapter 6: Monitoring Distributed Systems
@@ -101,23 +93,23 @@
 **URL:** https://12factor.net/
 **Relevance:** Config management (Factor III), backing services (Factor IV), logs as event streams (Factor XI). Informs the Delivery and Observability pillars.
 
+Also referenced in `../review-standards/references.md` as a cross-domain resource.
+
 ### OpenTelemetry Specification
 
 **URL:** https://opentelemetry.io/docs/specs/
 **Relevance:** Defines the standard for metrics, logs, and traces. The Observability pillar's checklist items (structured logging, span attributes, metric types) align with OpenTelemetry conventions without requiring it specifically.
 
-## Project History
+## Domain-Specific Project History
 
-Key PRs that shaped the SRE domain, in chronological order:
+Key PRs that shaped the SRE domain specifically:
 
 | PR | What changed | Design impact |
 |----|-------------|---------------|
 | #3 | Initial SRE review system | Established ROAD + SEEMS/FaCTOR architecture, 4 subagents, prompt structure |
 | #17 | "SPOF" renamed to "Single points of failure" | Terminology consistency with SEEMS framework definition |
-| #18 | Cascading maturity model added | Domain-specific maturity criteria (HYG/L1/L2/L3) in `_base.md` and `SKILL.md` |
-| #19 | Universal Hygiene gate, outcome-based levels | Removed technique names from criteria. Hygiene uses consequence-severity tests. Observability checklist refined from "metrics suitable for alerting" to "signal presence". |
-| #21 | Batch orchestrator `/review-all` | SRE runs as one of 4 parallel domains, results in `sre.md` sub-report |
-| #23 | Namespace attempt (closed) | Skill namespacing via subdirectories didn't work. Led to plugin-based approach (`donkey-dev/`). |
+
+For cross-domain PRs (#18, #19, #21, #23), see `../review-standards/references.md`.
 
 ## Attribution Gaps
 
@@ -126,5 +118,5 @@ The following require source confirmation:
 | Term | Current status | Action needed |
 |------|---------------|---------------|
 | SEEMS | Used throughout prompts, no citation | Confirm if original to Bruce Dominguez / ROAD framework, or from another source |
-| FaCTOR | Used throughout prompts, no citation | Same — confirm origin |
+| FaCTOR | Used throughout prompts, no citation | Same -- confirm origin |
 | ROAD | Attributed to Bruce Dominguez in PR #3 | Confirm specific publication or talk |

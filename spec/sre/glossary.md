@@ -1,6 +1,8 @@
-# Glossary — SRE Domain
+# Glossary -- SRE Domain
 
 > Canonical definitions for all terms, frameworks, and acronyms used in the SRE review domain. When writing or modifying prompts, use these definitions exactly.
+>
+> This glossary covers domain-specific terminology. For shared terms (maturity model, orchestration, output), see `../review-standards/glossary.md`.
 
 ## Frameworks
 
@@ -19,7 +21,7 @@ Origin: Bruce Dominguez.
 
 ### SEEMS
 
-**Shared fate, Excessive load, Excessive latency, Misconfiguration, Single points of failure.** Five categories of failure modes. SEEMS is the "offensive" lens — it asks *"How will this code fail in production?"*
+**Shared fate, Excessive load, Excessive latency, Misconfiguration, Single points of failure.** Five categories of failure modes. SEEMS is the "offensive" lens -- it asks *"How will this code fail in production?"*
 
 | Category | Definition | Recognition heuristic |
 |----------|-----------|----------------------|
@@ -33,7 +35,7 @@ Origin: Bruce Dominguez.
 
 ### FaCTOR
 
-**Fault isolation, Availability, Capacity, Timeliness, Output correctness, Redundancy.** Six resilience properties that code should preserve. FaCTOR is the "defensive" lens — it asks *"What protects this code from failing in production?"*
+**Fault isolation, Availability, Capacity, Timeliness, Output correctness, Redundancy.** Six resilience properties that code should preserve. FaCTOR is the "defensive" lens -- it asks *"What protects this code from failing in production?"*
 
 | Property | What "good" looks like | What "bad" looks like |
 |----------|----------------------|---------------------|
@@ -50,27 +52,23 @@ Every SEEMS failure mode has a corresponding FaCTOR property that mitigates it. 
 
 ## Maturity Model
 
-### Hygiene Gate
+This domain inherits the shared maturity model (see `../review-standards/glossary.md` and `../review-standards/review-framework.md`).
 
-A promotion gate that overrides maturity levels. Any finding at any level is promoted to `HYG` if it passes any of these three consequence-severity tests:
+Domain-specific maturity context:
 
-| Test | Question | SRE examples |
-|------|----------|--------------|
-| **Irreversible** | If this goes wrong, can the damage be undone? | Catch-all exception handler that returns success, masking data loss. Silent data corruption with no audit trail. |
-| **Total** | Can this take down the entire service or cascade beyond its boundary? | Retry loop with no bound or backoff that can exhaust thread pools. Health check hardcoded to return healthy, routing traffic to dead instances. Missing timeout on external call that blocks the only worker thread. |
-| **Regulated** | Does this violate a legal or compliance obligation? | PII logged to stdout without masking. Health data exposed in error responses. |
+| Level | One-line description |
+|-------|---------------------|
+| **L1** | Foundations -- The system can be operated. |
+| **L2** | Hardening -- Production-ready practices. The system can be operated *well*. |
+| **L3** | Excellence -- Best-in-class. The system is a model for others. |
 
-Any "yes" to any test = `HYG`. The Hygiene flag trumps all maturity levels.
+### Hygiene Gate (domain examples)
 
-### Maturity Levels
-
-Levels are cumulative. Each requires the previous. See `maturity-criteria.md` for detailed criteria with thresholds.
-
-| Level | Name | One-line description |
-|-------|------|---------------------|
-| **L1** | Foundations | The basics are in place. The system can be operated. |
-| **L2** | Hardening | Production-ready practices. The system can be operated *well*. |
-| **L3** | Excellence | Best-in-class. The system is a model for others. |
+| Test | SRE examples |
+|------|--------------|
+| **Irreversible** | Catch-all exception handler that returns success, masking data loss. Silent data corruption with no audit trail. |
+| **Total** | Retry loop with no bound or backoff that can exhaust thread pools. Health check hardcoded to return healthy, routing traffic to dead instances. Missing timeout on external call that blocks the only worker thread. |
+| **Regulated** | PII logged to stdout without masking. Health data exposed in error responses. |
 
 ### Severity Levels
 
@@ -81,32 +79,3 @@ Levels are cumulative. Each requires the previous. See `maturity-criteria.md` fo
 | **LOW** | Minor improvement opportunity | Nice to have |
 
 Severity measures **production consequence**, not implementation difficulty.
-
-### Status Indicators
-
-Used in maturity assessment tables:
-
-| Indicator | Meaning |
-|-----------|---------|
-| `pass` | All criteria at this level are met |
-| `partial` | Some criteria met, some not |
-| `fail` | No criteria met, or critical criteria missing |
-| `locked` | Previous level not achieved; this level cannot be assessed |
-
-## Orchestration Terms
-
-| Term | Definition |
-|------|-----------|
-| **Pillar** | One of the 4 ROAD components (Response, Observability, Availability, Delivery). Each pillar has one subagent. |
-| **Subagent** | A specialised reviewer that analyses code against one pillar's checklist. Runs in parallel with the other 3. |
-| **Skill orchestrator** | The `/review-sre` skill that dispatches subagents, collects results, deduplicates, and synthesises the final report. |
-| **Synthesis** | The process of merging 4 subagent reports into one consolidated maturity assessment. |
-| **Deduplication** | When two subagents flag the same file:line, merging into one finding with the highest severity and most restrictive maturity tag. |
-
-## Output Terms
-
-| Term | Definition |
-|------|-----------|
-| **Finding** | A single identified issue: severity, maturity level, SEEMS/FaCTOR category, file location, description, and recommendation. |
-| **Maturity assessment** | Per-criterion evaluation (met/not met/partially met) for each maturity level. |
-| **Immediate action** | The single most important thing to fix. Hygiene failure if any exist, otherwise the top finding from the next achievable level. |

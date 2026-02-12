@@ -1,6 +1,8 @@
-# Glossary — Architecture Domain
+# Glossary -- Architecture Domain
 
 > Canonical definitions for all terms, frameworks, and acronyms used in the Architecture review domain. When writing or modifying prompts, use these definitions exactly.
+>
+> This glossary covers domain-specific terminology. For shared terms (maturity model, orchestration, output), see `../review-standards/glossary.md`.
 
 ## Frameworks
 
@@ -25,13 +27,13 @@ Origin: Eric Evans, *Domain-Driven Design*, 2003.
 
 ### Release It!
 
-Michael Nygard's stability patterns and anti-patterns for production-ready software. Provides the analytical lens for the System zoom level — how services protect themselves from failure at integration points.
+Michael Nygard's stability patterns and anti-patterns for production-ready software. Provides the analytical lens for the System zoom level -- how services protect themselves from failure at integration points.
 
 Origin: Michael T. Nygard, *Release It!*, 2nd Edition, 2018.
 
 ### Enterprise Integration Patterns (EIP)
 
-Hohpe & Woolf's catalogue of messaging patterns for connecting distributed systems. Applied at the Landscape zoom level — how systems integrate, route messages, and handle integration failures.
+Hohpe & Woolf's catalogue of messaging patterns for connecting distributed systems. Applied at the Landscape zoom level -- how systems integrate, route messages, and handle integration failures.
 
 Origin: Gregor Hohpe & Bobby Woolf, *Enterprise Integration Patterns*, 2003.
 
@@ -47,7 +49,7 @@ Each zoom level maps to one subagent and one prompt checklist.
 
 ### Code Level
 
-**Scope:** Classes, functions, modules — the innermost structural units.
+**Scope:** Classes, functions, modules -- the innermost structural units.
 
 **Primary concerns:** SOLID principles, DDD tactical patterns (Entities, Value Objects, Aggregates), code quality (testability, complexity, cohesion, coupling, naming).
 
@@ -57,7 +59,7 @@ Each zoom level maps to one subagent and one prompt checklist.
 
 ### Service Level
 
-**Scope:** A deployable unit — one service, application, or independently-deployable component.
+**Scope:** A deployable unit -- one service, application, or independently-deployable component.
 
 **Primary concerns:** Bounded context alignment, architecture & layering (dependency rule, ports & adapters), deployability, error model design.
 
@@ -67,7 +69,7 @@ Each zoom level maps to one subagent and one prompt checklist.
 
 ### System Level
 
-**Scope:** Multiple services interacting — the inter-service boundary.
+**Scope:** Multiple services interacting -- the inter-service boundary.
 
 **Primary concerns:** Stability patterns (circuit breaker, bulkhead, timeout, shed load, backpressure, fail fast, governor), API contracts & communication, coupling & cohesion at the service level.
 
@@ -77,7 +79,7 @@ Each zoom level maps to one subagent and one prompt checklist.
 
 ### Landscape Level
 
-**Scope:** Multiple systems, the wider ecosystem — system-of-systems.
+**Scope:** Multiple systems, the wider ecosystem -- system-of-systems.
 
 **Primary concerns:** DDD context maps, Enterprise Integration Patterns (message design, routing, transformation, error handling), architectural governance (ADRs, fitness functions, standards), design documentation traceability, evolution & change management.
 
@@ -127,7 +129,7 @@ Each zoom level maps to one subagent and one prompt checklist.
 
 | Term | Definition | Where evaluated |
 |------|-----------|-----------------|
-| **ADR** | Architecture Decision Record — documents what was decided, why, and the consequences. | Landscape |
+| **ADR** | Architecture Decision Record -- documents what was decided, why, and the consequences. | Landscape |
 | **Fitness Function** | An automated test that validates an architectural characteristic is preserved. | Landscape |
 | **Strangler Fig** | A migration pattern where new code gradually replaces old, running in parallel. | Landscape |
 
@@ -145,63 +147,30 @@ These principles apply at all zoom levels and should be evaluated everywhere:
 
 ## Maturity Model
 
-### Hygiene Gate
+This domain inherits the shared maturity model (see `../review-standards/glossary.md` and `../review-standards/review-framework.md`).
 
-A promotion gate that overrides maturity levels. Any finding at any level is promoted to `HYG` if it passes any of these three consequence-severity tests:
+Domain-specific maturity context:
 
-| Test | Question | Architecture examples |
-|------|----------|----------------------|
-| **Irreversible** | If this goes wrong, can the damage be undone? | Two services writing directly to the same database tables (corrupted data). Circular dependency chain where extracting the cycle requires rewriting both modules. |
-| **Total** | Can this take down the entire service or cascade beyond its boundary? | Synchronous circular dependency chain where one failure cascades to all participants. Deployment requires all services released simultaneously (shared fate). |
-| **Regulated** | Does this violate a legal or compliance obligation? | PII exposed through leaky abstraction in a public API response. System boundary that violates data residency requirements. |
+| Level | One-line description |
+|-------|---------------------|
+| **L1** | Foundations -- The system has clear structure and can be understood and tested. |
+| **L2** | Hardening -- Architecturally mature. Integration contracts, design rationale, and failure containment exist. |
+| **L3** | Excellence -- Best-in-class. Architecture is governed, validated automatically, and evolves incrementally. |
 
-Any "yes" to any test = `HYG`. The Hygiene flag trumps all maturity levels.
+### Hygiene Gate (domain examples)
 
-### Maturity Levels
-
-Levels are cumulative. Each requires the previous. See `maturity-criteria.md` for detailed criteria with thresholds.
-
-| Level | Name | One-line description |
-|-------|------|---------------------|
-| **L1** | Foundations | The basics are in place. The system has clear structure and can be understood and tested. |
-| **L2** | Hardening | Architecturally mature. Integration contracts, design rationale, and failure containment exist. |
-| **L3** | Excellence | Best-in-class. Architecture is governed, validated automatically, and evolves incrementally. |
+| Test | Architecture examples |
+|------|----------------------|
+| **Irreversible** | Two services writing directly to the same database tables (corrupted data). Circular dependency chain where extracting the cycle requires rewriting both modules. |
+| **Total** | Synchronous circular dependency chain where one failure cascades to all participants. Deployment requires all services released simultaneously (shared fate). |
+| **Regulated** | PII exposed through leaky abstraction in a public API response. System boundary that violates data residency requirements. |
 
 ### Severity Levels
 
 | Level | Structural impact | Merge decision |
 |-------|-------------------|----------------|
-| **HIGH** | Fundamental design flaw — systemic risk, shared mutable state, circular dependencies | Must fix before merge |
-| **MEDIUM** | Design smell — principle violation, leaky abstraction, missing documentation | May require follow-up ticket |
-| **LOW** | Style improvement — minor naming, minor restructuring | Nice to have |
+| **HIGH** | Fundamental design flaw -- systemic risk, shared mutable state, circular dependencies | Must fix before merge |
+| **MEDIUM** | Design smell -- principle violation, leaky abstraction, missing documentation | May require follow-up ticket |
+| **LOW** | Style improvement -- minor naming, minor restructuring | Nice to have |
 
 Severity measures **structural consequence**, not implementation difficulty.
-
-### Status Indicators
-
-Used in maturity assessment tables:
-
-| Indicator | Meaning |
-|-----------|---------|
-| `pass` | All criteria at this level are met |
-| `partial` | Some criteria met, some not |
-| `fail` | No criteria met, or critical criteria missing |
-| `locked` | Previous level not achieved; this level cannot be assessed |
-
-## Orchestration Terms
-
-| Term | Definition |
-|------|-----------|
-| **Zoom Level** | One of the 4 C4-inspired scopes (Code, Service, System, Landscape). Each zoom level has one subagent. |
-| **Subagent** | A specialised reviewer that analyses code against one zoom level's checklist. Runs in parallel with the other 3. |
-| **Skill orchestrator** | The `/review-arch` skill that dispatches subagents, collects results, deduplicates, and synthesises the final report. |
-| **Synthesis** | The process of merging 4 subagent reports into one consolidated maturity assessment. |
-| **Deduplication** | When two subagents flag the same file:line, merging into one finding with the highest severity and most restrictive maturity tag. |
-
-## Output Terms
-
-| Term | Definition |
-|------|-----------|
-| **Finding** | A single identified issue: severity, maturity level, zoom level, file location, description, and recommendation. |
-| **Maturity assessment** | Per-criterion evaluation (met/not met/partially met) for each maturity level. |
-| **Immediate action** | The single most important thing to fix. Hygiene failure if any exist, otherwise the top finding from the next achievable level. |

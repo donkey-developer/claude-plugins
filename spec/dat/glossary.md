@@ -1,6 +1,8 @@
 # Glossary -- Data Domain
 
 > Canonical definitions for all terms, frameworks, and acronyms used in the Data review domain. When writing or modifying prompts, use these definitions exactly.
+>
+> This glossary covers domain-specific terminology. For shared terms (maturity model, orchestration, output), see `../review-standards/glossary.md`.
 
 ## Frameworks
 
@@ -99,27 +101,23 @@ Every decay pattern has corresponding quality dimensions that defend against it.
 
 ## Maturity Model
 
-### Hygiene Gate
+This domain inherits the shared maturity model (see `../review-standards/glossary.md` and `../review-standards/review-framework.md`).
 
-A promotion gate that overrides maturity levels. Any finding at any level is promoted to `HYG` if it passes any of these three consequence-severity tests:
+Domain-specific maturity context:
 
-| Test | Question | Data examples |
-|------|----------|---------------|
-| **Irreversible** | If this goes wrong, can the damage be undone? | Pipeline silently drops records on schema mismatch (undetected data loss). Migration script with unbounded DELETE or TRUNCATE. Silent type coercion that converts invalid values to NULL without logging. |
-| **Total** | Can this take down the entire service or cascade beyond its boundary? | Unbounded query that scans the full data warehouse (resource starvation for other users). Deadly diamond that corrupts a shared dimension used by all downstream consumers. |
-| **Regulated** | Does this violate a legal or compliance obligation? | PII written to application logs or analytics without masking. Missing Right-to-be-Forgotten mechanism for GDPR-covered data. Health data stored without encryption at rest. |
+| Level | One-line description |
+|-------|---------------------|
+| **L1** | Foundations -- The data can be understood and used. |
+| **L2** | Hardening -- Production-ready practices. The data can be trusted and monitored. |
+| **L3** | Excellence -- Best-in-class. The data is a model for others. |
 
-Any "yes" to any test = `HYG`. The Hygiene flag trumps all maturity levels.
+### Hygiene Gate (domain examples)
 
-### Maturity Levels
-
-Levels are cumulative. Each requires the previous. See `maturity-criteria.md` for detailed criteria with thresholds.
-
-| Level | Name | One-line description |
-|-------|------|---------------------|
-| **L1** | Foundations | The basics are in place. The data can be understood and used. |
-| **L2** | Hardening | Production-ready practices. The data can be trusted and monitored. |
-| **L3** | Excellence | Best-in-class. The data is a model for others. |
+| Test | Data examples |
+|------|---------------|
+| **Irreversible** | Pipeline silently drops records on schema mismatch (undetected data loss). Migration script with unbounded DELETE or TRUNCATE. Silent type coercion that converts invalid values to NULL without logging. |
+| **Total** | Unbounded query that scans the full data warehouse (resource starvation for other users). Deadly diamond that corrupts a shared dimension used by all downstream consumers. |
+| **Regulated** | PII written to application logs or analytics without masking. Missing Right-to-be-Forgotten mechanism for GDPR-covered data. Health data stored without encryption at rest. |
 
 ### Severity Levels
 
@@ -130,32 +128,3 @@ Levels are cumulative. Each requires the previous. See `maturity-criteria.md` fo
 | **LOW** | Style improvement or minor optimisation | Nice to have |
 
 Severity measures **data consequence**, not implementation difficulty.
-
-### Status Indicators
-
-Used in maturity assessment tables:
-
-| Indicator | Meaning |
-|-----------|---------|
-| `pass` | All criteria at this level are met |
-| `partial` | Some criteria met, some not |
-| `fail` | No criteria met, or critical criteria missing |
-| `locked` | Previous level not achieved; this level cannot be assessed |
-
-## Orchestration Terms
-
-| Term | Definition |
-|------|-----------|
-| **Pillar** | One of the 4 Data components (Architecture, Engineering, Quality, Governance). Each pillar has one subagent. |
-| **Subagent** | A specialised reviewer that analyses code against one pillar's checklist. Runs in parallel with the other 3. |
-| **Skill orchestrator** | The `/review-data` skill that dispatches subagents, collects results, deduplicates, and synthesises the final report. |
-| **Synthesis** | The process of merging 4 subagent reports into one consolidated maturity assessment. |
-| **Deduplication** | When two subagents flag the same file:line, merging into one finding with the highest severity and most restrictive maturity tag. |
-
-## Output Terms
-
-| Term | Definition |
-|------|-----------|
-| **Finding** | A single identified issue: severity, maturity level, pillar, file location, description, and recommendation. |
-| **Maturity assessment** | Per-criterion evaluation (met/not met/partially met) for each maturity level. |
-| **Immediate action** | The single most important thing to fix. Hygiene failure if any exist, otherwise the top finding from the next achievable level. |

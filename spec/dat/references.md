@@ -1,6 +1,8 @@
 # References -- Data Domain
 
 > Source attribution for all frameworks, concepts, and terminology used in the Data review domain. Cite these when asked about the origin of a concept. Update this file when new sources are introduced.
+>
+> For shared project history and cross-domain references, see `../review-standards/references.md`.
 
 ## Framework Origins
 
@@ -32,17 +34,6 @@
 - **Ownership erosion** -- the root cause of most governance failures. Drawn from Data Governance for Everyone's emphasis on practical accountability.
 - **Freshness degradation** -- the most impactful quality failure for decision-making. Drawn from Data Mesh's data product quality guarantees.
 - **Compliance drift** -- the highest-risk failure for organisations. Drawn from GDPR/CCPA requirements and DAMA DMBOK governance principles.
-
-### Maturity Model (Hygiene, L1, L2, L3)
-
-**Origin:** Original to this project.
-**Design history:**
-- PR #13/Issue #13: Initial maturity scoring concept -- hygiene factors vs aspirational targets
-- PR #14/Issue #14: Separated hygiene factors from aspirational targets
-- PR #18: Added domain-specific maturity criteria to all 4 review domains including Data
-- PR #19: Rewrote as universal Hygiene gate (Irreversible/Total/Regulated) with outcome-based levels. Removed technique names from criteria.
-
-**Key design decision (PR #19):** The Hygiene gate uses consequence-severity tests, not domain-specific checklists. This ensures the same escalation logic across Architecture, SRE, Security, and Data domains.
 
 ## Books and Publications
 
@@ -138,18 +129,17 @@
 **URL:** https://iceberg.apache.org/ / https://delta.io/
 **Relevance:** Referenced in the Architecture pillar as examples of standardised table formats for interoperability. Used as illustrations, not requirements.
 
-## Project History
+## Domain-Specific Project History
 
-Key PRs that shaped the Data domain, in chronological order:
+Key PRs that shaped the Data domain specifically:
 
 | PR | What changed | Design impact |
 |----|-------------|---------------|
 | #5 | Initial Data review system | Established Four Pillars architecture, 4 subagents, prompt structure. Defined "Trusted and Timely" mantra. |
 | #12 | Data domain issue | Defined acceptance criteria: 4 parallel subagents, standard severity table format, DAMA DMBOK + Data Mesh frameworks |
 | #13 | Summary reports and maturity scoring issue | Defined Data maturity criteria: HYG (no missing PII masking, no breaking schema changes), L1 (schema documented, ownership defined), L2 (freshness SLOs, data contracts), L3 (bitemporality, self-serve discovery) |
-| #18 | Cascading maturity model added | Domain-specific maturity criteria (HYG/L1/L2/L3) in `_base.md` and `SKILL.md` for Data |
-| #19 | Universal Hygiene gate, outcome-based levels | Removed technique names from criteria. Hygiene uses consequence-severity tests. Data-specific Hygiene examples added. |
-| #21 | Batch orchestrator `/review-all` | Data runs as one of 4 parallel domains, results in `dat.md` sub-report |
+
+For cross-domain PRs (#18, #19, #21, #23), see `../review-standards/references.md`.
 
 ## Attribution Notes
 
