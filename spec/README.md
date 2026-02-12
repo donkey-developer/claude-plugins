@@ -18,5 +18,4 @@ This file provides guidance on where to find standards and specifications for th
 - SRE, Site Reliability Engineering, Availability, Observability, Incident Response, CI/CD, Deployment - ./sre/spec.md
 - Security, Confidentiality, Privacy, Threat, Vulnerability, Defence, Authorisation, Authentication, Audit - ./sec/spec.md
 - Architecture, code, service, system, landscape, anti-patterns, standards, Performance, Cost, Affordability, Modular, Modularity, Composability, Composition, Scalability, Scale, Scalable, Modifiability, Modifiable, Portability, Integrability, Integration Reusability, Reuse, Testing - ./arc/spec.md
-
-
+- Data, Governance, GDPR, CCPA, PII, Query, analytics, Warehouse, Database, Schema, Table, Column, Row, Pipeline, ETL, ELT, Transform, evaluations, data contract, polyseme, published, metrics, partition, JSON, freshness - ./dat/spec.md
