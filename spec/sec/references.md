@@ -1,6 +1,8 @@
 # References — Security Domain
 
 > Source attribution for all frameworks, concepts, and terminology used in the Security review domain. Cite these when asked about the origin of a concept. Update this file when new sources are introduced.
+>
+> For shared project history and cross-domain references, see `../review-standards/references.md`.
 
 ## Framework Origins
 
@@ -17,16 +19,6 @@
 **Origin:** Microsoft, developed alongside STRIDE as part of SDL.
 **Status:** The full DREAD model is largely deprecated (Discoverability and Reproducibility proved too subjective). This project uses a simplified "DREAD-lite" variant with three factors: Damage, Exploitability, Affected scope.
 **How it's used:** Informs severity judgement (HIGH/MEDIUM/LOW) but is not scored numerically. Reviewers assess each factor qualitatively.
-
-### Maturity Model (Hygiene, L1, L2, L3)
-
-**Origin:** Original to this project.
-**Design history:**
-- PR #13/Issue #13: Initial maturity scoring concept — hygiene factors vs aspirational targets
-- PR #18: Added domain-specific maturity criteria to all 4 review domains
-- PR #19: Rewrote as universal Hygiene gate (Irreversible/Total/Regulated) with outcome-based levels. Removed technique names from criteria.
-
-**Key design decision (PR #19):** The Hygiene gate uses consequence-severity tests, not domain-specific checklists. This ensures the same escalation logic across Architecture, SRE, Security, and Data domains.
 
 ## Books and Publications
 
@@ -76,16 +68,16 @@
 **URL:** https://owasp.org/www-project-top-ten/
 **Version referenced:** 2021
 **Relevance:** Industry-standard ranking of web application vulnerability categories. The Security review's pillar structure covers all OWASP Top 10 categories:
-- A01:2021 Broken Access Control → authn-authz pillar
-- A02:2021 Cryptographic Failures → data-protection pillar
-- A03:2021 Injection → input-validation pillar
-- A04:2021 Insecure Design → cross-cutting (covered by maturity model)
-- A05:2021 Security Misconfiguration → cross-cutting
-- A06:2021 Vulnerable and Outdated Components → excluded (dependency scanning)
-- A07:2021 Identification and Authentication Failures → authn-authz pillar
-- A08:2021 Software and Data Integrity Failures → input-validation (deserialization) + data-protection (integrity)
-- A09:2021 Security Logging and Monitoring Failures → audit-resilience pillar
-- A10:2021 Server-Side Request Forgery → input-validation pillar
+- A01:2021 Broken Access Control -> authn-authz pillar
+- A02:2021 Cryptographic Failures -> data-protection pillar
+- A03:2021 Injection -> input-validation pillar
+- A04:2021 Insecure Design -> cross-cutting (covered by maturity model)
+- A05:2021 Security Misconfiguration -> cross-cutting
+- A06:2021 Vulnerable and Outdated Components -> excluded (dependency scanning)
+- A07:2021 Identification and Authentication Failures -> authn-authz pillar
+- A08:2021 Software and Data Integrity Failures -> input-validation (deserialization) + data-protection (integrity)
+- A09:2021 Security Logging and Monitoring Failures -> audit-resilience pillar
+- A10:2021 Server-Side Request Forgery -> input-validation pillar
 
 ### Common Weakness Enumeration (CWE)
 
@@ -110,18 +102,18 @@
 **URL:** https://12factor.net/
 **Relevance:** Factor III (Config) informs the secrets management criteria (secrets from environment, not code). Factor XII (Admin processes) informs audit logging requirements.
 
-## Project History
+Also referenced in `../review-standards/references.md` as a cross-domain resource.
 
-Key PRs that shaped the Security domain, in chronological order:
+## Domain-Specific Project History
+
+Key PRs that shaped the Security domain specifically:
 
 | PR | What changed | Design impact |
 |----|-------------|---------------|
 | #4 | Initial Security review system | Established STRIDE + DREAD-lite architecture, 4 subagents, prompt structure. Stacked on #3 (SRE). |
 | #17 | Fix input-validation deserialization severity | Separated always-unsafe (pickle/marshal) from loader-dependent (YAML/XML/JSON). Established that deserialization risk varies by mechanism. |
-| #18 | Cascading maturity model added | Domain-specific maturity criteria (HYG/L1/L2/L3) in `_base.md` and `SKILL.md` |
-| #19 | Universal Hygiene gate, outcome-based levels | Removed technique names from criteria. Hygiene uses consequence-severity tests. Added Maturity column to all 4 security agent output tables. |
-| #21 | Batch orchestrator `/review-all` | Security runs as one of 4 parallel domains, results in `sec.md` sub-report |
-| #23 | Namespace attempt (closed) | Skill namespacing via subdirectories didn't work. Led to plugin-based approach (`donkey-dev/`). Files now live under `donkey-dev/` directory. |
+
+For cross-domain PRs (#18, #19, #21, #23), see `../review-standards/references.md`.
 
 ## Attribution Gaps
 

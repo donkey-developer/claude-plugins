@@ -1,15 +1,15 @@
-# Anti-Patterns Catalogue -- Data Domain
+# Anti-Patterns Catalogue — Data Domain
 
 > Complete catalogue of code patterns that Data reviewers should flag. Organised by pillar, with Decay Pattern / Quality Dimension classification and typical severity.
 
 ## How to use this document
 
 Each anti-pattern includes:
-- **Pattern name** -- a short, memorable label
-- **What it looks like** -- concrete code description
-- **Why it's bad** -- data impact on consumers
-- **Decay Pattern / Quality Dimension** -- which failure mechanism and which missing quality property
-- **Typical severity** -- default assessment (may be higher or lower depending on context)
+- **Pattern name** — a short, memorable label
+- **What it looks like** — concrete code description
+- **Why it's bad** — data impact on consumers
+- **Decay Pattern / Quality Dimension** — which failure mechanism and which missing quality property
+- **Typical severity** — default assessment (may be higher or lower depending on context)
 
 When adding new anti-patterns to prompts, follow this structure. Use concrete descriptions, not abstract categories.
 
@@ -21,7 +21,7 @@ When adding new anti-patterns to prompts, follow this structure. Use concrete de
 
 **What it looks like:** SQL query that JOINs directly to another domain's internal tables rather than consuming from a published interface or data contract.
 
-**Why it's bad:** Any schema change in the other domain breaks this query. The coupling is invisible to the other domain -- they don't know they have a consumer. Changes cascade unpredictably.
+**Why it's bad:** Any schema change in the other domain breaks this query. The coupling is invisible to the other domain — they don't know they have a consumer. Changes cascade unpredictably.
 
 **Decay Pattern:** Schema drift
 **Quality Dimension:** Consistency (cross-domain data accessed through unstable internal interfaces)
@@ -45,7 +45,7 @@ When adding new anti-patterns to prompts, follow this structure. Use concrete de
 
 **Decay Pattern:** Schema drift
 **Quality Dimension:** Consistency (contract with consumers broken)
-**Typical severity:** HIGH / HYG (Irreversible -- data and schema permanently changed)
+**Typical severity:** HIGH / HYG (Irreversible — data and schema permanently changed)
 
 ### AP-04: Inconsistent naming conventions
 
@@ -73,7 +73,7 @@ When adding new anti-patterns to prompts, follow this structure. Use concrete de
 
 **Why it's bad:** Wrong schema design creates permanent performance problems. 3NF for analytics means expensive multi-table joins on every query. Star schema for OLTP means update anomalies and denormalisation drift.
 
-**Decay Pattern:** Silent corruption (for star schema OLTP -- update anomalies)
+**Decay Pattern:** Silent corruption (for star schema OLTP — update anomalies)
 **Quality Dimension:** Validity (data model doesn't match access pattern)
 **Typical severity:** MEDIUM / L1
 
@@ -103,13 +103,13 @@ When adding new anti-patterns to prompts, follow this structure. Use concrete de
 
 ### EP-02: Silent type coercion
 
-**What it looks like:** `pd.to_numeric(df['amount'], errors='coerce')` -- invalid values silently converted to NaN with no logging.
+**What it looks like:** `pd.to_numeric(df['amount'], errors='coerce')` — invalid values silently converted to NaN with no logging.
 
 **Why it's bad:** Invalid data is destroyed without a trace. Downstream aggregations are understated. Nobody knows records were lost.
 
 **Decay Pattern:** Silent corruption
 **Quality Dimension:** Accuracy (invalid data silently removed)
-**Typical severity:** HIGH / HYG (Irreversible -- original values are lost and aggregates are wrong)
+**Typical severity:** HIGH / HYG (Irreversible — original values are lost and aggregates are wrong)
 
 ### EP-03: Non-deterministic transformation
 
@@ -125,7 +125,7 @@ When adding new anti-patterns to prompts, follow this structure. Use concrete de
 
 **What it looks like:** `WHERE region = @region` where `@region` can be NULL, silently matching zero rows because `NULL = NULL` is false in SQL.
 
-**Why it's bad:** The query silently returns an empty result set or a subset of expected data. The error is invisible -- no exception, no warning.
+**Why it's bad:** The query silently returns an empty result set or a subset of expected data. The error is invisible — no exception, no warning.
 
 **Decay Pattern:** Silent corruption
 **Quality Dimension:** Completeness (records silently excluded)
@@ -139,7 +139,7 @@ When adding new anti-patterns to prompts, follow this structure. Use concrete de
 
 **Decay Pattern:** (Performance, not a decay pattern)
 **Quality Dimension:** (Cost/performance concern)
-**Typical severity:** MEDIUM / L1 (escalates to HYG if it exhausts shared compute -- Total)
+**Typical severity:** MEDIUM / L1 (escalates to HYG if it exhausts shared compute — Total)
 
 ### EP-06: Implicit type coercion in predicates
 
@@ -153,7 +153,7 @@ When adding new anti-patterns to prompts, follow this structure. Use concrete de
 
 ### EP-07: No error handling for external enrichment
 
-**What it looks like:** `result = requests.get(api_url).json()` -- no try/except, no timeout, no retry, no fallback.
+**What it looks like:** `result = requests.get(api_url).json()` — no try/except, no timeout, no retry, no fallback.
 
 **Why it's bad:** API failure crashes the entire pipeline. No partial result handling. Error message is a Python traceback with no business context.
 
@@ -179,7 +179,7 @@ When adding new anti-patterns to prompts, follow this structure. Use concrete de
 
 **Decay Pattern:** Silent corruption (meaningless output that may pass row count checks)
 **Quality Dimension:** Accuracy
-**Typical severity:** HIGH / L1 (escalates to HYG if it exhausts shared resources -- Total)
+**Typical severity:** HIGH / L1 (escalates to HYG if it exhausts shared resources — Total)
 
 ---
 
@@ -207,7 +207,7 @@ When adding new anti-patterns to prompts, follow this structure. Use concrete de
 
 ### QP-03: Undocumented magic numbers
 
-**What it looks like:** `df[df['status'].isin([1, 3, 7])]` -- filtering by numeric codes with no documentation of what the codes mean.
+**What it looks like:** `df[df['status'].isin([1, 3, 7])]` — filtering by numeric codes with no documentation of what the codes mean.
 
 **Why it's bad:** New team members can't maintain the code. If the source system adds a new status code, this filter silently excludes it. The business logic is locked in the author's head.
 
@@ -229,7 +229,7 @@ When adding new anti-patterns to prompts, follow this structure. Use concrete de
 
 **What it looks like:** Pipeline ingests data from an external source with no check on whether the source schema has changed.
 
-**Why it's bad:** Source adds a column -- no impact. Source renames a column -- pipeline either crashes (best case) or silently drops the column's data (worst case). Source changes a type -- implicit coercion may produce wrong results.
+**Why it's bad:** Source adds a column — no impact. Source renames a column — pipeline either crashes (best case) or silently drops the column's data (worst case). Source changes a type — implicit coercion may produce wrong results.
 
 **Decay Pattern:** Schema drift
 **Quality Dimension:** Consistency (source and target schema can diverge undetected)
@@ -241,7 +241,7 @@ When adding new anti-patterns to prompts, follow this structure. Use concrete de
 
 **Why it's bad:** Costs more to run. More complex to maintain. More failure modes. The extra timeliness provides no business value.
 
-**Decay Pattern:** (Not a decay pattern -- an engineering trade-off)
+**Decay Pattern:** (Not a decay pattern — an engineering trade-off)
 **Quality Dimension:** Timeliness (over-specification, not under-specification)
 **Typical severity:** LOW / L2
 
@@ -257,7 +257,7 @@ When adding new anti-patterns to prompts, follow this structure. Use concrete de
 
 **Decay Pattern:** Compliance drift
 **Quality Dimension:** (Regulated data concern)
-**Typical severity:** HIGH / HYG (Regulated -- PII exposure)
+**Typical severity:** HIGH / HYG (Regulated — PII exposure)
 
 ### GP-02: PII in logs
 
@@ -267,7 +267,7 @@ When adding new anti-patterns to prompts, follow this structure. Use concrete de
 
 **Decay Pattern:** Compliance drift
 **Quality Dimension:** (Regulated data concern)
-**Typical severity:** HIGH / HYG (Regulated + Irreversible -- cannot unlog from aggregated stores)
+**Typical severity:** HIGH / HYG (Regulated + Irreversible — cannot unlog from aggregated stores)
 
 ### GP-03: No retention policy
 
@@ -277,11 +277,11 @@ When adding new anti-patterns to prompts, follow this structure. Use concrete de
 
 **Decay Pattern:** Compliance drift
 **Quality Dimension:** Completeness (lifecycle metadata missing)
-**Typical severity:** MEDIUM / L2 (escalates to HYG if the table contains regulated data -- Regulated)
+**Typical severity:** MEDIUM / L2 (escalates to HYG if the table contains regulated data — Regulated)
 
 ### GP-04: No ownership metadata
 
-**What it looks like:** A table with no documented owner -- no comments, no catalog entry, no contact information.
+**What it looks like:** A table with no documented owner — no comments, no catalog entry, no contact information.
 
 **Why it's bad:** When something goes wrong, nobody knows who to call. When the data needs updating, nobody takes responsibility. The data becomes an orphan that deteriorates over time.
 
@@ -291,7 +291,7 @@ When adding new anti-patterns to prompts, follow this structure. Use concrete de
 
 ### GP-05: No lineage tracking
 
-**What it looks like:** Derived tables that reference source tables with no documentation of the transformation chain. `CREATE TABLE derived AS SELECT ... FROM source` -- which source system? What upstream transformations?
+**What it looks like:** Derived tables that reference source tables with no documentation of the transformation chain. `CREATE TABLE derived AS SELECT ... FROM source` — which source system? What upstream transformations?
 
 **Why it's bad:** Impact analysis is impossible. Root cause analysis requires code archaeology. When the source changes, nobody knows what's affected.
 
@@ -307,7 +307,7 @@ When adding new anti-patterns to prompts, follow this structure. Use concrete de
 
 **Decay Pattern:** Compliance drift
 **Quality Dimension:** (Regulated data concern)
-**Typical severity:** HIGH / HYG (Regulated -- GDPR non-compliance)
+**Typical severity:** HIGH / HYG (Regulated — GDPR non-compliance)
 
 ### GP-07: Missing data classification
 
@@ -327,7 +327,7 @@ When adding new anti-patterns to prompts, follow this structure. Use concrete de
 
 **Decay Pattern:** Compliance drift
 **Quality Dimension:** (Regulated data concern)
-**Typical severity:** HIGH / HYG (Regulated -- PII in uncontrolled environment)
+**Typical severity:** HIGH / HYG (Regulated — PII in uncontrolled environment)
 
 ---
 

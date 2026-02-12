@@ -16,11 +16,7 @@ Architecture focuses on **design-time decisions** — the choices that determine
 
 ## 2. Audience
 
-| Who | Uses the spec for |
-|-----|-------------------|
-| **Autonomous coding agents** | Building/modifying prompt files, agent definitions, skill orchestrators |
-| **Human prompt engineers** | Reviewing agent output, calibrating severity, refining checklists |
-| **Plugin consumers** | Understanding what the Architecture review evaluates and why |
+This domain inherits the shared audience definitions (see `../review-standards/review-framework.md`).
 
 ## 3. Conceptual Architecture
 
@@ -54,47 +50,26 @@ These layers are defined in detail in the companion files:
 
 ## 4. File Layout
 
-The Architecture domain manifests as these files within the plugin:
+This domain inherits the shared plugin file layout (see `../review-standards/review-framework.md`). Domain-specific files:
 
-```
-donkey-dev/
-  agents/
-    arch-code.md               # Subagent: SOLID, DDD tactical, testability
-    arch-service.md            # Subagent: bounded contexts, layering, deployability
-    arch-system.md             # Subagent: stability patterns, API contracts, coupling
-    arch-landscape.md          # Subagent: integration patterns, context maps, ADRs
-  prompts/architecture/
-    _base.md                   # Shared context: zoom levels, glossary, maturity model, output format
-    code.md                    # Code zoom level checklist
-    service.md                 # Service zoom level checklist
-    system.md                  # System zoom level checklist
-    landscape.md               # Landscape zoom level checklist
-  skills/
-    review-arch/SKILL.md       # Orchestrator: scope, parallel dispatch, synthesis, output
-```
-
-### Composition rules
-
-1. **Each agent file is self-contained.** It embeds the full content of `_base.md` + its zoom-level prompt. Agents do not reference external files at runtime — all context must be inlined.
-2. **Prompts are the source of truth.** The `prompts/architecture/` directory contains the human-readable, LLM-agnostic checklists. Agent files are compiled from these.
-3. **The skill orchestrator dispatches and synthesises.** It does not contain review logic — that lives in the agents.
-
-### When modifying files
-
-| Change type | Files to update |
-|-------------|-----------------|
-| Add/change a checklist item | `prompts/architecture/<level>.md` then recompile the corresponding `agents/arch-<level>.md` |
-| Change shared context (severity, maturity, output format) | `prompts/architecture/_base.md` then recompile ALL 4 agent files |
-| Change orchestration logic | `skills/review-arch/SKILL.md` only |
-| Add a new zoom level | New prompt file, new agent file, update SKILL.md to spawn 5th agent |
+| Location | File | Purpose |
+|----------|------|---------|
+| `agents/` | `arch-code.md` | Subagent: SOLID, DDD tactical, testability |
+| `agents/` | `arch-service.md` | Subagent: bounded contexts, layering, deployability |
+| `agents/` | `arch-system.md` | Subagent: stability patterns, API contracts, coupling |
+| `agents/` | `arch-landscape.md` | Subagent: integration patterns, context maps, ADRs |
+| `prompts/architecture/` | `_base.md` | Shared context: zoom levels, glossary, maturity model, output format |
+| `prompts/architecture/` | `code.md` | Code zoom level checklist |
+| `prompts/architecture/` | `service.md` | Service zoom level checklist |
+| `prompts/architecture/` | `system.md` | System zoom level checklist |
+| `prompts/architecture/` | `landscape.md` | Landscape zoom level checklist |
+| `skills/` | `review-arch/SKILL.md` | Orchestrator: scope, parallel dispatch, synthesis, output |
 
 ## 5. Design Principles
 
-These principles govern all prompt changes in the Architecture domain. They align with the cross-domain principles established in PRs #18 and #19 and must be preserved.
+This domain inherits the shared design principles (see `../review-standards/design-principles.md`) and adds domain-specific principles and examples below.
 
-### 5.1 Outcomes over techniques
-
-Maturity criteria describe **observable outcomes**, not named techniques, patterns, or libraries.
+### 5.1 Outcomes over techniques (domain examples)
 
 | Bad (technique) | Good (outcome) |
 |-----------------|----------------|
@@ -104,11 +79,7 @@ Maturity criteria describe **observable outcomes**, not named techniques, patter
 | "Uses ADRs" | "Design decisions are documented with rationale and trade-offs" |
 | "Follows SOLID" | "Components can be tested in isolation" |
 
-**Rationale (PR #19):** Technique names create false negatives — a team using hexagonal architecture satisfies "dependencies flow inward" but wouldn't match "implements Clean Architecture". Outcomes are technology-neutral and verifiable from code.
-
-### 5.2 Questions over imperatives
-
-Checklists use questions to prompt investigation, not imperatives to demand compliance.
+### 5.2 Questions over imperatives (domain examples)
 
 | Bad (imperative) | Good (question) |
 |-------------------|-----------------|
@@ -116,11 +87,7 @@ Checklists use questions to prompt investigation, not imperatives to demand comp
 | "Document architectural decisions" | "Are significant decisions documented with rationale?" |
 | "Use bounded contexts" | "Does each service serve one cohesive domain concept?" |
 
-**Rationale:** Questions guide the reviewer to investigate the code and form a judgement. Imperatives produce binary "present/absent" assessments that miss nuance.
-
-### 5.3 Concrete anti-patterns with code examples
-
-Anti-pattern descriptions include specific code-level examples, not abstract categories.
+### 5.3 Concrete anti-patterns (domain examples)
 
 | Bad (abstract) | Good (concrete) |
 |-----------------|-----------------|
@@ -128,15 +95,7 @@ Anti-pattern descriptions include specific code-level examples, not abstract cat
 | "High coupling" | "Module A imports Module B which imports Module A (circular dependency)" |
 | "Leaky abstraction" | "`@Entity` annotations on domain classes — persistence details in the domain layer" |
 
-### 5.4 Positive observations required
-
-Every review MUST include a "What's Good" section. Reviews that only list problems are demoralising and less actionable. Positive architectural patterns give teams confidence about what to preserve and build on.
-
-### 5.5 Hygiene gate is consequence-based
-
-The Hygiene gate uses three consequence-severity tests (Irreversible, Total, Regulated), not domain-specific checklists. This ensures consistent escalation logic across all domains.
-
-### 5.6 Severity is about structural impact
+### 5.4 Severity is about structural impact
 
 | Level | Definition | Decision |
 |-------|-----------|----------|
@@ -146,7 +105,7 @@ The Hygiene gate uses three consequence-severity tests (Irreversible, Total, Reg
 
 Severity measures the **structural consequence** if the design ships as-is — how much harder will the system be to change, test, and operate. Not how hard the fix is.
 
-### 5.7 Zoom levels scale to project size
+### 5.5 Zoom levels scale to project size
 
 Not every project operates at all zoom levels. The Architecture review adapts:
 - **Small project / monolith**: Code + Service always apply. System + Landscape may return "no findings" — that's correct, not a gap.
@@ -155,7 +114,7 @@ Not every project operates at all zoom levels. The Architecture review adapts:
 
 Agents should not fabricate findings to fill a level. "No findings at this zoom level" is a valid and desirable output for projects where the level doesn't apply.
 
-### 5.8 Design-time focus
+### 5.6 Design-time focus
 
 Architecture reviews evaluate **design-time decisions**, not run-time behaviour. When a finding could be claimed by either Architecture or SRE, the distinction is:
 
@@ -168,14 +127,7 @@ Architecture reviews evaluate **design-time decisions**, not run-time behaviour.
 
 ## 6. Orchestration Process
 
-The `/review-arch` skill follows this process:
-
-### Step 1: Scope identification
-
-- File or directory argument: review that path
-- Empty or ".": review recent changes (`git diff`) or prompt for scope
-- PR number: fetch the diff
-- Determine which zoom levels are relevant to the project size
+The `/review-arch` skill follows the shared orchestration pattern (see `../review-standards/orchestration.md`) with these domain-specific details:
 
 ### Step 2: Parallel dispatch
 
@@ -192,22 +144,7 @@ Spawn 4 subagents simultaneously:
 
 ### Step 3: Synthesis
 
-1. **Collect** findings from all 4 zoom levels
-2. **Deduplicate** — when two agents flag the same `file:line`, merge into one finding:
-   - Take the **highest severity**
-   - Take the **most restrictive maturity level** (HYG > L1 > L2 > L3)
-   - Combine recommendations from both agents
-   - Credit both zoom levels in the Zoom Level column (e.g., "Code / Service")
-3. **Aggregate maturity** — merge per-criterion assessments into one view:
-   - All criteria met = `pass`
-   - Mix of met and not met = `partial`
-   - All criteria not met = `fail`
-   - Previous level not passed = `locked`
-4. **Prioritise** — HYG findings first, then by severity (HIGH > MEDIUM > LOW)
-
-### Step 4: Output
-
-Produce the maturity assessment report per the output format defined in `_base.md`.
+Follows the shared synthesis algorithm (see `../review-standards/orchestration.md`). No domain-specific synthesis additions.
 
 ## 7. Improvement Vectors
 
@@ -226,11 +163,7 @@ Known gaps that future work should address, in priority order:
 
 ## 8. Constraints
 
-Things the Architecture domain deliberately does NOT do:
+This domain inherits the universal constraints (see `../review-standards/review-framework.md`) and adds:
 
-- **No auto-fix.** The review is read-only. Agents have Read, Grep, Glob tools only — no Bash, no Write, no Edit.
-- **No cross-domain findings.** Architecture does not flag SRE, security, or data issues. Those belong to their respective domains.
-- **No numeric scores.** Status is pass/partial/fail/locked. No percentages, no weighted scores, no "architecture health index".
-- **No prescribing specific tools.** Never recommend a specific library, framework, or vendor. Describe the outcome, let the team choose the implementation.
 - **No prescribing specific patterns by name.** Do not require "DDD" or "Clean Architecture" or "Hexagonal Architecture". Describe the structural property the code should exhibit. The team may achieve it through any approach.
 - **No fabricating findings.** If a zoom level doesn't apply to the project (e.g., Landscape for a single-service monolith), return "no findings" — do not invent concerns to fill the report.

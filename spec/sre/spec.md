@@ -14,11 +14,7 @@ The domain produces a structured maturity assessment that tells engineering lead
 
 ## 2. Audience
 
-| Who | Uses the spec for |
-|-----|-------------------|
-| **Autonomous coding agents** | Building/modifying prompt files, agent definitions, skill orchestrators |
-| **Human prompt engineers** | Reviewing agent output, calibrating severity, refining checklists |
-| **Plugin consumers** | Understanding what the SRE review evaluates and why |
+This domain inherits the shared audience definitions (see `../review-standards/review-framework.md`).
 
 ## 3. Conceptual Architecture
 
@@ -53,47 +49,26 @@ These layers are defined in detail in the companion files:
 
 ## 4. File Layout
 
-The SRE domain manifests as these files within the plugin:
+This domain inherits the shared plugin file layout (see `../review-standards/review-framework.md`). Domain-specific files:
 
-```
-donkey-dev/
-  agents/
-    sre-response.md          # Subagent: incident response readiness
-    sre-observability.md     # Subagent: logging, metrics, tracing
-    sre-availability.md      # Subagent: SLOs, resilience, load management
-    sre-delivery.md          # Subagent: deployment safety, rollback
-  prompts/sre/
-    _base.md                 # Shared context: SEEMS, FaCTOR, maturity model, output format
-    response.md              # Response pillar checklist
-    observability.md         # Observability pillar checklist
-    availability.md          # Availability pillar checklist
-    delivery.md              # Delivery pillar checklist
-  skills/
-    review-sre/SKILL.md      # Orchestrator: scope, parallel dispatch, synthesis, output
-```
-
-### Composition rules
-
-1. **Each agent file is self-contained.** It embeds the full content of `_base.md` + its pillar prompt. Agents do not reference external files at runtime — all context must be inlined.
-2. **Prompts are the source of truth.** The `prompts/sre/` directory contains the human-readable, LLM-agnostic checklists. Agent files are compiled from these.
-3. **The skill orchestrator dispatches and synthesises.** It does not contain review logic — that lives in the agents.
-
-### When modifying files
-
-| Change type | Files to update |
-|-------------|-----------------|
-| Add/change a checklist item | `prompts/sre/<pillar>.md` then recompile the corresponding `agents/sre-<pillar>.md` |
-| Change shared context (severity, maturity, output format) | `prompts/sre/_base.md` then recompile ALL 4 agent files |
-| Change orchestration logic | `skills/review-sre/SKILL.md` only |
-| Add a new ROAD pillar | New prompt file, new agent file, update SKILL.md to spawn 5th agent |
+| Location | File | Purpose |
+|----------|------|---------|
+| `agents/` | `sre-response.md` | Subagent: incident response readiness |
+| `agents/` | `sre-observability.md` | Subagent: logging, metrics, tracing |
+| `agents/` | `sre-availability.md` | Subagent: SLOs, resilience, load management |
+| `agents/` | `sre-delivery.md` | Subagent: deployment safety, rollback |
+| `prompts/sre/` | `_base.md` | Shared context: SEEMS, FaCTOR, maturity model, output format |
+| `prompts/sre/` | `response.md` | Response pillar checklist |
+| `prompts/sre/` | `observability.md` | Observability pillar checklist |
+| `prompts/sre/` | `availability.md` | Availability pillar checklist |
+| `prompts/sre/` | `delivery.md` | Delivery pillar checklist |
+| `skills/` | `review-sre/SKILL.md` | Orchestrator: scope, parallel dispatch, synthesis, output |
 
 ## 5. Design Principles
 
-These principles govern all prompt changes in the SRE domain. They emerged from the project's evolution (PRs #3, #17, #18, #19) and must be preserved.
+This domain inherits the shared design principles (see `../review-standards/design-principles.md`) and adds domain-specific principles and examples below.
 
-### 5.1 Outcomes over techniques
-
-Maturity criteria describe **observable outcomes**, not named techniques or libraries.
+### 5.1 Outcomes over techniques (domain examples)
 
 | Bad (technique) | Good (outcome) |
 |-----------------|----------------|
@@ -102,37 +77,21 @@ Maturity criteria describe **observable outcomes**, not named techniques or libr
 | "Has Prometheus metrics" | "SLI-relevant metrics are exposed and measurable" |
 | "Implements SEEMS/FaCTOR" | "Failure modes are identified and resilience properties verified" |
 
-**Rationale (PR #19):** Technique names create false negatives — a team using Polly for retries with backoff satisfies the outcome but wouldn't match "uses Resilience4j". Outcomes are technology-neutral and verifiable from code.
-
-### 5.2 Questions over imperatives
-
-Checklists use questions to prompt investigation, not imperatives to demand compliance.
+### 5.2 Questions over imperatives (domain examples)
 
 | Bad (imperative) | Good (question) |
 |-------------------|-----------------|
 | "Ensure requests are traceable" | "Can you trace a request through the system?" |
 | "Add timeouts to all calls" | "Do all external calls have timeouts? Are they appropriate?" |
 
-**Rationale:** Questions guide the reviewer to investigate the code and form a judgement. Imperatives produce binary "present/absent" assessments that miss nuance.
-
-### 5.3 Concrete anti-patterns
-
-Anti-pattern descriptions include specific code-level examples, not abstract categories.
+### 5.3 Concrete anti-patterns (domain examples)
 
 | Bad (abstract) | Good (concrete) |
 |-----------------|-----------------|
 | "Poor error handling" | "Generic error messages: 'An error occurred' / 'Something went wrong'" |
 | "Inadequate logging" | "`console.log` / `print` statements instead of structured logging" |
 
-### 5.4 Positive observations required
-
-Every review MUST include a "What's Good" section. Reviews that only list problems are demoralising and less actionable. Positive patterns give teams confidence about what to preserve.
-
-### 5.5 Hygiene gate is consequence-based
-
-The Hygiene gate uses three consequence-severity tests (Irreversible, Total, Regulated), not domain-specific checklists. This ensures consistent escalation logic across all domains.
-
-### 5.6 Severity is about production impact
+### 5.4 Severity is about production impact
 
 | Level | Definition | Decision |
 |-------|-----------|----------|
@@ -144,13 +103,7 @@ Severity is about the **production consequence** if the code ships as-is, not ab
 
 ## 6. Orchestration Process
 
-The `/review-sre` skill follows this process:
-
-### Step 1: Scope identification
-
-- File or directory argument: review that path
-- Empty or ".": review recent changes (`git diff`) or prompt for scope
-- PR number: fetch the diff
+The `/review-sre` skill follows the shared orchestration pattern (see `../review-standards/orchestration.md`) with these domain-specific details:
 
 ### Step 2: Parallel dispatch
 
@@ -165,22 +118,7 @@ Spawn 4 subagents simultaneously:
 
 ### Step 3: Synthesis
 
-1. **Collect** findings from all 4 pillars
-2. **Deduplicate** — when two agents flag the same `file:line`, merge into one finding:
-   - Take the **highest severity**
-   - Take the **most restrictive maturity level** (HYG > L1 > L2 > L3)
-   - Combine recommendations from both agents
-   - Credit both pillars in the Category column (e.g., "Availability / Response")
-3. **Aggregate maturity** — merge per-criterion assessments into one view:
-   - All criteria met = `pass`
-   - Mix of met and not met = `partial`
-   - All criteria not met = `fail`
-   - Previous level not passed = `locked`
-4. **Prioritise** — HYG findings first, then by severity (HIGH > MEDIUM > LOW)
-
-### Step 4: Output
-
-Produce the maturity assessment report per the output format defined in `_base.md`.
+Follows the shared synthesis algorithm (see `../review-standards/orchestration.md`). No domain-specific synthesis additions.
 
 ## 7. Improvement Vectors
 
@@ -199,9 +137,4 @@ Known gaps that future work should address, in priority order:
 
 ## 8. Constraints
 
-Things the SRE domain deliberately does NOT do:
-
-- **No auto-fix.** The review is read-only. Agents have Read, Grep, Glob tools only — no Bash, no Write, no Edit.
-- **No cross-domain findings.** SRE does not flag architecture, security, or data issues. Those belong to their respective domains.
-- **No numeric scores.** Status is pass/partial/fail/locked. No percentages, no weighted scores.
-- **No prescribing specific tools.** Never recommend a specific library or vendor. Describe the outcome, let the team choose the implementation.
+This domain inherits the universal constraints (see `../review-standards/review-framework.md`). No domain-specific constraints beyond the universal set.

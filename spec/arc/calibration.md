@@ -4,7 +4,7 @@
 
 ## How to use this document
 
-Each example shows:
+Each example follows the same four-part structure used across all domain calibration documents:
 1. **Code pattern** — what the reviewer sees
 2. **Assessment** — severity, maturity level, zoom level
 3. **Reasoning** — why this severity and level, not higher or lower
