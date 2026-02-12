@@ -27,7 +27,7 @@
 | **Synthesis** | The process of merging 4 subagent reports into one consolidated maturity assessment. |
 | **Deduplication** | When two subagents flag the same file:line, merging into one finding with the highest severity and most restrictive maturity tag. |
 
-Note: Each domain uses its own structural term for the review dimension -- "Zoom Level" (Architecture), "Pillar" (Security, SRE, Data). These are functionally equivalent: one subagent per dimension, dispatched in parallel.
+Note: Each domain uses its own structural term for the review dimension — "Zoom Level" (Architecture), "Pillar" (Security, SRE, Data). These are functionally equivalent: one subagent per dimension, dispatched in parallel.
 
 ## Output Terms
 

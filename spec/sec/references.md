@@ -1,4 +1,4 @@
-# References -- Security Domain
+# References — Security Domain
 
 > Source attribution for all frameworks, concepts, and terminology used in the Security review domain. Cite these when asked about the origin of a concept. Update this file when new sources are introduced.
 >
@@ -59,7 +59,7 @@
 **Authors:** Dan Bergh Johnsson, Daniel Deogun, Daniel Sawano
 **Published:** 2019, Manning
 **ISBN:** 978-1617294358
-**Relevance:** Applying domain-driven design to security. Informed the "outcomes over techniques" design principle -- security as a design quality rather than a checklist.
+**Relevance:** Applying domain-driven design to security. Informed the "outcomes over techniques" design principle — security as a design quality rather than a checklist.
 
 ## Standards and Industry References
 

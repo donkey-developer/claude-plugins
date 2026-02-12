@@ -12,7 +12,7 @@ The domain produces a structured maturity assessment that tells engineering lead
 - What operational data maturity looks like for this codebase (L2 criteria)
 - What excellence would require (L3 aspirations)
 
-Data focuses on the **lifecycle of data as a product** -- from schema design through transformation, quality assurance, and governance. It complements the Architecture domain (structural design), SRE domain (run-time reliability), and Security domain (threat exposure).
+Data focuses on the **lifecycle of data as a product** — from schema design through transformation, quality assurance, and governance. It complements the Architecture domain (structural design), SRE domain (run-time reliability), and Security domain (threat exposure).
 
 The guiding mantra is **Trusted and Timely**: data products must be accurate, well-governed, and available when consumers need them.
 
@@ -39,17 +39,17 @@ The Data domain is built from three interlocking layers:
 +----------------------------------------------+
 ```
 
-- **The Four Pillars** provide the structural decomposition (4 pillars, 4 subagents). Each pillar examines data from a different concern -- design, code, quality, and compliance.
+- **The Four Pillars** provide the structural decomposition (4 pillars, 4 subagents). Each pillar examines data from a different concern — design, code, quality, and compliance.
 - **Quality Dimensions** and **Decay Patterns** provide the analytical duality. Quality Dimensions (from DAMA DMBOK) describe the measurable properties of trustworthy data; Decay Patterns describe how data products erode over time. See `framework-map.md` for the complete mapping.
 - **The Maturity Model** provides the judgement framework for prioritising findings.
 
 These layers are defined in detail in the companion files:
-- `glossary.md` -- canonical definitions
-- `framework-map.md` -- how pillars, quality dimensions, and decay patterns relate
-- `maturity-criteria.md` -- detailed criteria with "sufficient" thresholds
-- `calibration.md` -- worked examples showing severity judgement
-- `anti-patterns.md` -- concrete code smells per pillar
-- `references.md` -- source attribution
+- `glossary.md` — canonical definitions
+- `framework-map.md` — how pillars, quality dimensions, and decay patterns relate
+- `maturity-criteria.md` — detailed criteria with "sufficient" thresholds
+- `calibration.md` — worked examples showing severity judgement
+- `anti-patterns.md` — concrete code smells per pillar
+- `references.md` — source attribution
 
 ## 4. File Layout
 
@@ -95,9 +95,9 @@ This domain inherits the shared design principles (see `../review-standards/desi
 
 | Bad (abstract) | Good (concrete) |
 |-----------------|-----------------|
-| "Poor data quality" | "Silent type coercion: `pd.to_numeric(df['amount'], errors='coerce')` -- invalid values become NaN with no logging" |
-| "Schema issue" | "Breaking change: `ALTER TABLE users RENAME COLUMN user_name TO username` -- all downstream consumers break immediately" |
-| "Missing governance" | "PII in analytics: `df[['user_id', 'email', 'phone']].to_parquet('s3://analytics-bucket/')` -- raw PII in analytics layer" |
+| "Poor data quality" | "Silent type coercion: `pd.to_numeric(df['amount'], errors='coerce')` — invalid values become NaN with no logging" |
+| "Schema issue" | "Breaking change: `ALTER TABLE users RENAME COLUMN user_name TO username` — all downstream consumers break immediately" |
+| "Missing governance" | "PII in analytics: `df[['user_id', 'email', 'phone']].to_parquet('s3://analytics-bucket/')` — raw PII in analytics layer" |
 
 ### 5.4 Severity is about data impact
 
@@ -107,7 +107,7 @@ This domain inherits the shared design principles (see `../review-standards/desi
 | **MEDIUM** | Quality degradation, performance issue, or missing documentation | May require follow-up ticket |
 | **LOW** | Style improvement or minor optimisation | Nice to have |
 
-Severity measures the **data consequence** if the code ships as-is -- how will consumers be affected, can trust be maintained, is compliance at risk. Not how hard the fix is.
+Severity measures the **data consequence** if the code ships as-is — how will consumers be affected, can trust be maintained, is compliance at risk. Not how hard the fix is.
 
 ### 5.5 Consumer-first perspective
 
@@ -143,7 +143,7 @@ Spawn 4 subagents simultaneously:
 | `data-quality` | sonnet | Subtle assessment of freshness, validation coverage, and documentation adequacy |
 | `data-governance` | sonnet | Nuanced compliance analysis, PII identification, lifecycle management assessment |
 
-**Model selection rationale:** All four Data agents use sonnet because data review requires nuanced judgement at every level. Unlike some SRE pillars where criteria are more binary, all data pillars require interpreting code against contextual quality expectations -- is this schema appropriate for the use case, is this transformation correct for the business logic, is this governance sufficient for the data classification.
+**Model selection rationale:** All four Data agents use sonnet because data review requires nuanced judgement at every level. Unlike some SRE pillars where criteria are more binary, all data pillars require interpreting code against contextual quality expectations — is this schema appropriate for the use case, is this transformation correct for the business logic, is this governance sufficient for the data classification.
 
 ### Step 3: Synthesis
 
@@ -156,9 +156,9 @@ Known gaps that future work should address, in priority order:
 | # | Gap | Impact | Direction |
 |---|-----|--------|-----------|
 | 1 | **Quality Dimensions not explicitly mapped to pillars** | Reviewers don't systematically verify each quality dimension | Add explicit mapping: "this pillar is responsible for these quality dimensions" (see `framework-map.md`) |
-| 2 | **No calibration examples** | Severity judgements are inconsistent -- the same missing freshness SLO might be HIGH in one review and MEDIUM in another | Add worked examples per severity per pillar (see `calibration.md`) |
-| 3 | **L1 "sufficient" is undefined** | "Schemas are documented with field-level descriptions" is subjective -- what counts as sufficient documentation? | Define minimum thresholds (see `maturity-criteria.md`) |
-| 4 | **Decay Patterns not codified** | The analytical duality is implicit -- anti-patterns exist but aren't classified by decay mechanism | Formalise decay pattern taxonomy and map to quality dimension defences (see `framework-map.md`) |
+| 2 | **No calibration examples** | Severity judgements are inconsistent — the same missing freshness SLO might be HIGH in one review and MEDIUM in another | Add worked examples per severity per pillar (see `calibration.md`) |
+| 3 | **L1 "sufficient" is undefined** | "Schemas are documented with field-level descriptions" is subjective — what counts as sufficient documentation? | Define minimum thresholds (see `maturity-criteria.md`) |
+| 4 | **Decay Patterns not codified** | The analytical duality is implicit — anti-patterns exist but aren't classified by decay mechanism | Formalise decay pattern taxonomy and map to quality dimension defences (see `framework-map.md`) |
 | 5 | **No technology-specific supplements** | Checklists can't recognise framework-specific patterns (dbt vs SQLMesh vs Airflow vs Spark) | Future: add optional supplements for dbt, Spark, Airflow, Dagster, BigQuery, Snowflake |
 | 6 | **Governance assessment is document-heavy** | Governance agent sometimes expects policy documents rather than looking for evidence in code | Refine to focus on code evidence: TTL columns, partition expiration, soft-delete flags, access controls in DDL |
 | 7 | **No streaming data patterns** | Checklists are batch-oriented; streaming-specific concerns (watermarks, late data, exactly-once semantics) are underrepresented | Future: add streaming supplement covering Kafka, Flink, event sourcing patterns |
@@ -169,4 +169,4 @@ Known gaps that future work should address, in priority order:
 This domain inherits the universal constraints (see `../review-standards/review-framework.md`) and adds:
 
 - **No prescribing specific modelling approaches.** Do not require "star schema" or "3NF" or "Data Vault". Describe the structural property the data should exhibit for its use case. The team may achieve it through any approach.
-- **No fabricating findings.** If a pillar doesn't apply (e.g., no PII in the reviewed code means Governance/Privacy has nothing to report), return "no findings" -- do not invent concerns to fill the report.
+- **No fabricating findings.** If a pillar doesn't apply (e.g., no PII in the reviewed code means Governance/Privacy has nothing to report), return "no findings" — do not invent concerns to fill the report.

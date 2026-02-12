@@ -1,4 +1,4 @@
-# Glossary -- SRE Domain
+# Glossary — SRE Domain
 
 > Canonical definitions for all terms, frameworks, and acronyms used in the SRE review domain. When writing or modifying prompts, use these definitions exactly.
 >
@@ -21,7 +21,7 @@ Origin: Bruce Dominguez.
 
 ### SEEMS
 
-**Shared fate, Excessive load, Excessive latency, Misconfiguration, Single points of failure.** Five categories of failure modes. SEEMS is the "offensive" lens -- it asks *"How will this code fail in production?"*
+**Shared fate, Excessive load, Excessive latency, Misconfiguration, Single points of failure.** Five categories of failure modes. SEEMS is the "offensive" lens — it asks *"How will this code fail in production?"*
 
 | Category | Definition | Recognition heuristic |
 |----------|-----------|----------------------|
@@ -35,7 +35,7 @@ Origin: Bruce Dominguez.
 
 ### FaCTOR
 
-**Fault isolation, Availability, Capacity, Timeliness, Output correctness, Redundancy.** Six resilience properties that code should preserve. FaCTOR is the "defensive" lens -- it asks *"What protects this code from failing in production?"*
+**Fault isolation, Availability, Capacity, Timeliness, Output correctness, Redundancy.** Six resilience properties that code should preserve. FaCTOR is the "defensive" lens — it asks *"What protects this code from failing in production?"*
 
 | Property | What "good" looks like | What "bad" looks like |
 |----------|----------------------|---------------------|
@@ -58,9 +58,9 @@ Domain-specific maturity context:
 
 | Level | One-line description |
 |-------|---------------------|
-| **L1** | Foundations -- The system can be operated. |
-| **L2** | Hardening -- Production-ready practices. The system can be operated *well*. |
-| **L3** | Excellence -- Best-in-class. The system is a model for others. |
+| **L1** | Foundations — The system can be operated. |
+| **L2** | Hardening — Production-ready practices. The system can be operated *well*. |
+| **L3** | Excellence — Best-in-class. The system is a model for others. |
 
 ### Hygiene Gate (domain examples)
 

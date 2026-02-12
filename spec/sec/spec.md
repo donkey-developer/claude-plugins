@@ -36,17 +36,17 @@ The Security domain is built from three interlocking layers:
 ```
 
 - **STRIDE** provides the structural decomposition (6 threat categories distributed across 4 pillars, 4 subagents).
-- **STRIDE Threats** and **Security Properties** provide the analytical duality -- threats are the "offensive" lens, security properties are the "defensive" lens.
+- **STRIDE Threats** and **Security Properties** provide the analytical duality — threats are the "offensive" lens, security properties are the "defensive" lens.
 - **DREAD-lite** provides the severity scoring framework for individual findings.
 - **The Maturity Model** provides the judgement framework for prioritising findings.
 
 These layers are defined in detail in the companion files:
-- `glossary.md` -- canonical definitions
-- `framework-map.md` -- how STRIDE threats, security properties, and pillars relate to each other
-- `maturity-criteria.md` -- detailed criteria with "sufficient" thresholds
-- `calibration.md` -- worked examples showing severity judgement
-- `anti-patterns.md` -- concrete code smells per pillar
-- `references.md` -- source attribution
+- `glossary.md` — canonical definitions
+- `framework-map.md` — how STRIDE threats, security properties, and pillars relate to each other
+- `maturity-criteria.md` — detailed criteria with "sufficient" thresholds
+- `calibration.md` — worked examples showing severity judgement
+- `anti-patterns.md` — concrete code smells per pillar
+- `references.md` — source attribution
 
 ## 4. File Layout
 
@@ -89,19 +89,19 @@ This domain inherits the shared design principles (see `../review-standards/desi
 
 | Bad (abstract) | Good (concrete) |
 |-----------------|-----------------|
-| "Insecure authentication" | "`jwt.decode(token, options={\"verify_signature\": False})` -- attacker crafts a token with any claims and it's accepted" |
-| "Injection vulnerability" | "`f\"SELECT * FROM users WHERE id = {user_id}\"` -- attacker sends `1 OR 1=1` to dump all records" |
+| "Insecure authentication" | "`jwt.decode(token, options={\"verify_signature\": False})` — attacker crafts a token with any claims and it's accepted" |
+| "Injection vulnerability" | "`f\"SELECT * FROM users WHERE id = {user_id}\"` — attacker sends `1 OR 1=1` to dump all records" |
 
 ### 5.4 Exploit path required for every finding
 
-Every security finding must include an exploit scenario. A vulnerability without an exploit path is a theoretical concern, not a finding. This is the core distinction between security review and security audit -- the review focuses on **exploitable** weaknesses.
+Every security finding must include an exploit scenario. A vulnerability without an exploit path is a theoretical concern, not a finding. This is the core distinction between security review and security audit — the review focuses on **exploitable** weaknesses.
 
 ### 5.5 Confidence thresholds reduce noise
 
 Security reviews are particularly prone to false positives. The confidence threshold system exists to maintain signal quality:
-- **HIGH (>80%)**: Clear exploit path visible in code -- MUST REPORT
-- **MEDIUM (50-80%)**: Requires specific conditions -- REPORT with caveat
-- **LOW (<50%)**: Theoretical -- DO NOT REPORT
+- **HIGH (>80%)**: Clear exploit path visible in code — MUST REPORT
+- **MEDIUM (50-80%)**: Requires specific conditions — REPORT with caveat
+- **LOW (<50%)**: Theoretical — DO NOT REPORT
 
 This is a deliberate trade-off: prefer fewer, higher-confidence findings over comprehensive-but-noisy reports. Teams stop reading security reviews that cry wolf.
 
@@ -134,14 +134,14 @@ Spawn 4 subagents simultaneously:
 | `security-input-validation` | sonnet | Subtle injection pattern recognition across frameworks |
 | `security-audit-resilience` | haiku | More binary checklist (rate limits exist or not, audit logs present or not) |
 
-**Model selection rationale:** The authn-authz, data-protection, and input-validation pillars require nuanced pattern recognition -- detecting subtle auth bypasses, evaluating cryptographic choices, and recognising framework-specific injection patterns. The audit-resilience pillar is more binary (rate limiting exists or doesn't, audit logging present or not) and can use a faster model.
+**Model selection rationale:** The authn-authz, data-protection, and input-validation pillars require nuanced pattern recognition — detecting subtle auth bypasses, evaluating cryptographic choices, and recognising framework-specific injection patterns. The audit-resilience pillar is more binary (rate limiting exists or doesn't, audit logging present or not) and can use a faster model.
 
 ### Step 3: Synthesis
 
 Follows the shared synthesis algorithm (see `../review-standards/orchestration.md`) with one domain-specific addition:
 
 1. **Collect** findings from all 4 pillars
-2. **Apply confidence filter** -- remove findings below 50% confidence
+2. **Apply confidence filter** — remove findings below 50% confidence
 3. Continue with shared deduplication, aggregation, and prioritisation
 
 ## 7. Improvement Vectors
@@ -155,7 +155,7 @@ Known gaps that future work should address, in priority order:
 | 3 | **No technology-specific supplements** | Checklists can't recognise framework-specific patterns beyond the basic table | Future: add optional supplements for Python, Java, Go, Node, .NET, React, Django, Rails |
 | 4 | **DREAD-lite is applied inconsistently** | Some findings use DREAD factors explicitly, others just state HIGH/MEDIUM/LOW | Future: enforce that each finding includes Damage/Exploitability/Affected Scope assessment |
 | 5 | **Audit-resilience model mismatch** | Audit (Repudiation) and DoS (Denial of Service) are fundamentally different concern types paired in one agent | Evaluate whether splitting into two agents would improve focus. Counter-argument: both are "operational security" concerns and haiku handles the lighter workload |
-| 6 | **No threat model composition** | Reviews are stateless -- no way to build a cumulative threat model across multiple reviews | Future: use `.code-review/` history to build up a threat model over time |
+| 6 | **No threat model composition** | Reviews are stateless — no way to build a cumulative threat model across multiple reviews | Future: use `.code-review/` history to build up a threat model over time |
 | 7 | **Supply chain security not covered** | No pillar addresses dependency supply chain risks | Currently excluded (handled by dependency scanning tools). Evaluate if actionable code-level patterns exist |
 | 8 | **No cross-review learning** | Each review starts from scratch | Future: use `.code-review/` history to track security posture progression |
 

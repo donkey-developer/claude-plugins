@@ -6,7 +6,7 @@
 
 Maturity criteria describe **observable outcomes**, not named techniques, patterns, or libraries.
 
-Technique names create false negatives -- a team using one approach satisfies the outcome but wouldn't match a specific technique name. Outcomes are technology-neutral and verifiable from code.
+Technique names create false negatives — a team using one approach satisfies the outcome but wouldn't match a specific technique name. Outcomes are technology-neutral and verifiable from code.
 
 **Rationale (PR #19):** Outcome-based criteria are technology-neutral and verifiable from code. Technique names exclude valid alternatives.
 

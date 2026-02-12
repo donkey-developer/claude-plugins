@@ -27,9 +27,9 @@ donkey-dev/
 
 ### Composition rules
 
-1. **Each agent file is self-contained.** It embeds the full content of `_base.md` + its subagent prompt. Agents do not reference external files at runtime -- all context must be inlined.
+1. **Each agent file is self-contained.** It embeds the full content of `_base.md` + its subagent prompt. Agents do not reference external files at runtime — all context must be inlined.
 2. **Prompts are the source of truth.** The `prompts/<domain>/` directory contains the human-readable, LLM-agnostic checklists. Agent files are compiled from these.
-3. **The skill orchestrator dispatches and synthesises.** It does not contain review logic -- that lives in the agents.
+3. **The skill orchestrator dispatches and synthesises.** It does not contain review logic — that lives in the agents.
 
 ### When modifying files
 
@@ -95,7 +95,7 @@ Severity measures consequence, not implementation difficulty.
 
 These constraints apply to all review domains:
 
-- **No auto-fix.** The review is read-only. Agents have Read, Grep, Glob tools only -- no Bash, no Write, no Edit.
+- **No auto-fix.** The review is read-only. Agents have Read, Grep, Glob tools only — no Bash, no Write, no Edit.
 - **No cross-domain findings.** Each domain reviews only its own concerns. Architecture does not flag SRE issues, Security does not flag Data issues, etc.
 - **No numeric scores.** Status is pass/partial/fail/locked. No percentages, no weighted scores.
 - **No prescribing specific tools.** Never recommend a specific library, framework, or vendor. Describe the outcome, let the team choose the implementation.

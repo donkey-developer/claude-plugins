@@ -40,12 +40,12 @@ The SRE domain is built from three interlocking layers:
 - **The Maturity Model** provides the judgement framework for prioritising findings.
 
 These layers are defined in detail in the companion files:
-- `glossary.md` -- canonical definitions
-- `framework-map.md` -- how SEEMS, FaCTOR, and ROAD relate to each other
-- `maturity-criteria.md` -- detailed criteria with "sufficient" thresholds
-- `calibration.md` -- worked examples showing severity judgement
-- `anti-patterns.md` -- concrete code smells per pillar
-- `references.md` -- source attribution
+- `glossary.md` — canonical definitions
+- `framework-map.md` — how SEEMS, FaCTOR, and ROAD relate to each other
+- `maturity-criteria.md` — detailed criteria with "sufficient" thresholds
+- `calibration.md` — worked examples showing severity judgement
+- `anti-patterns.md` — concrete code smells per pillar
+- `references.md` — source attribution
 
 ## 4. File Layout
 

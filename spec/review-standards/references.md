@@ -7,7 +7,7 @@
 **Origin:** Original to this project.
 
 **Design history:**
-- PR #13/Issue #13: Initial maturity scoring concept -- hygiene factors vs aspirational targets
+- PR #13/Issue #13: Initial maturity scoring concept — hygiene factors vs aspirational targets
 - PR #18: Added domain-specific maturity criteria to all 4 review domains
 - PR #19: Rewrote as universal Hygiene gate (Irreversible/Total/Regulated) with outcome-based levels. Removed technique names from criteria.
 
@@ -32,7 +32,7 @@ Technique names in criteria create false negatives. "Uses DDD" excludes teams th
 
 ### Why consequence-based Hygiene (PR #19)
 
-Domain-specific hygiene checklists would produce inconsistent escalation logic. The three consequence-severity tests (Irreversible, Total, Regulated) apply uniformly to all domains -- the tests are about the nature of the damage, not the domain of the finding.
+Domain-specific hygiene checklists would produce inconsistent escalation logic. The three consequence-severity tests (Irreversible, Total, Regulated) apply uniformly to all domains — the tests are about the nature of the damage, not the domain of the finding.
 
 ## Shared External References
 

@@ -1,26 +1,26 @@
-# Maturity Criteria -- Data Domain
+# Maturity Criteria — Data Domain
 
 > Detailed criteria for each maturity level with defined "sufficient" thresholds. Use this when assessing criteria as Met / Not met / Partially met.
 
 ## Hygiene Gate
 
-The Hygiene gate is not a maturity level -- it is a promotion gate. Any finding at any level that passes any of the three tests is promoted to `HYG`.
+The Hygiene gate is not a maturity level — it is a promotion gate. Any finding at any level that passes any of the three tests is promoted to `HYG`.
 
 ### Test 1: Irreversible
 
 **Question:** If this goes wrong, can the damage be undone?
 
-**Threshold:** If a failure would produce damage that requires more than a re-run or rollback to fix -- e.g., silently corrupted data that has already been consumed by downstream systems, deleted records with no backup, PII leaked to an uncontrolled output -- this is irreversible.
+**Threshold:** If a failure would produce damage that requires more than a re-run or rollback to fix — e.g., silently corrupted data that has already been consumed by downstream systems, deleted records with no backup, PII leaked to an uncontrolled output — this is irreversible.
 
 **Data examples that trigger this test:**
-- Pipeline silently drops records on schema mismatch with no error or dead-letter queue -- consumers believe the data is complete, but records are missing
-- `pd.to_numeric(df['amount'], errors='coerce')` -- invalid values silently become NaN, aggregate metrics are wrong, and nobody knows
+- Pipeline silently drops records on schema mismatch with no error or dead-letter queue — consumers believe the data is complete, but records are missing
+- `pd.to_numeric(df['amount'], errors='coerce')` — invalid values silently become NaN, aggregate metrics are wrong, and nobody knows
 - Migration script with unbounded `DELETE` or `TRUNCATE` without a backup step
-- Fan-out join that inflates a financial metric -- business decisions made on inflated numbers before anyone notices
+- Fan-out join that inflates a financial metric — business decisions made on inflated numbers before anyone notices
 - Background job that purges records before confirming downstream receipt
 
 **Data examples that do NOT trigger this test:**
-- Missing schema documentation (bad practice but reversible -- documentation can be added)
+- Missing schema documentation (bad practice but reversible — documentation can be added)
 - Inefficient query (costs money but doesn't corrupt data)
 - Naming convention violation (style issue, no data impact)
 
@@ -33,7 +33,7 @@ The Hygiene gate is not a maturity level -- it is a promotion gate. Any finding 
 **Data examples that trigger this test:**
 - Unbounded `SELECT *` in a shared data warehouse that consumes all available compute slots, blocking other teams' queries
 - Deadly diamond that corrupts a shared dimension table used by all downstream analytics
-- Schema change on a high-fan-out table (many consumers) without versioning -- all consumers break simultaneously
+- Schema change on a high-fan-out table (many consumers) without versioning — all consumers break simultaneously
 - Pipeline with no circuit breaker that retries a failing source indefinitely, consuming rate limit budget for all users
 
 **Data examples that do NOT trigger this test:**
@@ -60,7 +60,7 @@ The Hygiene gate is not a maturity level -- it is a promotion gate. Any finding 
 
 ---
 
-## Level 1 -- Foundations
+## Level 1 — Foundations
 
 **Overall intent:** The basics are in place. The data can be understood, used, and maintained. A new team member can work with this data without relying on tribal knowledge.
 
@@ -82,11 +82,11 @@ The Hygiene gate is not a maturity level -- it is a promotion gate. Any finding 
 **Not met:**
 - No descriptions on tables or fields
 - Descriptions exist only in external documentation that is not co-located with the schema
-- Schema is completely undocumented -- understanding requires reading pipeline code
+- Schema is completely undocumented — understanding requires reading pipeline code
 
 ### Criterion 1.2: Each data asset has a defined owner
 
-**Definition:** Every table, pipeline, or data product has a clearly identified owner -- both a business owner (accountable for data value and rules) and a technical owner (accountable for quality and operations).
+**Definition:** Every table, pipeline, or data product has a clearly identified owner — both a business owner (accountable for data value and rules) and a technical owner (accountable for quality and operations).
 
 **Met (sufficient):**
 - Owner is declared in metadata, schema comments, catalog, or configuration
@@ -111,7 +111,7 @@ The Hygiene gate is not a maturity level -- it is a promotion gate. Any finding 
 - Required fields are checked for NULL
 - Primary key uniqueness is enforced
 - At minimum: validation exists on the first ingestion boundary (where external data enters the system)
-- Validation failures are visible (logged, alerted, or routed to a dead-letter queue) -- not silently dropped
+- Validation failures are visible (logged, alerted, or routed to a dead-letter queue) — not silently dropped
 
 **Partially met:**
 - Some validation exists but doesn't cover all fields or all ingestion points
@@ -139,13 +139,13 @@ The Hygiene gate is not a maturity level -- it is a promotion gate. Any finding 
 - Idempotency works for normal runs but edge cases (partial failure mid-write) can produce duplicates
 
 **Not met:**
-- Bare INSERT with no deduplication -- re-runs always produce duplicates
+- Bare INSERT with no deduplication — re-runs always produce duplicates
 - Pipeline depends on `NOW()` for business logic (different result on each run)
 - No mechanism to handle partial failure (interrupted write leaves partial data)
 
 ---
 
-## Level 2 -- Hardening
+## Level 2 — Hardening
 
 **Overall intent:** Production-ready practices. The data can be trusted and monitored. Teams can set and track quality targets. Consumers have confidence in the data.
 
@@ -156,7 +156,7 @@ The Hygiene gate is not a maturity level -- it is a promotion gate. Any finding 
 **Definition:** There are explicit expectations for when data should be available, and the system can detect when those expectations are not met.
 
 **Met (sufficient):**
-- Freshness SLO is defined (documented or in configuration) -- e.g., "available within 15 minutes of event", "daily snapshot by 6am UTC"
+- Freshness SLO is defined (documented or in configuration) — e.g., "available within 15 minutes of event", "daily snapshot by 6am UTC"
 - Processing latency (gap between event time and data availability) is measurable from the data itself (`loaded_at` timestamps, watermarks)
 - There is a mechanism to detect when freshness degrades (alert, monitoring check, or automated test)
 
@@ -186,7 +186,7 @@ The Hygiene gate is not a maturity level -- it is a promotion gate. Any finding 
 - Breaking changes are communicated ad hoc (Slack message) rather than through a defined process
 
 **Not met:**
-- No contract -- consumers discover changes by breakage
+- No contract — consumers discover changes by breakage
 - Breaking changes deployed without notification
 - No distinction between internal (can change anytime) and published (stable) interfaces
 
@@ -206,7 +206,7 @@ The Hygiene gate is not a maturity level -- it is a promotion gate. Any finding 
 - Lineage is documented but not maintained (outdated)
 
 **Not met:**
-- No lineage information -- "where does this data come from?" requires code archaeology
+- No lineage information — "where does this data come from?" requires code archaeology
 - Derived tables reference source names that don't map to any known system
 - Transformations are undocumented and pipeline logic is opaque
 
@@ -251,7 +251,7 @@ The Hygiene gate is not a maturity level -- it is a promotion gate. Any finding 
 
 ---
 
-## Level 3 -- Excellence
+## Level 3 — Excellence
 
 **Overall intent:** Best-in-class. The data products are a model for others. Data management is a first-class engineering discipline.
 
@@ -272,7 +272,7 @@ The Hygiene gate is not a maturity level -- it is a promotion gate. Any finding 
 - Bitemporality is implemented for some audit-critical tables but not all
 
 **Not met:**
-- No temporal tracking -- current state only (UPDATE in place)
+- No temporal tracking — current state only (UPDATE in place)
 - Changes overwrite previous values with no history
 - Late-arriving data causes retroactive changes to historical reports
 

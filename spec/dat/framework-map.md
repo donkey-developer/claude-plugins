@@ -1,4 +1,4 @@
-# Framework Map -- Pillars, Quality Dimensions, and Decay Patterns
+# Framework Map — Pillars, Quality Dimensions, and Decay Patterns
 
 > How the three analytical layers in the Data domain relate to each other. Use this map when writing or reviewing prompts to ensure coverage is complete and lenses are applied correctly.
 
@@ -25,12 +25,12 @@ When writing a finding:
 Example:
 - Decay Pattern: Silent corruption (fan-out join inflates metrics on line 47)
 - Quality Dimension defence needed: Accuracy (aggregation verification)
-- Finding: "1-to-many join inflates SUM(amount) -- each order counted once per line item"
+- Finding: "1-to-many join inflates SUM(amount) — each order counted once per line item"
 - Recommendation: "Aggregate line_items first, then join to orders. Add reconciliation check comparing source and target totals."
 
 ## Pillar Focus Areas
 
-Each pillar emphasises specific Quality Dimensions and Decay Patterns. This is not exclusive -- any pillar can flag any concern -- but these are the primary focus areas that each subagent should prioritise.
+Each pillar emphasises specific Quality Dimensions and Decay Patterns. This is not exclusive — any pillar can flag any concern — but these are the primary focus areas that each subagent should prioritise.
 
 ### Architecture pillar
 
@@ -62,9 +62,9 @@ Each pillar emphasises specific Quality Dimensions and Decay Patterns. This is n
 
 | Quality Dimension focus | Why |
 |-------------------------|-----|
-| Validity | Engineering validates data at ingestion and transformation -- type checks, constraint enforcement, range validation. |
+| Validity | Engineering validates data at ingestion and transformation — type checks, constraint enforcement, range validation. |
 | Uniqueness | Engineering implements idempotency (MERGE, DELETE-INSERT, UPSERT) that prevents duplicates on re-runs. |
-| Accuracy | Engineering ensures transformation logic produces correct results -- the right aggregations, correct join semantics, proper NULL handling. |
+| Accuracy | Engineering ensures transformation logic produces correct results — the right aggregations, correct join semantics, proper NULL handling. |
 
 **Key review questions:**
 - Is the transformation idempotent?
@@ -105,7 +105,7 @@ Each pillar emphasises specific Quality Dimensions and Decay Patterns. This is n
 | Quality Dimension focus | Why |
 |-------------------------|-----|
 | Completeness | Governance verifies that required metadata is present: classification, ownership, retention policy, lineage. |
-| Accuracy | Governance verifies that lineage is correct -- data can be traced from source to destination through all transformations. |
+| Accuracy | Governance verifies that lineage is correct — data can be traced from source to destination through all transformations. |
 
 **Key review questions:**
 - What happens if a user requests their data be deleted?

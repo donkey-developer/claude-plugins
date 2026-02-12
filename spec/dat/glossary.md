@@ -1,4 +1,4 @@
-# Glossary -- Data Domain
+# Glossary — Data Domain
 
 > Canonical definitions for all terms, frameworks, and acronyms used in the Data review domain. When writing or modifying prompts, use these definitions exactly.
 >
@@ -19,7 +19,7 @@ The structural framework that organises the Data review into four pillars, each 
 
 ### Quality Dimensions (DAMA DMBOK)
 
-Six measurable properties of trustworthy data. These are the "defensive" lens -- they describe **what makes data trustworthy**.
+Six measurable properties of trustworthy data. These are the "defensive" lens — they describe **what makes data trustworthy**.
 
 | Dimension | Definition | Primary pillar |
 |-----------|-----------|----------------|
@@ -32,7 +32,7 @@ Six measurable properties of trustworthy data. These are the "defensive" lens --
 
 ### Decay Patterns
 
-Five mechanisms by which data products degrade over time. These are the "offensive" lens -- they describe **how data goes wrong in production**.
+Five mechanisms by which data products degrade over time. These are the "offensive" lens — they describe **how data goes wrong in production**.
 
 | Pattern | Definition | Recognition heuristic |
 |---------|-----------|----------------------|
@@ -42,7 +42,7 @@ Five mechanisms by which data products degrade over time. These are the "offensi
 | **Freshness degradation** | Data falling behind real-world events, causing decisions based on stale information. | Look for: no freshness SLOs, no `loaded_at` timestamps, batch processing when near-real-time is needed, no alerting on processing delays. |
 | **Compliance drift** | Governance controls weakening over time, creating regulatory exposure. | Look for: PII in logs or analytics without masking, no retention policies, tables growing forever, no Right-to-be-Forgotten mechanism, missing data classification. |
 
-### Decay Pattern -- Quality Dimension Duality
+### Decay Pattern — Quality Dimension Duality
 
 Every decay pattern has corresponding quality dimensions that defend against it. When a reviewer identifies a decay pattern problem, they should recommend strengthening the corresponding quality dimensions. See `framework-map.md` for the complete mapping.
 
@@ -107,9 +107,9 @@ Domain-specific maturity context:
 
 | Level | One-line description |
 |-------|---------------------|
-| **L1** | Foundations -- The data can be understood and used. |
-| **L2** | Hardening -- Production-ready practices. The data can be trusted and monitored. |
-| **L3** | Excellence -- Best-in-class. The data is a model for others. |
+| **L1** | Foundations — The data can be understood and used. |
+| **L2** | Hardening — Production-ready practices. The data can be trusted and monitored. |
+| **L3** | Excellence — Best-in-class. The data is a model for others. |
 
 ### Hygiene Gate (domain examples)
 

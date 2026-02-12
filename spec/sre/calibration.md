@@ -5,10 +5,10 @@
 ## How to use this document
 
 Each example follows the same four-part structure used across all domain calibration documents:
-1. **Code pattern** -- what the reviewer sees
-2. **Assessment** -- severity, maturity level, SEEMS/FaCTOR category
-3. **Reasoning** -- why this severity and level, not higher or lower
-4. **Boundary note** -- what would change the assessment up or down
+1. **Code pattern** — what the reviewer sees
+2. **Assessment** — severity, maturity level, SEEMS/FaCTOR category
+3. **Reasoning** — why this severity and level, not higher or lower
+4. **Boundary note** — what would change the assessment up or down
 
 ---
 

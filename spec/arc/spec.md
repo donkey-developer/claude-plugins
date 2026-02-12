@@ -12,7 +12,7 @@ The domain produces a structured maturity assessment that tells engineering lead
 - What architectural maturity looks like for this codebase (L2 criteria)
 - What excellence would require (L3 aspirations)
 
-Architecture focuses on **design-time decisions** -- the choices that determine how easy the system is to understand, change, test, and extend. It complements the SRE domain (run-time behaviour), Security domain (threat exposure), and Data domain (data product quality).
+Architecture focuses on **design-time decisions** — the choices that determine how easy the system is to understand, change, test, and extend. It complements the SRE domain (run-time behaviour), Security domain (threat exposure), and Data domain (data product quality).
 
 ## 2. Audience
 
@@ -36,17 +36,17 @@ The Architecture domain is built from three interlocking layers:
 +----------------------------------------------+
 ```
 
-- **Zoom Levels** provide the structural decomposition (4 levels, 4 subagents). Each level examines the system at a different scope -- from individual modules to ecosystem-wide integration.
+- **Zoom Levels** provide the structural decomposition (4 levels, 4 subagents). Each level examines the system at a different scope — from individual modules to ecosystem-wide integration.
 - **Design Principles** and **Erosion Patterns** provide the analytical duality. Principles describe what good architecture looks like; erosion patterns describe how architecture degrades. See `framework-map.md` for the complete mapping.
 - **The Maturity Model** provides the judgement framework for prioritising findings.
 
 These layers are defined in detail in the companion files:
-- `glossary.md` -- canonical definitions
-- `framework-map.md` -- how zoom levels, frameworks, and principles relate to each other
-- `maturity-criteria.md` -- detailed criteria with "sufficient" thresholds
-- `calibration.md` -- worked examples showing severity judgement
-- `anti-patterns.md` -- concrete code smells per zoom level
-- `references.md` -- source attribution
+- `glossary.md` — canonical definitions
+- `framework-map.md` — how zoom levels, frameworks, and principles relate to each other
+- `maturity-criteria.md` — detailed criteria with "sufficient" thresholds
+- `calibration.md` — worked examples showing severity judgement
+- `anti-patterns.md` — concrete code smells per zoom level
+- `references.md` — source attribution
 
 ## 4. File Layout
 
@@ -74,7 +74,7 @@ This domain inherits the shared design principles (see `../review-standards/desi
 | Bad (technique) | Good (outcome) |
 |-----------------|----------------|
 | "Uses DDD" | "Module boundaries are explicit with defined public interfaces" |
-| "Implements Clean Architecture" | "Dependencies flow inward -- infrastructure depends on domain, not vice versa" |
+| "Implements Clean Architecture" | "Dependencies flow inward — infrastructure depends on domain, not vice versa" |
 | "Has circuit breakers" | "External dependencies have failure isolation" |
 | "Uses ADRs" | "Design decisions are documented with rationale and trade-offs" |
 | "Follows SOLID" | "Components can be tested in isolation" |
@@ -93,22 +93,22 @@ This domain inherits the shared design principles (see `../review-standards/desi
 |-----------------|-----------------|
 | "Poor separation of concerns" | "Domain class imports ORM: `from sqlalchemy import Column` in `Order` entity" |
 | "High coupling" | "Module A imports Module B which imports Module A (circular dependency)" |
-| "Leaky abstraction" | "`@Entity` annotations on domain classes -- persistence details in the domain layer" |
+| "Leaky abstraction" | "`@Entity` annotations on domain classes — persistence details in the domain layer" |
 
 ### 5.4 Severity is about structural impact
 
 | Level | Definition | Decision |
 |-------|-----------|----------|
-| **HIGH** | Fundamental design flaw -- systemic risk that will compound over time | Must fix before merge |
-| **MEDIUM** | Design smell -- principle violation with localised impact | May require follow-up ticket |
-| **LOW** | Style improvement -- minor suggestion, no structural risk | Nice to have |
+| **HIGH** | Fundamental design flaw — systemic risk that will compound over time | Must fix before merge |
+| **MEDIUM** | Design smell — principle violation with localised impact | May require follow-up ticket |
+| **LOW** | Style improvement — minor suggestion, no structural risk | Nice to have |
 
-Severity measures the **structural consequence** if the design ships as-is -- how much harder will the system be to change, test, and operate. Not how hard the fix is.
+Severity measures the **structural consequence** if the design ships as-is — how much harder will the system be to change, test, and operate. Not how hard the fix is.
 
 ### 5.5 Zoom levels scale to project size
 
 Not every project operates at all zoom levels. The Architecture review adapts:
-- **Small project / monolith**: Code + Service always apply. System + Landscape may return "no findings" -- that's correct, not a gap.
+- **Small project / monolith**: Code + Service always apply. System + Landscape may return "no findings" — that's correct, not a gap.
 - **Microservices**: All four levels should produce meaningful findings.
 - **Library / SDK**: Code is primary, Service may partially apply.
 
@@ -140,7 +140,7 @@ Spawn 4 subagents simultaneously:
 | `arch-system` | sonnet | Subtle inter-service coupling analysis, stability pattern evaluation |
 | `arch-landscape` | sonnet | Complex governance analysis, context map evaluation, ADR/spec traceability |
 
-**Model selection rationale:** All four Architecture agents use sonnet because architectural review requires nuanced design judgement at every level. Unlike Security or SRE where some pillars have more binary criteria (present/absent), all architecture levels require interpreting code structure against design principles -- a fundamentally interpretive task.
+**Model selection rationale:** All four Architecture agents use sonnet because architectural review requires nuanced design judgement at every level. Unlike Security or SRE where some pillars have more binary criteria (present/absent), all architecture levels require interpreting code structure against design principles — a fundamentally interpretive task.
 
 ### Step 3: Synthesis
 
@@ -152,9 +152,9 @@ Known gaps that future work should address, in priority order:
 
 | # | Gap | Impact | Direction |
 |---|-----|--------|-----------|
-| 1 | **No calibration examples in prompts** | Severity judgements are inconsistent across runs -- the same God class might be HIGH in one review and MEDIUM in another | Add worked examples per severity per zoom level (see `calibration.md` in this spec) |
+| 1 | **No calibration examples in prompts** | Severity judgements are inconsistent across runs — the same God class might be HIGH in one review and MEDIUM in another | Add worked examples per severity per zoom level (see `calibration.md` in this spec) |
 | 2 | **Zoom level overlap on coupling** | Code-level coupling and System-level coupling are different concerns but reviewers sometimes conflate them | Clarify boundary: Code owns intra-module coupling (class-to-class), System owns inter-service coupling (service-to-service). Document in `framework-map.md` |
-| 3 | **L1 "sufficient" is undefined** | "Module boundaries are explicit with defined public interfaces" is subjective -- what counts as explicit? | Define minimum thresholds (see `maturity-criteria.md`) |
+| 3 | **L1 "sufficient" is undefined** | "Module boundaries are explicit with defined public interfaces" is subjective — what counts as explicit? | Define minimum thresholds (see `maturity-criteria.md`) |
 | 4 | **Landscape level over-reports on small projects** | Landscape agent sometimes flags "missing ADRs" on single-file scripts | Improve scaling guidance: agent should assess project size before reporting L2/L3 governance criteria |
 | 5 | **No technology-specific supplements** | Checklists can't recognise framework-specific patterns (e.g., Django vs Spring DI conventions) | Future: add optional supplements for Python, Java, Go, Node, .NET |
 | 6 | **DDD tactical assessment is shallow** | The code-level DDD checklist identifies Value Objects and Aggregates but doesn't evaluate their correctness deeply | Future: add concrete guidance on aggregate sizing, eventual consistency boundaries, event design |
@@ -166,4 +166,4 @@ Known gaps that future work should address, in priority order:
 This domain inherits the universal constraints (see `../review-standards/review-framework.md`) and adds:
 
 - **No prescribing specific patterns by name.** Do not require "DDD" or "Clean Architecture" or "Hexagonal Architecture". Describe the structural property the code should exhibit. The team may achieve it through any approach.
-- **No fabricating findings.** If a zoom level doesn't apply to the project (e.g., Landscape for a single-service monolith), return "no findings" -- do not invent concerns to fill the report.
+- **No fabricating findings.** If a zoom level doesn't apply to the project (e.g., Landscape for a single-service monolith), return "no findings" — do not invent concerns to fill the report.

@@ -1,4 +1,4 @@
-# Glossary -- Security Domain
+# Glossary — Security Domain
 
 > Canonical definitions for all terms, frameworks, and acronyms used in the Security review domain. When writing or modifying prompts, use these definitions exactly.
 >
@@ -90,9 +90,9 @@ Domain-specific maturity context:
 
 | Level | One-line description |
 |-------|---------------------|
-| **L1** | Foundations -- The system has authentication, validates input, and manages secrets. |
-| **L2** | Hardening -- Security-hardened practices. The system has audit trails, rate limits, and least privilege. |
-| **L3** | Excellence -- Best-in-class. Security is automated, encryption is configurable, dependencies are scanned. |
+| **L1** | Foundations — The system has authentication, validates input, and manages secrets. |
+| **L2** | Hardening — Security-hardened practices. The system has audit trails, rate limits, and least privilege. |
+| **L3** | Excellence — Best-in-class. Security is automated, encryption is configurable, dependencies are scanned. |
 
 ### Hygiene Gate (domain examples)
 

@@ -1,4 +1,4 @@
-# Glossary -- Architecture Domain
+# Glossary — Architecture Domain
 
 > Canonical definitions for all terms, frameworks, and acronyms used in the Architecture review domain. When writing or modifying prompts, use these definitions exactly.
 >
@@ -27,13 +27,13 @@ Origin: Eric Evans, *Domain-Driven Design*, 2003.
 
 ### Release It!
 
-Michael Nygard's stability patterns and anti-patterns for production-ready software. Provides the analytical lens for the System zoom level -- how services protect themselves from failure at integration points.
+Michael Nygard's stability patterns and anti-patterns for production-ready software. Provides the analytical lens for the System zoom level — how services protect themselves from failure at integration points.
 
 Origin: Michael T. Nygard, *Release It!*, 2nd Edition, 2018.
 
 ### Enterprise Integration Patterns (EIP)
 
-Hohpe & Woolf's catalogue of messaging patterns for connecting distributed systems. Applied at the Landscape zoom level -- how systems integrate, route messages, and handle integration failures.
+Hohpe & Woolf's catalogue of messaging patterns for connecting distributed systems. Applied at the Landscape zoom level — how systems integrate, route messages, and handle integration failures.
 
 Origin: Gregor Hohpe & Bobby Woolf, *Enterprise Integration Patterns*, 2003.
 
@@ -49,7 +49,7 @@ Each zoom level maps to one subagent and one prompt checklist.
 
 ### Code Level
 
-**Scope:** Classes, functions, modules -- the innermost structural units.
+**Scope:** Classes, functions, modules — the innermost structural units.
 
 **Primary concerns:** SOLID principles, DDD tactical patterns (Entities, Value Objects, Aggregates), code quality (testability, complexity, cohesion, coupling, naming).
 
@@ -59,7 +59,7 @@ Each zoom level maps to one subagent and one prompt checklist.
 
 ### Service Level
 
-**Scope:** A deployable unit -- one service, application, or independently-deployable component.
+**Scope:** A deployable unit — one service, application, or independently-deployable component.
 
 **Primary concerns:** Bounded context alignment, architecture & layering (dependency rule, ports & adapters), deployability, error model design.
 
@@ -69,7 +69,7 @@ Each zoom level maps to one subagent and one prompt checklist.
 
 ### System Level
 
-**Scope:** Multiple services interacting -- the inter-service boundary.
+**Scope:** Multiple services interacting — the inter-service boundary.
 
 **Primary concerns:** Stability patterns (circuit breaker, bulkhead, timeout, shed load, backpressure, fail fast, governor), API contracts & communication, coupling & cohesion at the service level.
 
@@ -79,7 +79,7 @@ Each zoom level maps to one subagent and one prompt checklist.
 
 ### Landscape Level
 
-**Scope:** Multiple systems, the wider ecosystem -- system-of-systems.
+**Scope:** Multiple systems, the wider ecosystem — system-of-systems.
 
 **Primary concerns:** DDD context maps, Enterprise Integration Patterns (message design, routing, transformation, error handling), architectural governance (ADRs, fitness functions, standards), design documentation traceability, evolution & change management.
 
@@ -129,7 +129,7 @@ Each zoom level maps to one subagent and one prompt checklist.
 
 | Term | Definition | Where evaluated |
 |------|-----------|-----------------|
-| **ADR** | Architecture Decision Record -- documents what was decided, why, and the consequences. | Landscape |
+| **ADR** | Architecture Decision Record — documents what was decided, why, and the consequences. | Landscape |
 | **Fitness Function** | An automated test that validates an architectural characteristic is preserved. | Landscape |
 | **Strangler Fig** | A migration pattern where new code gradually replaces old, running in parallel. | Landscape |
 
@@ -153,9 +153,9 @@ Domain-specific maturity context:
 
 | Level | One-line description |
 |-------|---------------------|
-| **L1** | Foundations -- The system has clear structure and can be understood and tested. |
-| **L2** | Hardening -- Architecturally mature. Integration contracts, design rationale, and failure containment exist. |
-| **L3** | Excellence -- Best-in-class. Architecture is governed, validated automatically, and evolves incrementally. |
+| **L1** | Foundations — The system has clear structure and can be understood and tested. |
+| **L2** | Hardening — Architecturally mature. Integration contracts, design rationale, and failure containment exist. |
+| **L3** | Excellence — Best-in-class. Architecture is governed, validated automatically, and evolves incrementally. |
 
 ### Hygiene Gate (domain examples)
 
@@ -169,8 +169,8 @@ Domain-specific maturity context:
 
 | Level | Structural impact | Merge decision |
 |-------|-------------------|----------------|
-| **HIGH** | Fundamental design flaw -- systemic risk, shared mutable state, circular dependencies | Must fix before merge |
-| **MEDIUM** | Design smell -- principle violation, leaky abstraction, missing documentation | May require follow-up ticket |
-| **LOW** | Style improvement -- minor naming, minor restructuring | Nice to have |
+| **HIGH** | Fundamental design flaw — systemic risk, shared mutable state, circular dependencies | Must fix before merge |
+| **MEDIUM** | Design smell — principle violation, leaky abstraction, missing documentation | May require follow-up ticket |
+| **LOW** | Style improvement — minor naming, minor restructuring | Nice to have |
 
 Severity measures **structural consequence**, not implementation difficulty.

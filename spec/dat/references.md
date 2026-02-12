@@ -1,4 +1,4 @@
-# References -- Data Domain
+# References — Data Domain
 
 > Source attribution for all frameworks, concepts, and terminology used in the Data review domain. Cite these when asked about the origin of a concept. Update this file when new sources are introduced.
 >
@@ -19,21 +19,21 @@
 
 ### Quality Dimensions (Accuracy, Completeness, Consistency, Timeliness, Validity, Uniqueness)
 
-**Origin:** DAMA DMBOK -- Data Management Body of Knowledge.
-**Status:** Used as the "defensive" analytical lens -- describes what makes data trustworthy.
+**Origin:** DAMA DMBOK — Data Management Body of Knowledge.
+**Status:** Used as the "defensive" analytical lens — describes what makes data trustworthy.
 **How it's used:** Each quality dimension maps to specific checklist items across pillars. Findings recommend strengthening specific quality dimensions. See `framework-map.md` for dimension-to-pillar mapping.
 
 ### Decay Patterns (Silent corruption, Schema drift, Ownership erosion, Freshness degradation, Compliance drift)
 
 **Origin:** Original to this project, derived from observed failure modes in data systems.
-**Status:** Used as the "offensive" analytical lens -- describes how data products degrade over time.
+**Status:** Used as the "offensive" analytical lens — describes how data products degrade over time.
 **How it's used:** Paired with Quality Dimensions to form the duality (attack/defence). Findings are classified by decay pattern. See `framework-map.md` for the complete mapping.
 **Design rationale (why these five):**
-- **Silent corruption** -- the most dangerous data failure because it's invisible. Drawn from industry experience with fan-out joins, type coercion, and NULL handling.
-- **Schema drift** -- the most common data breakage. Drawn from Data Mesh's emphasis on data contracts and interface stability.
-- **Ownership erosion** -- the root cause of most governance failures. Drawn from Data Governance for Everyone's emphasis on practical accountability.
-- **Freshness degradation** -- the most impactful quality failure for decision-making. Drawn from Data Mesh's data product quality guarantees.
-- **Compliance drift** -- the highest-risk failure for organisations. Drawn from GDPR/CCPA requirements and DAMA DMBOK governance principles.
+- **Silent corruption** — the most dangerous data failure because it's invisible. Drawn from industry experience with fan-out joins, type coercion, and NULL handling.
+- **Schema drift** — the most common data breakage. Drawn from Data Mesh's emphasis on data contracts and interface stability.
+- **Ownership erosion** — the root cause of most governance failures. Drawn from Data Governance for Everyone's emphasis on practical accountability.
+- **Freshness degradation** — the most impactful quality failure for decision-making. Drawn from Data Mesh's data product quality guarantees.
+- **Compliance drift** — the highest-risk failure for organisations. Drawn from GDPR/CCPA requirements and DAMA DMBOK governance principles.
 
 ## Books and Publications
 
@@ -44,11 +44,11 @@
 **ISBN:** 978-1634622349
 **Relevance:** The foundational reference for data management practice. Defines the quality dimensions, governance principles, and data management knowledge areas that underpin the Data review domain.
 **Specific areas referenced:**
-- Chapter 3: Data Governance -- Roles, policies, accountability structures
-- Chapter 5: Data Modeling and Design -- Schema design patterns, normalisation, dimensional modeling
-- Chapter 6: Data Storage and Operations -- Lifecycle management, retention, archiving
-- Chapter 8: Data Integration and Interoperability -- ETL, CDC, data contracts
-- Chapter 13: Data Quality Management -- Quality dimensions, measurement, monitoring
+- Chapter 3: Data Governance — Roles, policies, accountability structures
+- Chapter 5: Data Modeling and Design — Schema design patterns, normalisation, dimensional modeling
+- Chapter 6: Data Storage and Operations — Lifecycle management, retention, archiving
+- Chapter 8: Data Integration and Interoperability — ETL, CDC, data contracts
+- Chapter 13: Data Quality Management — Quality dimensions, measurement, monitoring
 
 ### Data Mesh: Delivering Data-Driven Value at Scale
 
@@ -57,10 +57,10 @@
 **ISBN:** 978-1492092391
 **Relevance:** Defines the data-as-product paradigm that shapes the Data review's consumer-first perspective. Introduces data product properties, domain ownership, and self-serve data infrastructure.
 **Specific concepts referenced:**
-- Data as a product (Chapter 5) -- discoverable, addressable, trustworthy, self-describing, interoperable, secure
-- Domain ownership (Chapter 4) -- bounded contexts for data, polysemes, global identifiers
-- Computational governance (Chapter 9) -- automated policy enforcement, standards
-- Data contracts (Chapter 7) -- producer-consumer agreements, schema stability
+- Data as a product (Chapter 5) — discoverable, addressable, trustworthy, self-describing, interoperable, secure
+- Domain ownership (Chapter 4) — bounded contexts for data, polysemes, global identifiers
+- Computational governance (Chapter 9) — automated policy enforcement, standards
+- Data contracts (Chapter 7) — producer-consumer agreements, schema stability
 
 ### Data Governance: The Definitive Guide
 
@@ -76,9 +76,9 @@
 **ISBN:** 978-1098108304
 **Relevance:** Practical engineering patterns for data pipelines. Informs the Engineering pillar's checklists on idempotency, CDC, orchestration, and error handling.
 **Specific topics referenced:**
-- Chapter 5: Data Generation in Source Systems -- CDC patterns, event-driven architectures
-- Chapter 8: Batch Ingestion Considerations -- Idempotency, incremental processing, watermarks
-- Chapter 9: Serving Data -- Materialised views, data products, access patterns
+- Chapter 5: Data Generation in Source Systems — CDC patterns, event-driven architectures
+- Chapter 8: Batch Ingestion Considerations — Idempotency, incremental processing, watermarks
+- Chapter 9: Serving Data — Materialised views, data products, access patterns
 
 ### Designing Data-Intensive Applications
 
@@ -87,9 +87,9 @@
 **ISBN:** 978-1449373320
 **Relevance:** Deep technical reference for data system design patterns. Informs understanding of exactly-once semantics, idempotency, event sourcing, and consistency guarantees.
 **Specific chapters referenced:**
-- Chapter 7: Transactions -- Exactly-once semantics, idempotency
-- Chapter 11: Stream Processing -- Watermarks, event time vs processing time, late data handling
-- Chapter 12: The Future of Data Systems -- Data integration patterns
+- Chapter 7: Transactions — Exactly-once semantics, idempotency
+- Chapter 11: Stream Processing — Watermarks, event time vs processing time, late data handling
+- Chapter 12: The Future of Data Systems — Data integration patterns
 
 ### The Data Warehouse Toolkit (3rd Edition)
 
@@ -144,8 +144,8 @@ For cross-domain PRs (#18, #19, #21, #23), see `../review-standards/references.m
 ## Attribution Notes
 
 All frameworks in the Data domain are either:
-1. **Industry-standard** (DAMA DMBOK quality dimensions, GDPR requirements) -- well-attributed
-2. **From cited publications** (Data Mesh concepts from Dehghani) -- well-attributed
-3. **Original to this project** (Four Pillars structure, Decay Patterns taxonomy) -- declared as original
+1. **Industry-standard** (DAMA DMBOK quality dimensions, GDPR requirements) — well-attributed
+2. **From cited publications** (Data Mesh concepts from Dehghani) — well-attributed
+3. **Original to this project** (Four Pillars structure, Decay Patterns taxonomy) — declared as original
 
 No attribution gaps exist for the Data domain at this time.

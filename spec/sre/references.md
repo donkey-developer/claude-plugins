@@ -1,4 +1,4 @@
-# References -- SRE Domain
+# References — SRE Domain
 
 > Source attribution for all frameworks, concepts, and terminology used in the SRE review domain. Cite these when asked about the origin of a concept. Update this file when new sources are introduced.
 >
@@ -15,13 +15,13 @@
 ### SEEMS (Shared fate, Excessive load, Excessive latency, Misconfiguration, Single points of failure)
 
 **Origin:** To be confirmed. The acronym and categories appear to derive from common SRE failure taxonomy. If this is original to the project, declare it as such. If it comes from a specific author or publication, cite here.
-**Status:** Used as the "offensive" analytical lens -- identifies how code can fail.
+**Status:** Used as the "offensive" analytical lens — identifies how code can fail.
 **How it's used:** Each ROAD pillar focuses on specific SEEMS categories (see `framework-map.md`). Findings are categorised by SEEMS failure mode.
 
 ### FaCTOR (Fault isolation, Availability, Capacity, Timeliness, Output correctness, Redundancy)
 
 **Origin:** To be confirmed. Similar attribution question as SEEMS.
-**Status:** Used as the "defensive" analytical lens -- verifies resilience properties.
+**Status:** Used as the "defensive" analytical lens — verifies resilience properties.
 **How it's used:** Paired with SEEMS to form the duality (attack/defence). Recommendations suggest strengthening specific FaCTOR properties.
 
 ## Books and Publications
@@ -31,7 +31,7 @@
 **Authors:** Betsy Beyer, Chris Jones, Jennifer Petoff, Niall Richard Murphy
 **Published:** 2016, O'Reilly Media
 **ISBN:** 978-1491929124
-**Relevance:** Foundational SRE concepts -- SLOs, error budgets, toil reduction, incident response, postmortem culture. Informs the Availability and Response pillars.
+**Relevance:** Foundational SRE concepts — SLOs, error budgets, toil reduction, incident response, postmortem culture. Informs the Availability and Response pillars.
 **Specific chapters referenced:**
 - Chapter 4: Service Level Objectives
 - Chapter 6: Monitoring Distributed Systems
@@ -118,5 +118,5 @@ The following require source confirmation:
 | Term | Current status | Action needed |
 |------|---------------|---------------|
 | SEEMS | Used throughout prompts, no citation | Confirm if original to Bruce Dominguez / ROAD framework, or from another source |
-| FaCTOR | Used throughout prompts, no citation | Same -- confirm origin |
+| FaCTOR | Used throughout prompts, no citation | Same — confirm origin |
 | ROAD | Attributed to Bruce Dominguez in PR #3 | Confirm specific publication or talk |

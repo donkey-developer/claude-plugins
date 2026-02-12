@@ -26,17 +26,17 @@ See each domain's `spec.md` Section 6 for the dispatch table.
 All domains follow the same synthesis algorithm:
 
 1. **Collect** findings from all 4 subagents
-2. **Deduplicate** -- when two agents flag the same `file:line`, merge into one finding:
+2. **Deduplicate** — when two agents flag the same `file:line`, merge into one finding:
    - Take the **highest severity**
    - Take the **most restrictive maturity level** (HYG > L1 > L2 > L3)
    - Combine recommendations from both agents
    - Credit both subagents in the category column
-3. **Aggregate maturity** -- merge per-criterion assessments into one view:
+3. **Aggregate maturity** — merge per-criterion assessments into one view:
    - All criteria met = `pass`
    - Mix of met and not met = `partial`
    - All criteria not met = `fail`
    - Previous level not passed = `locked`
-4. **Prioritise** -- HYG findings first, then by severity (HIGH > MEDIUM > LOW)
+4. **Prioritise** — HYG findings first, then by severity (HIGH > MEDIUM > LOW)
 
 Individual domains may add domain-specific synthesis steps (e.g., Security applies a confidence filter between Step 1 and Step 2 of synthesis).
 
