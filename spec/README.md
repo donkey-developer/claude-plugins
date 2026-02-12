@@ -15,4 +15,5 @@ This file provides guidance on where to find standards and specifications for th
 - Claude Permissions models: https://code.claude.com/docs/en/permissions
 - Claude Sandbox configuration: https://code.claude.com/docs/en/sandboxing
 
-- SRE, Site Reliability Engineering, Availability, Observability, Incident Response, CI/CD, Deployment - ./sre-spec.md
+- SRE, Site Reliability Engineering, Availability, Observability, Incident Response, CI/CD, Deployment - ./sre/spec.md
+- Security, Confidentiality, Privacy, Threat, Vulnerability, Defence, Authorisation, Authentication, Audit - ./sec/spec.md
