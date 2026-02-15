@@ -85,6 +85,23 @@ Work follows three phases with hard gates between them. **You MUST NOT skip phas
 
 The user then moves to the next task file (next issue) or reviews the PR first.
 
+### Phase 4: Milestone Completion
+
+**Trigger:** All issues in the milestone are closed and all PRs merged.
+**Action:** Close out the milestone — update specs, clean up plan artifacts, close the GitHub Milestone.
+
+1. Verify all milestone issues are closed and PRs merged
+2. Update `spec/` to capture what was learned:
+   - **New patterns** — implementation patterns not yet in any spec
+   - **Decision rationale** — why key design choices were made (trade-offs, alternatives considered, constraints)
+   - **Divergences** — where implementation intentionally departed from the original spec (update spec to match reality)
+   - **New vocabulary** — terms coined during implementation, added to relevant glossary
+   - **No speculation** — only document what was actually built
+3. Update `spec/README.md` — ensure every spec file has an entry with title and one-line description
+4. Delete `plan/{milestone-name}/` directory — plans are transient; specs are permanent. Plans remain auditable via git history, PRs, Issues, and Milestones.
+5. Close the GitHub Milestone
+6. Commit, push, and create a final PR
+
 ### Why This Matters
 
 - **Context windows are finite.** Plans held only in memory are lost on compaction. Plans in files survive.
@@ -92,6 +109,7 @@ The user then moves to the next task file (next issue) or reviews the PR first.
 - **Reviewable.** The user can review, edit, and reorder tasks before execution begins.
 - **Right-sized PRs.** One PR per issue is reviewable. One PR per milestone is not.
 - **Reproducible.** Given the same SPEC.md and task files, the work can be re-executed.
+- **Plans are transient, specs are permanent.** Plans drive execution; specs capture the lasting knowledge. After a milestone completes, learnings migrate to `spec/` and the plan directory is deleted.
 
 ## Git Workflow
 

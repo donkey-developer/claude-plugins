@@ -77,6 +77,36 @@ Next issue: {next task file name} (or "all issues complete")
 
 4. Output the termination signal: `NO_MORE_TASKS_TO_PROCESS`
 
+### Step 6: Milestone Completion
+
+When the task file being processed is the **close-out issue** (`{NN}-close.tasks.md`) and all its tasks are `- [x]`:
+
+1. **Verify** all other milestone issues are closed and PRs merged
+2. **Spec updates** have been completed by earlier tasks in this file:
+   - New patterns added to relevant spec files
+   - Decision rationale captured (trade-offs, alternatives, constraints)
+   - Spec divergences reconciled (specs match implemented reality)
+   - New vocabulary added to glossaries
+   - `spec/README.md` index updated
+3. **Plan directory deleted** by earlier task in this file
+4. **GitHub Milestone closed** by earlier task in this file
+5. Push the branch and create a PR against `main`
+   - PR title: "Close milestone: {milestone name}"
+   - PR body: summary of spec updates, link to milestone, `Closes #{issue-number}`
+6. Report to the user:
+
+```
+Milestone complete: {milestone name}
+PR: {url}
+Specs updated: {list of spec files modified}
+Plan directory: deleted (preserved in git history)
+Milestone: closed
+
+All issues for this milestone are complete.
+```
+
+7. Output the termination signal: `NO_MORE_TASKS_TO_PROCESS`
+
 ---
 
 ## Usage
@@ -131,4 +161,4 @@ done
 echo "All issues complete."
 ```
 
-**Note:** The full milestone loop assumes task files are numbered in dependency order (`01-`, `02-`, etc.) and that sequential issues don't have unmet dependencies. For parallel issues, run their loops concurrently or manually control the order.
+**Note:** The full milestone loop assumes task files are numbered in dependency order (`01-`, `02-`, etc.) and that sequential issues don't have unmet dependencies. For parallel issues, run their loops concurrently or manually control the order. The last task file (`*-close.tasks.md`) handles milestone completion — updating specs, deleting the plan directory, and closing the GitHub Milestone.
