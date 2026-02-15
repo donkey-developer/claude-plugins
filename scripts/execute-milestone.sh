@@ -10,9 +10,26 @@ set -euo pipefail
 # issues, run their execute-issue.sh loops concurrently instead.
 #
 # Usage:
+#   ./scripts/execute-milestone.sh                 # auto-detects if only one milestone
 #   ./scripts/execute-milestone.sh plan/v1/tasks
 
-PLAN_DIR="${1:?Usage: $0 <plan-tasks-dir>}"
+if [ -n "${1:-}" ]; then
+  PLAN_DIR="$1"
+else
+  # Auto-detect: if exactly one milestone exists under plan/, use it
+  MILESTONES=(plan/*/tasks)
+  if [ ${#MILESTONES[@]} -eq 1 ] && [ -d "${MILESTONES[0]}" ]; then
+    PLAN_DIR="${MILESTONES[0]}"
+    echo "Auto-detected milestone: ${PLAN_DIR}"
+  elif [ ${#MILESTONES[@]} -eq 0 ] || [ ! -d "${MILESTONES[0]}" ]; then
+    echo "Error: No milestones found under plan/" >&2
+    exit 1
+  else
+    echo "Error: Multiple milestones found. Specify one:" >&2
+    printf "  %s\n" "${MILESTONES[@]}" >&2
+    exit 1
+  fi
+fi
 
 if [ ! -d "$PLAN_DIR" ]; then
   echo "Error: Tasks directory not found: $PLAN_DIR" >&2
