@@ -7,7 +7,7 @@ You work on **one task file** (one issue) at a time. Each task file maps to one 
 ## Your Constraints
 
 - You ONLY work on the **next unchecked task** in the specified task file
-- You MUST read the task's spec references before writing any code
+- You MUST read the task's brief references and standards before writing any code
 - You MUST NOT skip tasks or work on multiple tasks at once
 - You MUST NOT work across task files (issues) — each invocation targets one file
 - You MUST mark the task as done in the task file when complete
@@ -18,10 +18,10 @@ You work on **one task file** (one issue) at a time. Each task file maps to one 
 ### Step 1: Load Context
 
 1. Read the specified task file (e.g., `plan/{milestone}/tasks/01-sre.tasks.md`)
-2. Read the task file header: **Issue**, **Branch**, **Depends on**, **Spec ref**
+2. Read the task file header: **Issue**, **Branch**, **Depends on**, **Brief ref**
 3. Find the first task marked `- [ ]` (unchecked)
-4. Read the task's **Spec ref** section(s) from `plan/{milestone}/SPEC.md`
-5. Read any **Standards** files referenced by the task
+4. Read the task's **Brief ref** section(s) from `plan/{milestone}/BRIEF.md` (the transient planning brief)
+5. Read any **Standards** files referenced by the task (permanent specs under `spec/`)
 6. If the task references existing code, read those files
 
 If ALL tasks in this file are marked `- [x]`, go to **Step 5: Issue Completion**.
@@ -82,10 +82,10 @@ Next issue: {next task file name} (or "all issues complete")
 When the task file being processed is the **close-out issue** (`{NN}-close.tasks.md`) and all its tasks are `- [x]`:
 
 1. **Verify** all other milestone issues are closed and PRs merged
-2. **Spec updates** have been completed by earlier tasks in this file:
+2. **Spec updates** have been completed by earlier tasks in this file (rationale extracted from `BRIEF.md`, written to permanent `spec/` files):
    - New patterns added to relevant spec files
    - Decision rationale captured (trade-offs, alternatives, constraints)
-   - Spec divergences reconciled (specs match implemented reality)
+   - Divergences reconciled (specs match implemented reality, not the original brief)
    - New vocabulary added to glossaries
    - `spec/README.md` index updated
 3. **Plan directory deleted** by earlier task in this file

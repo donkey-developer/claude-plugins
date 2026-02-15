@@ -34,7 +34,7 @@ Milestone: "Code-Review Plugin v1"
 
 ```
 plan/{milestone-name}/
-├── SPEC.md                         ← Milestone-level: the what and why
+├── BRIEF.md                        ← Milestone-level brief: the what and why (transient)
 └── tasks/
     ├── 01-{issue-name}.tasks.md    ← Task list for Issue #1
     ├── 02-{issue-name}.tasks.md    ← Task list for Issue #2
@@ -54,14 +54,14 @@ Work follows three phases with hard gates between them. **You MUST NOT skip phas
 
 1. Follow the Socratic elicitation process in `spec/planning/spec.md` — ask clarifying questions until requirements are clear
 2. Create a GitHub Milestone for the work
-3. Write `plan/{milestone-name}/SPEC.md` — the what and why for the whole milestone
+3. Write `plan/{milestone-name}/BRIEF.md` — the what and why for the whole milestone (transient planning brief, not a permanent spec)
 4. Write one task file per issue in `plan/{milestone-name}/tasks/{NN}-{issue-name}.tasks.md`
 5. Create GitHub Issues (one per task file), linked to the Milestone
 6. **STOP.** Tell the user: "Planning complete. Review the milestone, issues, and task files. When ready, use EXECUTE.prompt.md to begin implementation."
 
 **What planning produces:**
 
-- `plan/{milestone-name}/SPEC.md` — milestone-level specification
+- `plan/{milestone-name}/BRIEF.md` — milestone-level planning brief
 - `plan/{milestone-name}/tasks/*.tasks.md` — one task file per issue
 - GitHub Milestone with linked Issues
 - NO code, NO feature branches, NO file changes outside `plan/`
@@ -73,7 +73,7 @@ Work follows three phases with hard gates between them. **You MUST NOT skip phas
 
 1. Read the specified task file (e.g., `plan/{milestone}/tasks/01-sre.tasks.md`)
 2. Find the next unchecked `- [ ]` task
-3. Read the task's spec references and context
+3. Read the task's brief references and any referenced standards
 4. Execute the task (create branch if first task, write code, verify)
 5. Mark the task `- [x]` in the task file
 6. **STOP.** Report what was done. The next invocation picks up the next task.
@@ -108,7 +108,7 @@ The user then moves to the next task file (next issue) or reviews the PR first.
 - **Stateless agents.** Each execution reads state from files, not from conversation history.
 - **Reviewable.** The user can review, edit, and reorder tasks before execution begins.
 - **Right-sized PRs.** One PR per issue is reviewable. One PR per milestone is not.
-- **Reproducible.** Given the same SPEC.md and task files, the work can be re-executed.
+- **Reproducible.** Given the same BRIEF.md and task files, the work can be re-executed.
 - **Plans are transient, specs are permanent.** Plans drive execution; specs capture the lasting knowledge. After a milestone completes, learnings migrate to `spec/` and the plan directory is deleted.
 
 ## Git Workflow
