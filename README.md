@@ -49,7 +49,42 @@ Describe any configuration options here.
 
 ## Development
 
-**TODO**
+### Planning
+
+Start an interactive planning session. The agent follows `PLAN.prompt.md` — Socratic elicitation, BRIEF.md, task files, GitHub Milestone and Issues. No code is written.
+
+```bash
+./scripts/plan.sh
+./scripts/plan.sh "Build the code review plugin"
+```
+
+Or interactively in Claude Code:
+
+```
+Follow PLAN.prompt.md
+```
+
+### Execution
+
+**Run a single task** (interactive, one at a time):
+
+```
+Follow EXECUTE.prompt.md for plan/{milestone}/tasks/01-scaffolding.tasks.md
+```
+
+**Run all tasks for a single issue** (automated Ralph Wiggum loop):
+
+```bash
+./scripts/execute-issue.sh plan/{milestone}/tasks/01-scaffolding.tasks.md
+```
+
+**Run all issues for a milestone** (automated, sequential):
+
+```bash
+./scripts/execute-milestone.sh plan/{milestone}/tasks
+```
+
+For parallel issues, run their `execute-issue.sh` loops concurrently instead of using the sequential milestone script. The last task file (`*-close.tasks.md`) handles milestone completion — updating specs, deleting the plan directory, and closing the GitHub Milestone.
 
 ## Testing
 
