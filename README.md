@@ -51,7 +51,10 @@ Describe any configuration options here.
 
 ### Planning
 
-Start an interactive planning session. The agent follows `PLAN.prompt.md` — Socratic elicitation, BRIEF.md, task files, GitHub Milestone and Issues. No code is written.
+Start an interactive planning session.
+The agent follows `PLAN.prompt.md` using Socratic elicitation to generate a plan folder with a master _BRIEF.md_ and specific task files.
+A GitHub Milestone for the planned work with each task file having a target GitHub Issue.
+No code is written.
 
 ```bash
 ./scripts/plan.sh
@@ -60,7 +63,7 @@ Start an interactive planning session. The agent follows `PLAN.prompt.md` — So
 
 Or interactively in Claude Code:
 
-```
+```claude
 Follow PLAN.prompt.md
 ```
 
@@ -68,7 +71,7 @@ Follow PLAN.prompt.md
 
 **Run a single task** (interactive, one at a time):
 
-```
+```claude
 Follow EXECUTE.prompt.md for plan/{milestone}/tasks/01-scaffolding.tasks.md
 ```
 
@@ -101,6 +104,7 @@ Guidelines for contributing to this project.
 ## Authors
 
 - Lee Campbell [LeeCampbell.com](https://leecampbell.com)
+- Claude Code with Opus 4.6
 
 ## Support
 
