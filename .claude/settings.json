@@ -1,0 +1,73 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(afplay:*)",
+      "Bash(cat:*)",
+      "Bash(curl:*)",
+      "Bash(echo:*)",
+      "Bash(find:*)",
+      "Bash(grep:*)",
+      "Bash(ls:*)",
+      "Bash(lsof:*)",
+      "Bash(make:*)",
+      "Bash(mkdir:*)",
+      "Bash(mkdir -p:*)",
+      "Bash(sort:*)",
+      "Bash(wc:*)",
+      "Bash(xargs:*)",
+      "mcp__ide__getDiagnostics",
+
+      "Bash(.git/test-hook-file)",
+      "Bash(git branch --merged:*)",
+      "Bash(git branch -d:*)",
+      "Bash(git checkout:*)",
+      "Bash(git diff:*)",
+      "Bash(git fetch:*)",
+      "Bash(git log:*)",
+      "Bash(git pull:*)",
+      "Bash(git rebase:*)",
+      "Bash(git remote prune:*)",
+      "Bash(git status:*)",
+      
+      "Bash(gh api:*)",
+      "Bash(gh issue list:*)",
+      "Bash(gh issue view:*)",
+      "Bash(gh pr checks:*)",
+      "Bash(gh pr list:*)",
+      "Bash(gh pr view:*)",
+      "Bash(gh release list:*)",
+      "Bash(gh release view:*)",
+      "Bash(gh run list:*)",
+      "Bash(gh run view:*)",
+      "Bash(gh variable list:*)",
+      
+      "Bash(npm audit:*)",
+      "Bash(npm install:*)",
+      "Bash(npm run lint:*)",
+      "Bash(npm outdated:*)",
+      "Bash(npm run build:*)",
+      "Bash(npm run check:all:*)",
+      "Bash(npm run test:*)",
+      "Bash(npm run type-check:*)",
+      "Bash(npm test:*)",
+      "Bash(npm update:*)",
+      "Bash(npm view:*)",
+      
+      "Bash(npx eslint:*)",
+      "Bash(npx next lint:*)",
+      "Bash(npx prettier:*)",
+      "Bash(npx tsc:*)",
+      "Bash(npx vitest:*)",
+
+      "Bash(tsc:*)",
+
+      "Bash(terraform fmt:*)",
+      "Bash(terraform validate:*)",
+      "Bash(tflint:*)"
+    ],
+    "deny": [
+      "Bash(gh pr merge:*)"
+    ],
+    "ask": []
+  }
+}
