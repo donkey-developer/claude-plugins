@@ -6,11 +6,19 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 A Code Review Plugin for Claude Code that enables generalist software engineers to extend their review capability across Architecture, Security, Site Reliability Engineering (SRE), and Data Engineering disciplines. The plugin provides slash commands (`review-all`, `review-sec`, `review-sre`, `review-arch`, `review-data`) that perform domain-specific code reviews with progressive level reporting.
 
+## Markdown standards
+
+- Use British English.
+- One sentence per line.
+- One line per sentence.
+- Headings have blank line under them
+- Ordered and unordered lists have a blank line before and after them
+
 ## Work Hierarchy
 
 All non-trivial work is organised in three levels:
 
-```
+```text
 Milestone          → The deliverable (what stakeholders care about)
   └── Issue        → A phase of work producing a reviewable, mergeable unit (1 Issue = 1 PR)
         └── Task   → An atomic unit a stateless agent can complete in one turn
@@ -18,7 +26,7 @@ Milestone          → The deliverable (what stakeholders care about)
 
 **Example:**
 
-```
+```text
 Milestone: "Code-Review Plugin v1"
 ├── Issue #1: Create SRE code review        → PR: feat/sre-domain → closes #1
 │   ├── TASK-01: Create SRE base prompt
@@ -32,7 +40,7 @@ Milestone: "Code-Review Plugin v1"
 
 ### File structure for plans
 
-```
+```text
 plan/{milestone-name}/
 ├── BRIEF.md                        ← Milestone-level brief: the what and why (transient)
 └── tasks/
@@ -73,7 +81,7 @@ Work follows three phases with hard gates between them. **You MUST NOT skip phas
 
 1. Read the specified task file (e.g., `plan/{milestone}/tasks/01-sre.tasks.md`)
 2. Find the next unchecked `- [ ]` task
-3. Read the task's brief references and any referenced standards
+3. Read the task's brief references
 4. Execute the task (create branch if first task, write code, verify)
 5. Mark the task `- [x]` in the task file
 6. **STOP.** Report what was done. The next invocation picks up the next task.

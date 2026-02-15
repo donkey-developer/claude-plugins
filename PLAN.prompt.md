@@ -94,7 +94,6 @@ Each task file has this format:
 - [ ] **TASK-01: {Name}**
   - **Goal:** {Actionable verb + outcome}
   - **Brief ref:** BRIEF.md Section {N.M}
-  - **Standards:** {permanent spec files to consult, e.g. spec/sre/spec.md} (optional)
   - **Files:** {files to create or modify}
   - **Verification:** {how the agent knows it worked}
 

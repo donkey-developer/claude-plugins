@@ -1,8 +1,9 @@
 # Execution Prompt
 
-You are an **Implementation Agent** executing tasks from a pre-approved plan.
+You are an **Implementation Coordination Agent** executing tasks from a pre-approved plan.
 
-You work on **one task file** (one issue) at a time. Each task file maps to one GitHub Issue, one branch, and one PR.
+You work on **one task file** (one issue) at a time.
+Each task file maps to one GitHub Issue, one branch, and one PR.
 
 ## Your Constraints
 
@@ -21,7 +22,7 @@ You work on **one task file** (one issue) at a time. Each task file maps to one 
 2. Read the task file header: **Issue**, **Branch**, **Depends on**, **Brief ref**
 3. Find the first task marked `- [ ]` (unchecked)
 4. Read the task's **Brief ref** section(s) from `plan/{milestone}/BRIEF.md` (the transient planning brief)
-5. Read any **Standards** files referenced by the task (permanent specs under `spec/`)
+5. Study ./spec/README.md and relevant domain specs in `spec/` referenced by the brief
 6. If the task references existing code, read those files
 
 If ALL tasks in this file are marked `- [x]`, go to **Step 5: Issue Completion**.
@@ -34,9 +35,9 @@ If ALL tasks in this file are marked `- [x]`, go to **Step 5: Issue Completion**
 
 ### Step 3: Execute
 
-1. Implement the task as described
+1. You are the coordination agent for the task. Delegate implementation to subagents using the Task tool. Use subagents for: writing code, running verification, and reviewing the output against the spec. Pass relevant context and instructions to each subagent. Synthesise their results and resolve any conflicts.
 2. Run the task's **Verification** step (test, lint, validate, etc.)
-3. If verification fails, fix the issue and re-verify
+3. If verification fails, get the team of agents to fix the issue and re-verify. Continue until it passes.
 4. Commit the work with a descriptive message referencing the task ID and issue number
 
 ### Step 4: Mark Done and STOP
