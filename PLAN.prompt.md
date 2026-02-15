@@ -61,7 +61,7 @@ For each issue, determine:
 - **Dependencies** — which other issues must complete first
 - **Deliverables** — what files/changes it produces
 
-Document the issue sequence in `SPEC.md`:
+Document the issue sequence in `SPEC.md`. The **last issue** must always be a close-out issue that updates specs and cleans up the plan:
 
 ```markdown
 ## Issue Sequence
@@ -72,6 +72,7 @@ Document the issue sequence in `SPEC.md`:
    `04-arch.tasks.md` → Issue: "Create Architecture code review" (parallel)
    `05-data.tasks.md` → Issue: "Create Data code review" (parallel)
 4. `06-review-all.tasks.md` → Issue: "Create comprehensive review" (depends on #2-#5)
+5. `07-close.tasks.md` → Issue: "Close milestone" (depends on all above)
 ```
 
 ### Step 5: Create Task Files
@@ -111,6 +112,49 @@ Task decomposition rules:
 - **Context injection** — Each task references the specific SPEC.md section it implements
 - **Verification** — Each task defines how the agent knows it's done
 - **Self-contained** — Each task lists the files it creates/modifies so the agent doesn't have to guess
+
+### Close-out issue
+
+The **last task file** in every milestone MUST be `{NN}-close.tasks.md`. This issue migrates learnings from the plan into permanent specs and cleans up. Its tasks are:
+
+```markdown
+# Close milestone: {milestone name}
+
+**Issue:** #{number}
+**Branch:** chore/close-{milestone-name}
+**Depends on:** all other issues in this milestone
+**Spec ref:** SPEC.md (entire document)
+
+## Tasks
+
+- [ ] **TASK-01: Update specs with new patterns**
+  - **Goal:** Add any implementation patterns introduced during this milestone to the relevant spec files under `spec/`
+  - **Verification:** Each new pattern has a section in the appropriate spec file
+
+- [ ] **TASK-02: Capture decision rationale**
+  - **Goal:** Document why key design choices were made — trade-offs considered, alternatives rejected, constraints that drove decisions — in the relevant spec files under `spec/`
+  - **Verification:** Each significant decision from SPEC.md has rationale captured in a spec file
+
+- [ ] **TASK-03: Reconcile spec divergences**
+  - **Goal:** Where implementation intentionally diverged from the original spec, update the spec to match reality
+  - **Verification:** No contradictions between specs and implemented code
+
+- [ ] **TASK-04: Add new vocabulary**
+  - **Goal:** Add any terms coined during implementation to the relevant glossary files
+  - **Verification:** All new terms are defined in a glossary
+
+- [ ] **TASK-05: Update spec index**
+  - **Goal:** Ensure every `.md` file under `spec/` has an entry in `spec/README.md` with title and one-line description
+  - **Verification:** `spec/README.md` entries match the actual files in `spec/`
+
+- [ ] **TASK-06: Delete plan directory**
+  - **Goal:** Remove `plan/{milestone-name}/` — plans are transient, specs are permanent. Plans remain in git history.
+  - **Verification:** `plan/{milestone-name}/` does not exist
+
+- [ ] **TASK-07: Close GitHub Milestone**
+  - **Goal:** Verify all issues are closed, all PRs merged, then close the Milestone
+  - **Verification:** GitHub Milestone shows as closed with 100% completion
+```
 
 ### Step 6: Create GitHub Artifacts
 
