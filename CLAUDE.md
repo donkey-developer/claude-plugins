@@ -60,7 +60,7 @@ Work follows three phases with hard gates between them. **You MUST NOT skip phas
 **Trigger:** User asks you to plan, design, or implement a feature.
 **Constraint:** Do NOT write implementation code. Do NOT create feature branches. Only produce planning artifacts.
 
-1. Follow the Socratic elicitation process in `spec/planning/spec.md` — ask clarifying questions until requirements are clear
+1. Follow the Socratic elicitation process in `PLAN.prompt.md` Step 2 — ask clarifying questions until requirements are clear
 2. Create a GitHub Milestone for the work
 3. Write `plan/{milestone-name}/BRIEF.md` — the what and why for the whole milestone (transient planning brief, not a permanent spec)
 4. Write one task file per issue in `plan/{milestone-name}/tasks/{NN}-{issue-name}.tasks.md`
@@ -135,7 +135,7 @@ When planning work:
 - Create GitHub Issues to define specific outcomes related to a Milestone
 - If the work is not large enough for its own Milestone, ask which milestone it should belong to, or create a "v next" milestone
 - Once planning is complete, the plan lives in `plan/{milestone-name}/` — NOT in conversation memory
-- Use `spec/planning/spec.md` to guide the Socratic elicitation and artifact generation process
+- Use `PLAN.prompt.md` to guide the Socratic elicitation and artifact generation process
 
 ## Specifications
 

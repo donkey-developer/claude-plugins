@@ -30,7 +30,7 @@ Read the user's request. Then read relevant specifications:
 
 ### Step 2: Socratic Elicitation
 
-Follow `spec/planning/spec.md` Phase 1. Ask 3-5 clarifying questions covering:
+Ask 3-5 clarifying questions covering:
 
 1. **Ambiguity** — Are there undefined terms or vague requirements?
 2. **Standards alignment** — Does this conflict with existing specs or patterns?
