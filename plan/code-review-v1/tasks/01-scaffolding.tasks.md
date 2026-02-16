@@ -48,7 +48,7 @@
     - Must be idempotent — running twice produces identical output
   - **Verification:** Script runs without error (exits 0); `--check` mode works; script is executable
 
-- [ ] **TASK-05: Create pre-commit hook**
+- [x] **TASK-05: Create pre-commit hook**
   - **Goal:** Create a git pre-commit hook that validates compiled files are in sync with prompts
   - **Brief ref:** BRIEF.md Section 2 (composition model)
   - **Files:**
