@@ -56,7 +56,7 @@
   - **Details:** Runs `scripts/compile.sh --check` and fails the commit with a message to run `scripts/compile.sh` if files are out of sync
   - **Verification:** Hook is executable; `git config core.hooksPath` points to hooks directory
 
-- [ ] **TASK-06: Update .gitignore**
+- [x] **TASK-06: Update .gitignore**
   - **Goal:** Ensure `.code-review/` output directories are ignored by git
   - **Files:**
     - Edit `.gitignore` (create if needed)
