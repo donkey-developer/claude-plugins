@@ -123,7 +123,7 @@ The user then moves to the next task file (next issue) or reviews the PR first.
 
 - **Never commit directly to `main`** — pre-commit and pre-push hooks enforce this
 - Create feature branches: `git checkout -b feat/<description>`
-- Push feature branches and create PRs against `main`
+- Push feature branches and create PRs against `main`. Prefer `git checkout -b <branch> <base>` to carry uncommitted work to a new branch; avoid using `git stash` if possible.
 - Branch naming convention: `feat/`, `fix/`, `chore/` prefixes
 - **One branch per issue.** Each task file declares its branch name. All tasks within an issue are committed to the same branch.
 
