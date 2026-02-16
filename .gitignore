@@ -21,3 +21,6 @@ build/
 *.log
 .env
 .env.local
+
+# Code review plugin output
+.code-review/
