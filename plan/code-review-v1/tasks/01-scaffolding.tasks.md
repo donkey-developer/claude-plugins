@@ -7,7 +7,7 @@
 
 ## Tasks
 
-- [ ] **TASK-01: Create marketplace catalogue**
+- [x] **TASK-01: Create marketplace catalogue**
   - **Goal:** Create the marketplace directory and catalogue file that registers available plugins
   - **Brief ref:** BRIEF.md Section 1 (three-tier file structure)
   - **Files:**
