@@ -24,7 +24,7 @@
     - Create directories: `plugins/code-review/skills/all/`, `plugins/code-review/skills/sre/`, `plugins/code-review/skills/security/`, `plugins/code-review/skills/architecture/`, `plugins/code-review/skills/data/`
   - **Verification:** `plugin.json` exists with valid JSON; all directories exist
 
-- [ ] **TASK-03: Create compile.conf**
+- [x] **TASK-03: Create compile.conf**
   - **Goal:** Create the agent metadata configuration file that maps each agent to its model and description
   - **Brief ref:** BRIEF.md Section 4 (agent model allocation)
   - **Files:**
