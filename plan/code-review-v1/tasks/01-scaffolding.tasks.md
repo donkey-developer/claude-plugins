@@ -33,7 +33,7 @@
   - **Details:** 16 agent entries, each with: name, model (sonnet/haiku per BRIEF.md Section 4), one-line description. Also 5 skill entries for domain orchestrators.
   - **Verification:** File contains 16 agent entries and 5 skill entries with correct model assignments
 
-- [ ] **TASK-04: Create compile.sh**
+- [x] **TASK-04: Create compile.sh**
   - **Goal:** Create the build script that generates agent and skill files from prompt sources
   - **Brief ref:** BRIEF.md Section 2 (composition model)
   - **Files:**
