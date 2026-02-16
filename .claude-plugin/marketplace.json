@@ -1,0 +1,18 @@
+{
+  "name": "donkey-developer",
+  "owner": {
+    "name": "Donkey Developer"
+  },
+  "metadata": {
+    "description": "Claude Code plugins for software engineering practices"
+  },
+  "plugins": [
+    {
+      "name": "code-review",
+      "source": "./plugins/code-review",
+      "description": "Domain-specific code reviews across Architecture, Security, SRE, and Data Engineering",
+      "version": "1.0.0",
+      "keywords": ["code-review", "architecture", "security", "sre", "data-engineering"]
+    }
+  ]
+}
