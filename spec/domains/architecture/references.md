@@ -2,7 +2,7 @@
 
 > Source attribution for all frameworks, concepts, and terminology used in the Architecture review domain. Cite these when asked about the origin of a concept. Update this file when new sources are introduced.
 >
-> For shared project history and cross-domain references, see `../review-standards/references.md`.
+> For shared project history and cross-domain references, see `../../review-standards/references.md`.
 
 ## Framework Origins
 
@@ -146,7 +146,7 @@
 - Factor VI: Processes (stateless processes)
 - Factor X: Dev/prod parity
 
-Also referenced in `../review-standards/references.md` as a cross-domain resource.
+Also referenced in `../../review-standards/references.md` as a cross-domain resource.
 
 ## Domain-Specific Project History
 
@@ -156,7 +156,7 @@ Key PRs that shaped the Architecture domain specifically:
 |----|-------------|---------------|
 | #7 | Initial Architecture review system | Established C4-inspired zoom levels, 4 subagents, prompt structure. Named "Landscape" not "Enterprise". All agents use sonnet model. |
 
-For cross-domain PRs (#18, #19, #21, #23), see `../review-standards/references.md`.
+For cross-domain PRs (#18, #19, #21, #23), see `../../review-standards/references.md`.
 
 ## Design Decisions
 

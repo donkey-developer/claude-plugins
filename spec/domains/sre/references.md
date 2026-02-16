@@ -2,7 +2,7 @@
 
 > Source attribution for all frameworks, concepts, and terminology used in the SRE review domain. Cite these when asked about the origin of a concept. Update this file when new sources are introduced.
 >
-> For shared project history and cross-domain references, see `../review-standards/references.md`.
+> For shared project history and cross-domain references, see `../../review-standards/references.md`.
 
 ## Framework Origins
 
@@ -93,7 +93,7 @@
 **URL:** https://12factor.net/
 **Relevance:** Config management (Factor III), backing services (Factor IV), logs as event streams (Factor XI). Informs the Delivery and Observability pillars.
 
-Also referenced in `../review-standards/references.md` as a cross-domain resource.
+Also referenced in `../../review-standards/references.md` as a cross-domain resource.
 
 ### OpenTelemetry Specification
 
@@ -109,7 +109,7 @@ Key PRs that shaped the SRE domain specifically:
 | #3 | Initial SRE review system | Established ROAD + SEEMS/FaCTOR architecture, 4 subagents, prompt structure |
 | #17 | "SPOF" renamed to "Single points of failure" | Terminology consistency with SEEMS framework definition |
 
-For cross-domain PRs (#18, #19, #21, #23), see `../review-standards/references.md`.
+For cross-domain PRs (#18, #19, #21, #23), see `../../review-standards/references.md`.
 
 ## Attribution Gaps
 

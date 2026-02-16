@@ -68,10 +68,10 @@ Document the issue sequence in `BRIEF.md`. The **last issue** must always be a c
 
 1. `01-scaffolding.tasks.md` → Issue: "Create plugin scaffolding" (no dependencies)
 2. `02-sre.tasks.md` → Issue: "Create SRE code review" (depends on #1)
-3. `03-sec.tasks.md` → Issue: "Create Security code review" (depends on #1, parallel with #2)
-   `04-arch.tasks.md` → Issue: "Create Architecture code review" (parallel)
+3. `03-security.tasks.md` → Issue: "Create Security code review" (depends on #1, parallel with #2)
+   `04-architecture.tasks.md` → Issue: "Create Architecture code review" (parallel)
    `05-data.tasks.md` → Issue: "Create Data code review" (parallel)
-4. `06-review-all.tasks.md` → Issue: "Create comprehensive review" (depends on #2-#5)
+4. `06-code-review-all.tasks.md` → Issue: "Create comprehensive review" (depends on #2-#5)
 5. `07-close.tasks.md` → Issue: "Close milestone" (depends on all above)
 ```
 

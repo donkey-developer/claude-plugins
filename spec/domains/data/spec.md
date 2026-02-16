@@ -18,7 +18,7 @@ The guiding mantra is **Trusted and Timely**: data products must be accurate, we
 
 ## 2. Audience
 
-This domain inherits the shared audience definitions (see `../review-standards/review-framework.md`).
+This domain inherits the shared audience definitions (see `../../review-standards/review-framework.md`).
 
 ## 3. Conceptual Architecture
 
@@ -53,7 +53,7 @@ These layers are defined in detail in the companion files:
 
 ## 4. File Layout
 
-This domain inherits the shared plugin file layout (see `../review-standards/review-framework.md`). Domain-specific files:
+This domain inherits the shared plugin file layout (see `../../review-standards/review-framework.md`). Domain-specific files:
 
 | Location | File | Purpose |
 |----------|------|---------|
@@ -66,11 +66,11 @@ This domain inherits the shared plugin file layout (see `../review-standards/rev
 | `prompts/data/` | `engineering.md` | Engineering pillar checklist |
 | `prompts/data/` | `quality.md` | Quality pillar checklist |
 | `prompts/data/` | `governance.md` | Governance pillar checklist |
-| `skills/` | `review-data/SKILL.md` | Orchestrator: scope, parallel dispatch, synthesis, output |
+| `skills/` | `data/SKILL.md` | Orchestrator: scope, parallel dispatch, synthesis, output |
 
 ## 5. Design Principles
 
-This domain inherits the shared design principles (see `../review-standards/design-principles.md`) and adds domain-specific principles and examples below.
+This domain inherits the shared design principles (see `../../review-standards/design-principles.md`) and adds domain-specific principles and examples below.
 
 ### 5.1 Outcomes over techniques (domain examples)
 
@@ -126,7 +126,7 @@ Data handling should be **explicit, not silent**. When a data pipeline encounter
 
 ## 6. Orchestration Process
 
-The `/review-data` skill follows the shared orchestration pattern (see `../review-standards/orchestration.md`) with these domain-specific details:
+The `/code-review:data` skill follows the shared orchestration pattern (see `../../review-standards/orchestration.md`) with these domain-specific details:
 
 ### Step 1: Scope identification (domain-specific addition)
 
@@ -147,7 +147,7 @@ Spawn 4 subagents simultaneously:
 
 ### Step 3: Synthesis
 
-Follows the shared synthesis algorithm (see `../review-standards/orchestration.md`). No domain-specific synthesis additions.
+Follows the shared synthesis algorithm (see `../../review-standards/orchestration.md`). No domain-specific synthesis additions.
 
 ## 7. Improvement Vectors
 
@@ -166,7 +166,7 @@ Known gaps that future work should address, in priority order:
 
 ## 8. Constraints
 
-This domain inherits the universal constraints (see `../review-standards/review-framework.md`) and adds:
+This domain inherits the universal constraints (see `../../review-standards/review-framework.md`) and adds:
 
 - **No prescribing specific modelling approaches.** Do not require "star schema" or "3NF" or "Data Vault". Describe the structural property the data should exhibit for its use case. The team may achieve it through any approach.
 - **No fabricating findings.** If a pillar doesn't apply (e.g., no PII in the reviewed code means Governance/Privacy has nothing to report), return "no findings" — do not invent concerns to fill the report.

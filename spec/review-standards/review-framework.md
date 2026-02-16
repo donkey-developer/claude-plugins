@@ -15,14 +15,14 @@
 Each review domain manifests as files within the plugin following the same structure. See [Plugin Structure](https://code.claude.com/docs/en/plugins-reference) for file layout conventions.
 
 ```
-donkey-dev/
+code-review/
   agents/
     <domain>-<subagent>.md     # Subagent: one per review dimension
   prompts/<domain>/
     _base.md                   # Shared context: frameworks, maturity model, output format
     <subagent>.md              # Subagent checklist
   skills/
-    review-<domain>/SKILL.md   # Orchestrator: scope, parallel dispatch, synthesis, output
+    <domain>/SKILL.md          # Orchestrator: scope, parallel dispatch, synthesis, output
 ```
 
 ### Composition rules
@@ -37,7 +37,7 @@ donkey-dev/
 |-------------|-----------------|
 | Add/change a checklist item | `prompts/<domain>/<subagent>.md` then recompile the corresponding `agents/<domain>-<subagent>.md` |
 | Change shared context (severity, maturity, output format) | `prompts/<domain>/_base.md` then recompile ALL agent files for that domain |
-| Change orchestration logic | `skills/review-<domain>/SKILL.md` only |
+| Change orchestration logic | `skills/<domain>/SKILL.md` only |
 | Add a new subagent | New prompt file, new agent file, update SKILL.md to spawn additional agent |
 
 ## Maturity Model
