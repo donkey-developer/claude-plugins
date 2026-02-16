@@ -62,7 +62,7 @@
     - Edit `.gitignore` (create if needed)
   - **Verification:** `.code-review/` is listed in `.gitignore`
 
-- [ ] **TASK-07: Update root README.md**
+- [x] **TASK-07: Update root README.md**
   - **Goal:** Update the repository README to describe the marketplace and code-review plugin
   - **Files:**
     - Edit `README.md`
