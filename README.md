@@ -1,51 +1,90 @@
-# Donkey-Developer Code Review Plugin
+# Donkey Developer — Claude Plugins
 
-## Description
+## Overview
 
-A comprehensive Code Review Plugin for [Claude](https://claude.ai).
-This code review allows generalist software engineers to extend their capability to supporting functions such as Architecture, Security, Site Reliability and Data Engineering.
+A **marketplace** of plugins for [Claude Code](https://code.claude.com/docs/en/overview).
 
-## Features
+The marketplace catalogue (`.claude-plugin/marketplace.json`) registers each plugin available in this repository.
+Each plugin lives under `plugins/<name>/` with its own manifest, skills, agents, and prompts.
 
-- Comprehensive code review for Architecture, Security, SRE and Data Engineering practices
+## Marketplace Structure
+
+```text
+.claude-plugin/
+└── marketplace.json                ← Catalogue of available plugins
+
+plugins/<name>/
+├── .claude-plugin/plugin.json      ← Plugin manifest (name, version, description)
+├── skills/{domain}/SKILL.md        ← Orchestrators (user-triggered slash commands)
+├── agents/{domain}-{pillar}.md     ← Self-contained subagents (compiled, not hand-edited)
+├── prompts/                        ← Source of truth (human-editable)
+│   ├── shared/                     ← Cross-domain content
+│   └── {domain}/                   ← Domain-specific content
+└── scripts/
+    └── compile.sh                  ← Builds agents and skills from prompt sources
+```
+
+Agents are **compiled** — `scripts/compile.sh` concatenates shared and domain prompts into self-contained agent files.
+A pre-commit hook runs `compile.sh --check` to ensure compiled output stays in sync with prompt sources.
+
+## Plugins
+
+### code-review
+
+Domain-specific code reviews across Architecture, Security, SRE, and Data Engineering.
+
+**Features:**
+
+- Comprehensive code review across four domains with 16 specialist subagents
 - Critical hygiene warnings
 - Progressive level reporting, allowing you to focus on the next-best-action
-- Summary roll up reporting for leadership to have high level oversight of the health and maturity of a system.
+- Summary roll-up reporting for leadership oversight of system health and maturity
+
+**Slash commands:**
+
+- `/code-review:all` — run all four domain reviews and produce a combined report
+- `/code-review:sre` — SRE review (response, observability, availability, delivery)
+- `/code-review:security` — Security review (authn/authz, data protection, input validation, audit & resilience)
+- `/code-review:architecture` — Architecture review (code, service, system, landscape)
+- `/code-review:data` — Data Engineering review (architecture, engineering, quality, governance)
 
 ## Installation
 
-Prerequisites: Assumes that [Claude Code](https://code.claude.com/docs/en/overview) is installed.
+Prerequisites: [Claude Code](https://code.claude.com/docs/en/overview) must be installed.
 
-Add the marketplace
+Add the marketplace:
+
 ```bash
-/plugin marketplace add https://github.com/donkey-developer/code-review-plugin.git
+/plugin marketplace add https://github.com/donkey-developer/claude-plugins.git
 ```
 
-Install the plugin
+Install the code-review plugin:
+
 ```bash
-/plugin install code-review@donkey-developer-code-review-plugin
+/plugin install code-review@donkey-developer
 ```
 
 ## Usage
 
-When using Claude Code, you can use the slash-commands to perform a code review.
+Run a comprehensive code review:
 
-You can perform a comprehensive code review with
 ```bash
 /code-review:all
 ```
 
-This will trigger all of the other code reviews to occur, and generate a summary report with it.
+This dispatches all 16 subagents in parallel, then synthesises the results into a combined report.
 
-To run a sub-set of the code reviews use one of the specific domain reviews: code-review:sre, code-review:security, code-review:architecture, code-review:data e.g.
+Run a single domain review:
 
 ```bash
 /code-review:sre
 ```
 
+Output reports are written to `.code-review/<batch-name>/` in your working directory.
+
 ## Configuration
 
-Describe any configuration options here.
+**TODO** — configuration options will be documented as the plugin matures.
 
 ## Development
 
