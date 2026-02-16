@@ -2,7 +2,7 @@
 
 > Source attribution for all frameworks, concepts, and terminology used in the Security review domain. Cite these when asked about the origin of a concept. Update this file when new sources are introduced.
 >
-> For shared project history and cross-domain references, see `../review-standards/references.md`.
+> For shared project history and cross-domain references, see `../../review-standards/references.md`.
 
 ## Framework Origins
 
@@ -102,7 +102,7 @@
 **URL:** https://12factor.net/
 **Relevance:** Factor III (Config) informs the secrets management criteria (secrets from environment, not code). Factor XII (Admin processes) informs audit logging requirements.
 
-Also referenced in `../review-standards/references.md` as a cross-domain resource.
+Also referenced in `../../review-standards/references.md` as a cross-domain resource.
 
 ## Domain-Specific Project History
 
@@ -113,7 +113,7 @@ Key PRs that shaped the Security domain specifically:
 | #4 | Initial Security review system | Established STRIDE + DREAD-lite architecture, 4 subagents, prompt structure. Stacked on #3 (SRE). |
 | #17 | Fix input-validation deserialization severity | Separated always-unsafe (pickle/marshal) from loader-dependent (YAML/XML/JSON). Established that deserialization risk varies by mechanism. |
 
-For cross-domain PRs (#18, #19, #21, #23), see `../review-standards/references.md`.
+For cross-domain PRs (#18, #19, #21, #23), see `../../review-standards/references.md`.
 
 ## Attribution Gaps
 

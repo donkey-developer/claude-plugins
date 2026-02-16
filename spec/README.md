@@ -25,9 +25,9 @@ This file provides guidance on where to find standards and specifications for th
 - Review standards glossary, maturity levels, status indicators, subagent, skill orchestrator, finding, maturity assessment - ./review-standards/glossary.md
 - Review standards references, project history, cross-domain PRs, Twelve-Factor App - ./review-standards/references.md
 
-## Domain specific specification indexes
+## Domain-specific specification indexes
 
-- SRE, Site Reliability Engineering, Availability, Observability, Incident Response, CI/CD, Deployment - ./sre/spec.md
-- Security, Confidentiality, Privacy, Threat, Vulnerability, Defence, Authorisation, Authentication, Audit - ./sec/spec.md
-- Architecture, code, service, system, landscape, anti-patterns, standards, Performance, Cost, Affordability, Modular, Modularity, Composability, Composition, Scalability, Scale, Scalable, Modifiability, Modifiable, Portability, Integrability, Integration Reusability, Reuse, Testing - ./arc/spec.md
-- Data, Governance, GDPR, CCPA, PII, Query, analytics, Warehouse, Database, Schema, Table, Column, Row, Pipeline, ETL, ELT, Transform, evaluations, data contract, polyseme, published, metrics, partition, JSON, freshness - ./dat/spec.md
+- SRE, Site Reliability Engineering, Availability, Observability, Incident Response, CI/CD, Deployment - ./domains/sre/spec.md
+- Security, Confidentiality, Privacy, Threat, Vulnerability, Defence, Authorisation, Authentication, Audit - ./domains/security/spec.md
+- Architecture, code, service, system, landscape, anti-patterns, standards, Performance, Cost, Affordability, Modular, Modularity, Composability, Composition, Scalability, Scale, Scalable, Modifiability, Modifiable, Portability, Integrability, Integration Reusability, Reuse, Testing - ./domains/architecture/spec.md
+- Data, Governance, GDPR, CCPA, PII, Query, analytics, Warehouse, Database, Schema, Table, Column, Row, Pipeline, ETL, ELT, Transform, evaluations, data contract, polyseme, published, metrics, partition, JSON, freshness - ./domains/data/spec.md

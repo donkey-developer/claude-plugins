@@ -2,7 +2,7 @@
 
 > Canonical definitions for all terms, frameworks, and acronyms used in the Data review domain. When writing or modifying prompts, use these definitions exactly.
 >
-> This glossary covers domain-specific terminology. For shared terms (maturity model, orchestration, output), see `../review-standards/glossary.md`.
+> This glossary covers domain-specific terminology. For shared terms (maturity model, orchestration, output), see `../../review-standards/glossary.md`.
 
 ## Frameworks
 
@@ -101,7 +101,7 @@ Every decay pattern has corresponding quality dimensions that defend against it.
 
 ## Maturity Model
 
-This domain inherits the shared maturity model (see `../review-standards/glossary.md` and `../review-standards/review-framework.md`).
+This domain inherits the shared maturity model (see `../../review-standards/glossary.md` and `../../review-standards/review-framework.md`).
 
 Domain-specific maturity context:
 

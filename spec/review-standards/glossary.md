@@ -23,7 +23,7 @@
 | Term | Definition |
 |------|-----------|
 | **Subagent** | A specialised reviewer that analyses code against one dimension's checklist. Runs in parallel with the other subagents. Each domain uses 4 subagents. |
-| **Skill orchestrator** | The `/review-<domain>` skill that dispatches subagents, collects results, deduplicates, and synthesises the final report. |
+| **Skill orchestrator** | The `/code-review:<domain>` skill that dispatches subagents, collects results, deduplicates, and synthesises the final report. |
 | **Synthesis** | The process of merging 4 subagent reports into one consolidated maturity assessment. |
 | **Deduplication** | When two subagents flag the same file:line, merging into one finding with the highest severity and most restrictive maturity tag. |
 

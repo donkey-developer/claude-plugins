@@ -32,15 +32,15 @@ When using Claude Code, you can use the slash-commands to perform a code review.
 
 You can perform a comprehensive code review with
 ```bash
-/donkey-developer:review-all
+/code-review:all
 ```
 
 This will trigger all of the other code reviews to occur, and generate a summary report with it.
 
-To run a sub-set of the code-reviews use one of the specfic code reviews: review-sec, review-sre, review-arch, review-data e.g.
+To run a sub-set of the code reviews use one of the specific domain reviews: code-review:sre, code-review:security, code-review:architecture, code-review:data e.g.
 
 ```bash
-/donkey-developer:review-sre
+/code-review:sre
 ```
 
 ## Configuration

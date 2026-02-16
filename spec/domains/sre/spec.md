@@ -14,7 +14,7 @@ The domain produces a structured maturity assessment that tells engineering lead
 
 ## 2. Audience
 
-This domain inherits the shared audience definitions (see `../review-standards/review-framework.md`).
+This domain inherits the shared audience definitions (see `../../review-standards/review-framework.md`).
 
 ## 3. Conceptual Architecture
 
@@ -49,7 +49,7 @@ These layers are defined in detail in the companion files:
 
 ## 4. File Layout
 
-This domain inherits the shared plugin file layout (see `../review-standards/review-framework.md`). Domain-specific files:
+This domain inherits the shared plugin file layout (see `../../review-standards/review-framework.md`). Domain-specific files:
 
 | Location | File | Purpose |
 |----------|------|---------|
@@ -62,11 +62,11 @@ This domain inherits the shared plugin file layout (see `../review-standards/rev
 | `prompts/sre/` | `observability.md` | Observability pillar checklist |
 | `prompts/sre/` | `availability.md` | Availability pillar checklist |
 | `prompts/sre/` | `delivery.md` | Delivery pillar checklist |
-| `skills/` | `review-sre/SKILL.md` | Orchestrator: scope, parallel dispatch, synthesis, output |
+| `skills/` | `sre/SKILL.md` | Orchestrator: scope, parallel dispatch, synthesis, output |
 
 ## 5. Design Principles
 
-This domain inherits the shared design principles (see `../review-standards/design-principles.md`) and adds domain-specific principles and examples below.
+This domain inherits the shared design principles (see `../../review-standards/design-principles.md`) and adds domain-specific principles and examples below.
 
 ### 5.1 Outcomes over techniques (domain examples)
 
@@ -103,7 +103,7 @@ Severity is about the **production consequence** if the code ships as-is, not ab
 
 ## 6. Orchestration Process
 
-The `/review-sre` skill follows the shared orchestration pattern (see `../review-standards/orchestration.md`) with these domain-specific details:
+The `/code-review:sre` skill follows the shared orchestration pattern (see `../../review-standards/orchestration.md`) with these domain-specific details:
 
 ### Step 2: Parallel dispatch
 
@@ -118,7 +118,7 @@ Spawn 4 subagents simultaneously:
 
 ### Step 3: Synthesis
 
-Follows the shared synthesis algorithm (see `../review-standards/orchestration.md`). No domain-specific synthesis additions.
+Follows the shared synthesis algorithm (see `../../review-standards/orchestration.md`). No domain-specific synthesis additions.
 
 ## 7. Improvement Vectors
 
@@ -137,4 +137,4 @@ Known gaps that future work should address, in priority order:
 
 ## 8. Constraints
 
-This domain inherits the universal constraints (see `../review-standards/review-framework.md`). No domain-specific constraints beyond the universal set.
+This domain inherits the universal constraints (see `../../review-standards/review-framework.md`). No domain-specific constraints beyond the universal set.

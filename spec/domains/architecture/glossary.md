@@ -2,7 +2,7 @@
 
 > Canonical definitions for all terms, frameworks, and acronyms used in the Architecture review domain. When writing or modifying prompts, use these definitions exactly.
 >
-> This glossary covers domain-specific terminology. For shared terms (maturity model, orchestration, output), see `../review-standards/glossary.md`.
+> This glossary covers domain-specific terminology. For shared terms (maturity model, orchestration, output), see `../../review-standards/glossary.md`.
 
 ## Frameworks
 
@@ -147,7 +147,7 @@ These principles apply at all zoom levels and should be evaluated everywhere:
 
 ## Maturity Model
 
-This domain inherits the shared maturity model (see `../review-standards/glossary.md` and `../review-standards/review-framework.md`).
+This domain inherits the shared maturity model (see `../../review-standards/glossary.md` and `../../review-standards/review-framework.md`).
 
 Domain-specific maturity context:
 

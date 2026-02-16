@@ -14,7 +14,7 @@ The domain produces a structured maturity assessment that tells engineering lead
 
 ## 2. Audience
 
-This domain inherits the shared audience definitions (see `../review-standards/review-framework.md`).
+This domain inherits the shared audience definitions (see `../../review-standards/review-framework.md`).
 
 ## 3. Conceptual Architecture
 
@@ -50,7 +50,7 @@ These layers are defined in detail in the companion files:
 
 ## 4. File Layout
 
-This domain inherits the shared plugin file layout (see `../review-standards/review-framework.md`). Domain-specific files:
+This domain inherits the shared plugin file layout (see `../../review-standards/review-framework.md`). Domain-specific files:
 
 | Location | File | Purpose |
 |----------|------|---------|
@@ -63,11 +63,11 @@ This domain inherits the shared plugin file layout (see `../review-standards/rev
 | `prompts/security/` | `data-protection.md` | Data Protection pillar checklist |
 | `prompts/security/` | `input-validation.md` | Input Validation pillar checklist |
 | `prompts/security/` | `audit-resilience.md` | Audit & Resilience pillar checklist |
-| `skills/` | `review-security/SKILL.md` | Orchestrator: scope, parallel dispatch, synthesis, output |
+| `skills/` | `security/SKILL.md` | Orchestrator: scope, parallel dispatch, synthesis, output |
 
 ## 5. Design Principles
 
-This domain inherits the shared design principles (see `../review-standards/design-principles.md`) and adds domain-specific principles and examples below.
+This domain inherits the shared design principles (see `../../review-standards/design-principles.md`) and adds domain-specific principles and examples below.
 
 ### 5.1 Outcomes over techniques (domain examples)
 
@@ -121,7 +121,7 @@ The Security domain maintains a deliberate exclusion list (see `glossary.md`). T
 
 ## 6. Orchestration Process
 
-The `/review-security` skill follows the shared orchestration pattern (see `../review-standards/orchestration.md`) with these domain-specific details:
+The `/code-review:security` skill follows the shared orchestration pattern (see `../../review-standards/orchestration.md`) with these domain-specific details:
 
 ### Step 2: Parallel dispatch
 
@@ -138,7 +138,7 @@ Spawn 4 subagents simultaneously:
 
 ### Step 3: Synthesis
 
-Follows the shared synthesis algorithm (see `../review-standards/orchestration.md`) with one domain-specific addition:
+Follows the shared synthesis algorithm (see `../../review-standards/orchestration.md`) with one domain-specific addition:
 
 1. **Collect** findings from all 4 pillars
 2. **Apply confidence filter** — remove findings below 50% confidence
@@ -161,7 +161,7 @@ Known gaps that future work should address, in priority order:
 
 ## 8. Constraints
 
-This domain inherits the universal constraints (see `../review-standards/review-framework.md`) and adds:
+This domain inherits the universal constraints (see `../../review-standards/review-framework.md`) and adds:
 
 - **No dependency scanning.** Outdated dependencies with known CVEs are handled by dedicated tools (Dependabot, Snyk, etc.). The Security review focuses on code-level vulnerabilities.
 - **No secret scanning.** Committed secrets are handled by dedicated tools (git-secrets, TruffleHog, etc.). The Security review flags hardcoded secrets visible in the code being reviewed, but does not scan git history.

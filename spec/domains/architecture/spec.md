@@ -16,7 +16,7 @@ Architecture focuses on **design-time decisions** — the choices that determine
 
 ## 2. Audience
 
-This domain inherits the shared audience definitions (see `../review-standards/review-framework.md`).
+This domain inherits the shared audience definitions (see `../../review-standards/review-framework.md`).
 
 ## 3. Conceptual Architecture
 
@@ -50,24 +50,24 @@ These layers are defined in detail in the companion files:
 
 ## 4. File Layout
 
-This domain inherits the shared plugin file layout (see `../review-standards/review-framework.md`). Domain-specific files:
+This domain inherits the shared plugin file layout (see `../../review-standards/review-framework.md`). Domain-specific files:
 
 | Location | File | Purpose |
 |----------|------|---------|
-| `agents/` | `arch-code.md` | Subagent: SOLID, DDD tactical, testability |
-| `agents/` | `arch-service.md` | Subagent: bounded contexts, layering, deployability |
-| `agents/` | `arch-system.md` | Subagent: stability patterns, API contracts, coupling |
-| `agents/` | `arch-landscape.md` | Subagent: integration patterns, context maps, ADRs |
+| `agents/` | `architecture-code.md` | Subagent: SOLID, DDD tactical, testability |
+| `agents/` | `architecture-service.md` | Subagent: bounded contexts, layering, deployability |
+| `agents/` | `architecture-system.md` | Subagent: stability patterns, API contracts, coupling |
+| `agents/` | `architecture-landscape.md` | Subagent: integration patterns, context maps, ADRs |
 | `prompts/architecture/` | `_base.md` | Shared context: zoom levels, glossary, maturity model, output format |
 | `prompts/architecture/` | `code.md` | Code zoom level checklist |
 | `prompts/architecture/` | `service.md` | Service zoom level checklist |
 | `prompts/architecture/` | `system.md` | System zoom level checklist |
 | `prompts/architecture/` | `landscape.md` | Landscape zoom level checklist |
-| `skills/` | `review-arch/SKILL.md` | Orchestrator: scope, parallel dispatch, synthesis, output |
+| `skills/` | `architecture/SKILL.md` | Orchestrator: scope, parallel dispatch, synthesis, output |
 
 ## 5. Design Principles
 
-This domain inherits the shared design principles (see `../review-standards/design-principles.md`) and adds domain-specific principles and examples below.
+This domain inherits the shared design principles (see `../../review-standards/design-principles.md`) and adds domain-specific principles and examples below.
 
 ### 5.1 Outcomes over techniques (domain examples)
 
@@ -127,7 +127,7 @@ Architecture reviews evaluate **design-time decisions**, not run-time behaviour.
 
 ## 6. Orchestration Process
 
-The `/review-arch` skill follows the shared orchestration pattern (see `../review-standards/orchestration.md`) with these domain-specific details:
+The `/code-review:architecture` skill follows the shared orchestration pattern (see `../../review-standards/orchestration.md`) with these domain-specific details:
 
 ### Step 2: Parallel dispatch
 
@@ -135,16 +135,16 @@ Spawn 4 subagents simultaneously:
 
 | Agent | Model | Rationale |
 |-------|-------|-----------|
-| `arch-code` | sonnet | Nuanced judgement on SOLID compliance, DDD tactical correctness, and code quality assessment |
-| `arch-service` | sonnet | Complex analysis of bounded context alignment, layering violations, and deployability |
-| `arch-system` | sonnet | Subtle inter-service coupling analysis, stability pattern evaluation |
-| `arch-landscape` | sonnet | Complex governance analysis, context map evaluation, ADR/spec traceability |
+| `architecture-code` | sonnet | Nuanced judgement on SOLID compliance, DDD tactical correctness, and code quality assessment |
+| `architecture-service` | sonnet | Complex analysis of bounded context alignment, layering violations, and deployability |
+| `architecture-system` | sonnet | Subtle inter-service coupling analysis, stability pattern evaluation |
+| `architecture-landscape` | sonnet | Complex governance analysis, context map evaluation, ADR/spec traceability |
 
 **Model selection rationale:** All four Architecture agents use sonnet because architectural review requires nuanced design judgement at every level. Unlike Security or SRE where some pillars have more binary criteria (present/absent), all architecture levels require interpreting code structure against design principles — a fundamentally interpretive task.
 
 ### Step 3: Synthesis
 
-Follows the shared synthesis algorithm (see `../review-standards/orchestration.md`). No domain-specific synthesis additions.
+Follows the shared synthesis algorithm (see `../../review-standards/orchestration.md`). No domain-specific synthesis additions.
 
 ## 7. Improvement Vectors
 
@@ -163,7 +163,7 @@ Known gaps that future work should address, in priority order:
 
 ## 8. Constraints
 
-This domain inherits the universal constraints (see `../review-standards/review-framework.md`) and adds:
+This domain inherits the universal constraints (see `../../review-standards/review-framework.md`) and adds:
 
 - **No prescribing specific patterns by name.** Do not require "DDD" or "Clean Architecture" or "Hexagonal Architecture". Describe the structural property the code should exhibit. The team may achieve it through any approach.
 - **No fabricating findings.** If a zoom level doesn't apply to the project (e.g., Landscape for a single-service monolith), return "no findings" — do not invent concerns to fill the report.

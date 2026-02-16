@@ -2,7 +2,7 @@
 
 > Source attribution for all frameworks, concepts, and terminology used in the Data review domain. Cite these when asked about the origin of a concept. Update this file when new sources are introduced.
 >
-> For shared project history and cross-domain references, see `../review-standards/references.md`.
+> For shared project history and cross-domain references, see `../../review-standards/references.md`.
 
 ## Framework Origins
 
@@ -139,7 +139,7 @@ Key PRs that shaped the Data domain specifically:
 | #12 | Data domain issue | Defined acceptance criteria: 4 parallel subagents, standard severity table format, DAMA DMBOK + Data Mesh frameworks |
 | #13 | Summary reports and maturity scoring issue | Defined Data maturity criteria: HYG (no missing PII masking, no breaking schema changes), L1 (schema documented, ownership defined), L2 (freshness SLOs, data contracts), L3 (bitemporality, self-serve discovery) |
 
-For cross-domain PRs (#18, #19, #21, #23), see `../review-standards/references.md`.
+For cross-domain PRs (#18, #19, #21, #23), see `../../review-standards/references.md`.
 
 ## Attribution Notes
 
