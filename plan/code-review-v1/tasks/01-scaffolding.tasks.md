@@ -15,7 +15,7 @@
   - **Spec ref:** `Planner.md` — Plugin model section
   - **Verification:** File exists with valid JSON containing `code-review` plugin entry
 
-- [ ] **TASK-02: Create plugin manifest and directory structure**
+- [x] **TASK-02: Create plugin manifest and directory structure**
   - **Goal:** Create the plugin root, manifest, and all subdirectories
   - **Brief ref:** BRIEF.md Section 1 (three-tier file structure)
   - **Files:**
