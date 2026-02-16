@@ -25,6 +25,10 @@ This file provides guidance on where to find standards and specifications for th
 - Review standards glossary, maturity levels, status indicators, subagent, skill orchestrator, finding, maturity assessment - ./review-standards/glossary.md
 - Review standards references, project history, cross-domain PRs, Twelve-Factor App - ./review-standards/references.md
 
+## GitHub
+
+- GitHub CLI reference, milestones, issues, pull requests, `gh api` commands, quick reference - ./github.md
+
 ## Domain-specific specification indexes
 
 - SRE, Site Reliability Engineering, Availability, Observability, Incident Response, CI/CD, Deployment - ./domains/sre/spec.md
