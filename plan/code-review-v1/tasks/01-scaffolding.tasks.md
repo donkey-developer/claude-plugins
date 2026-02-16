@@ -68,7 +68,7 @@
     - Edit `README.md`
   - **Verification:** README describes the marketplace concept and the code-review plugin
 
-- [ ] **TASK-08: Final verification**
+- [x] **TASK-08: Final verification**
   - **Goal:** Verify all scaffolding deliverables are in place
   - **Verification:**
     - `.claude-plugin/marketplace.json` exists and is valid JSON
