@@ -46,7 +46,7 @@ Follows the pattern established by the SRE reference implementation.
     - No domain-specific synthesis rules for Architecture (note explicitly)
   - **Verification:** File exists; ~200-250 lines; covers C4, duality, adaptive scaling; has Review Instructions
 
-- [ ] **TASK-02: Create Architecture code.md pillar prompt**
+- [x] **TASK-02: Create Architecture code.md pillar prompt**
   - **Goal:** Create the Code zoom-level pillar prompt with focus areas, anti-patterns, and checklist
   - **Brief ref:** BRIEF.md Section 6 (pillar prompts: ~80-120 lines)
   - **Files:**
