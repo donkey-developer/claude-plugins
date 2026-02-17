@@ -91,7 +91,7 @@ Follows the pattern established by the SRE reference implementation.
     - `architecture` skill entry
   - **Verification:** compile.conf has 4 Architecture agent entries (all sonnet) and 1 Architecture skill entry
 
-- [ ] **TASK-07: Run compile.sh and verify generated files**
+- [x] **TASK-07: Run compile.sh and verify generated files**
   - **Goal:** Generate the 4 Architecture agent files and the Architecture skill file from prompts
   - **Files generated:**
     - `plugins/code-review/agents/architecture-code.md`
