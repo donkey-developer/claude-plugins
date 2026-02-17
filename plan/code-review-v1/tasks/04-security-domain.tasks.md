@@ -62,7 +62,7 @@ Follows the pattern established by the SRE reference implementation.
   - **Details:** STRIDE categories: Information Disclosure, Tampering. Covers crypto usage, secrets exposure, data classification, at-rest/in-transit encryption. Tampering must be within code boundary.
   - **Verification:** File exists; ~80-120 lines; includes anti-patterns with exploit scenarios; has checklist
 
-- [ ] **TASK-04: Create Security input-validation.md pillar prompt**
+- [x] **TASK-04: Create Security input-validation.md pillar prompt**
   - **Goal:** Create the Input Validation pillar prompt with focus areas, anti-patterns, and checklist
   - **Files:**
     - Create `plugins/code-review/prompts/security/input-validation.md`
