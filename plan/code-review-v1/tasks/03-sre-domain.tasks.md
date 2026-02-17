@@ -77,7 +77,7 @@ This is the **reference implementation** — the first domain built, establishin
     - `sre` skill: description references SRE domain review
   - **Verification:** compile.conf has 4 SRE agent entries with correct models and 1 SRE skill entry
 
-- [ ] **TASK-07: Run compile.sh and verify generated files**
+- [x] **TASK-07: Run compile.sh and verify generated files**
   - **Goal:** Generate the 4 SRE agent files and the SRE skill file from prompts
   - **Files generated:**
     - `plugins/code-review/agents/sre-response.md`
