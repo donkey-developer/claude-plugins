@@ -19,7 +19,7 @@ This is the **reference implementation** — the first domain built, establishin
 
 ## Tasks
 
-- [ ] **TASK-01: Create SRE _base.md**
+- [x] **TASK-01: Create SRE _base.md**
   - **Goal:** Distil the SRE domain foundation into a base prompt covering ROAD framework, SEEMS/FaCTOR duality, maturity criteria, and glossary
   - **Brief ref:** BRIEF.md Section 6 (domain `_base.md`: ~200-250 lines)
   - **Files:**
