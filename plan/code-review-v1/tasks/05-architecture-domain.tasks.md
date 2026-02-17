@@ -71,7 +71,7 @@ Follows the pattern established by the SRE reference implementation.
   - **Details:** Inter-service coupling, stability patterns, data flow, integration patterns. May return "no findings" for monoliths.
   - **Verification:** File exists; ~80-120 lines; has checklist
 
-- [ ] **TASK-05: Create Architecture landscape.md pillar prompt**
+- [x] **TASK-05: Create Architecture landscape.md pillar prompt**
   - **Goal:** Create the Landscape zoom-level pillar prompt with focus areas, anti-patterns, and checklist
   - **Files:**
     - Create `plugins/code-review/prompts/architecture/landscape.md`
