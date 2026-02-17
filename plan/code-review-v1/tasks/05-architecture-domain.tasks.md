@@ -105,7 +105,7 @@ Follows the pattern established by the SRE reference implementation.
     - No pattern names prescribed in agent content
     - `scripts/compile.sh --check` exits 0
 
-- [ ] **TASK-08: Final verification**
+- [x] **TASK-08: Final verification**
   - **Goal:** Verify the complete Architecture domain is correctly built
   - **Verification:**
     - 5 prompt source files exist in `prompts/architecture/`
