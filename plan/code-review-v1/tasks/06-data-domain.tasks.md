@@ -67,7 +67,7 @@ Follows the pattern established by the SRE reference implementation.
   - **Details:** Transformation correctness, idempotency, performance, pipeline reliability. Fail-safe defaults — silent data loss is a critical finding.
   - **Verification:** File exists; ~80-120 lines; has checklist
 
-- [ ] **TASK-04: Create Data quality.md pillar prompt**
+- [x] **TASK-04: Create Data quality.md pillar prompt**
   - **Goal:** Create the Data Quality pillar prompt with focus areas, anti-patterns, and checklist
   - **Files:**
     - Create `plugins/code-review/prompts/data/quality.md`
