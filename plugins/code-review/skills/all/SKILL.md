@@ -9,3 +9,9 @@ allowed-tools: Task, Read, Grep, Glob, Bash, Write
 
 No domain-specific synthesis rules apply for Architecture.
 The shared synthesis algorithm applies as-is.
+
+## Synthesis
+
+Data applies a scope filter: focus on SQL, dbt, Spark, and pipeline configurations.
+Apply consumer-first perspective — evaluate every change from the downstream consumer's point of view.
+The shared synthesis algorithm applies as-is.
