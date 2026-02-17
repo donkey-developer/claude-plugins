@@ -55,7 +55,8 @@ File: plan/{milestone}/tasks/{NN}-{name}.tasks.md
 Remaining: {count} tasks in this issue
 ```
 
-4. **STOP.** Do not continue to the next task. The next invocation of this prompt picks up from the updated task file.
+4. If unchecked tasks remain: **STOP.** Do not continue to the next task. The next invocation picks up from the updated task file.
+5. If this was the last task (no `- [ ]` remain): continue to **Step 5: Issue Completion**.
 
 ### Step 5: Issue Completion
 
@@ -75,8 +76,6 @@ Tasks completed: {count}
 
 Next issue: {next task file name} (or "all issues complete")
 ```
-
-4. Output the termination signal: `NO_MORE_TASKS_TO_PROCESS`
 
 ### Step 6: Milestone Completion
 
@@ -105,5 +104,3 @@ Milestone: closed
 
 All issues for this milestone are complete.
 ```
-
-7. Output the termination signal: `NO_MORE_TASKS_TO_PROCESS`

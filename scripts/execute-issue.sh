@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Run all tasks for a single issue (one task file) using the Ralph Wiggum loop.
+# Run all tasks for a single issue (one task file) using the execution loop.
 # Each iteration invokes a stateless agent that completes one task and stops.
-# The loop exits when the agent signals NO_MORE_TASKS_TO_PROCESS (all tasks done).
+# The loop exits when no unchecked tasks remain in the task file.
+# Stuck detection: if incomplete count is unchanged between iterations, exit with error.
 #
 # Usage:
 #   ./scripts/execute-issue.sh plan/v1/tasks/01-scaffolding.tasks.md
@@ -17,13 +18,31 @@ fi
 
 echo "Starting issue: ${TASK_FILE}"
 
-while :; do
-  echo "Follow EXECUTE.prompt.md for ${TASK_FILE}" \
-    | claude --print 2>&1 | tee agent_output.log
+PREV_INCOMPLETE=-1
 
-  if grep -q "NO_MORE_TASKS_TO_PROCESS" agent_output.log; then
+while :; do
+  rm -f agent_output.log
+  echo "Follow EXECUTE.prompt.md for ${TASK_FILE}" \
+    | claude --print --output-format stream-json --verbose --permission-mode dontAsk 2>&1 | tee agent_output.log
+
+  # Check task file state
+  INCOMPLETE=$(grep -c '^\- \[ \]' "$TASK_FILE" || true)
+
+  # Completion: all tasks done (PR created in same iteration as last task)
+  if [ "$INCOMPLETE" -eq 0 ]; then
+    echo "---"
     echo "Issue complete: ${TASK_FILE}"
-    rm -f agent_output.log
+    echo "==="
     break
   fi
+
+  # Stuck detection: no tasks completed this iteration
+  if [ "$INCOMPLETE" -eq "$PREV_INCOMPLETE" ]; then
+    echo "Error: No progress detected. ${INCOMPLETE} tasks remain incomplete." >&2
+    echo "Human intervention required for: ${TASK_FILE}" >&2
+    echo "Agent output: agent_output.log"  >&2
+    exit 1
+  fi
+
+  PREV_INCOMPLETE=$INCOMPLETE
 done
