@@ -58,7 +58,7 @@ This is the **reference implementation** — the first domain built, establishin
   - **Spec ref:** `spec/domains/sre/anti-patterns.md` (AP-01 through AP-10), `spec/domains/sre/calibration.md`
   - **Verification:** File exists; ~80-120 lines; includes all AP anti-patterns; has checklist
 
-- [ ] **TASK-05: Create SRE delivery.md pillar prompt**
+- [x] **TASK-05: Create SRE delivery.md pillar prompt**
   - **Goal:** Create the Delivery pillar prompt with focus areas, anti-patterns (DP-01..DP-09), and checklist
   - **Files:**
     - Create `plugins/code-review/prompts/sre/delivery.md`
