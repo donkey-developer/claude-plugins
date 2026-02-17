@@ -75,7 +75,7 @@ Follows the pattern established by the SRE reference implementation.
   - **Details:** Freshness SLOs, validation coverage, documentation adequacy, completeness, accuracy. Consumer-first — "how will consumers experience this data?"
   - **Verification:** File exists; ~80-120 lines; has checklist
 
-- [ ] **TASK-05: Create Data governance.md pillar prompt**
+- [x] **TASK-05: Create Data governance.md pillar prompt**
   - **Goal:** Create the Data Governance pillar prompt with focus areas, anti-patterns, and checklist
   - **Files:**
     - Create `plugins/code-review/prompts/data/governance.md`
