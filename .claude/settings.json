@@ -24,8 +24,8 @@
       "Bash(wc:*)",
       "Bash(xargs:*)",
 
-      "Bash(./plugins:*)",
-      "Bash(./scripts:*)",
+      "Bash(./plugins/*)",
+      "Bash(./scripts/*)",
 
       "mcp__ide__getDiagnostics",
 
