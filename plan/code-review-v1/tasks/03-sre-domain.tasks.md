@@ -65,7 +65,7 @@ This is the **reference implementation** — the first domain built, establishin
   - **Spec ref:** `spec/domains/sre/anti-patterns.md` (DP-01 through DP-09), `spec/domains/sre/calibration.md`
   - **Verification:** File exists; ~80-120 lines; includes all DP anti-patterns; has checklist
 
-- [ ] **TASK-06: Add SRE entries to compile.conf**
+- [x] **TASK-06: Add SRE entries to compile.conf**
   - **Goal:** Add the 4 SRE agent entries and 1 SRE skill entry to compile.conf
   - **Files:**
     - Edit `plugins/code-review/prompts/compile.conf`
