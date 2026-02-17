@@ -79,7 +79,7 @@ Follows the pattern established by the SRE reference implementation.
   - **Details:** Governance, context maps, ADR traceability, technology radar alignment. Most likely to return "no findings" on smaller projects.
   - **Verification:** File exists; ~80-120 lines; has checklist
 
-- [ ] **TASK-06: Add Architecture entries to compile.conf**
+- [x] **TASK-06: Add Architecture entries to compile.conf**
   - **Goal:** Add the 4 Architecture agent entries and 1 Architecture skill entry to compile.conf
   - **Files:**
     - Edit `plugins/code-review/prompts/compile.conf`
