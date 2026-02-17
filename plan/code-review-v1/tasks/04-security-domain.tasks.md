@@ -54,7 +54,7 @@ Follows the pattern established by the SRE reference implementation.
   - **Details:** STRIDE categories: Spoofing, Elevation of Privilege. Covers authentication bypass patterns, privilege escalation, session management, token handling. Each finding must include exploit scenario.
   - **Verification:** File exists; ~80-120 lines; includes anti-patterns with exploit scenarios; has checklist
 
-- [ ] **TASK-03: Create Security data-protection.md pillar prompt**
+- [x] **TASK-03: Create Security data-protection.md pillar prompt**
   - **Goal:** Create the Data Protection pillar prompt with focus areas, anti-patterns, and checklist
   - **Files:**
     - Create `plugins/code-review/prompts/security/data-protection.md`
