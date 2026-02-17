@@ -83,7 +83,7 @@ Follows the pattern established by the SRE reference implementation.
   - **Details:** Compliance analysis, PII identification, lifecycle management, retention policies, access controls. Regulatory severity (GDPR, CCPA violations).
   - **Verification:** File exists; ~80-120 lines; has checklist
 
-- [ ] **TASK-06: Add Data entries to compile.conf**
+- [x] **TASK-06: Add Data entries to compile.conf**
   - **Goal:** Add the 4 Data agent entries and 1 Data skill entry to compile.conf
   - **Files:**
     - Edit `plugins/code-review/prompts/compile.conf`
