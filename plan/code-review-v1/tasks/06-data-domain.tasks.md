@@ -31,7 +31,7 @@ Follows the pattern established by the SRE reference implementation.
 
 ## Tasks
 
-- [ ] **TASK-01: Create Data _base.md**
+- [x] **TASK-01: Create Data _base.md**
   - **Goal:** Distil the Data domain foundation into a base prompt covering Four Pillars, quality dimensions/decay patterns duality, maturity criteria, and glossary
   - **Brief ref:** BRIEF.md Section 6 (domain `_base.md`: ~200-250 lines)
   - **Files:**
