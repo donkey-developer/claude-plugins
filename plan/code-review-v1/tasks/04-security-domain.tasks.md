@@ -70,7 +70,7 @@ Follows the pattern established by the SRE reference implementation.
   - **Details:** STRIDE categories: Tampering, Denial of Service. Covers injection patterns (SQL, XSS, command), deserialisation, file upload, regex DoS. Framework-aware — note when frameworks handle validation.
   - **Verification:** File exists; ~80-120 lines; includes anti-patterns with exploit scenarios; has checklist
 
-- [ ] **TASK-05: Create Security audit-resilience.md pillar prompt**
+- [x] **TASK-05: Create Security audit-resilience.md pillar prompt**
   - **Goal:** Create the Audit & Resilience pillar prompt with focus areas, anti-patterns, and checklist
   - **Files:**
     - Create `plugins/code-review/prompts/security/audit-resilience.md`
