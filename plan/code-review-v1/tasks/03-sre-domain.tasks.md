@@ -93,7 +93,7 @@ This is the **reference implementation** — the first domain built, establishin
     - Skill file contains synthesis rules compiled from `synthesis.md`
     - `scripts/compile.sh --check` exits 0 (files are in sync)
 
-- [ ] **TASK-08: Final verification**
+- [x] **TASK-08: Final verification**
   - **Goal:** Verify the complete SRE domain is correctly built and sets the reference pattern
   - **Verification:**
     - 5 prompt source files exist in `prompts/sre/`
