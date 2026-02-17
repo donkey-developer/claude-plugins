@@ -89,7 +89,7 @@ Work follows three phases with hard gates between them. **You MUST NOT skip phas
 ### Phase 3: Issue Completion
 
 **Trigger:** All tasks in a task file are `[x]`.
-**Action:** Create PR targeting `main`, referencing the GitHub Issue. Output `NO_MORE_TASKS_TO_PROCESS`.
+**Action:** Create PR targeting `main`, referencing the GitHub Issue.
 
 The user then moves to the next task file (next issue) or reviews the PR first.
 
@@ -118,6 +118,12 @@ The user then moves to the next task file (next issue) or reviews the PR first.
 - **Right-sized PRs.** One PR per issue is reviewable. One PR per milestone is not.
 - **Reproducible.** Given the same BRIEF.md and task files, the work can be re-executed.
 - **Plans are transient, specs are permanent.** Plans drive execution; specs capture the lasting knowledge. After a milestone completes, learnings migrate to `spec/` and the plan directory is deleted.
+
+## Shell Commands
+
+- **Always use relative paths** when running scripts or referencing project files in Bash commands (e.g. `./scripts/compile.sh`, not `/Users/foo/project/scripts/compile.sh`).
+  Absolute paths break portability across machines, worktrees, and containers.
+  Bash permissions in `.claude/settings.json` are defined with relative path patterns — absolute paths will be denied.
 
 ## Git Workflow
 
