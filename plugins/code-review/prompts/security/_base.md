@@ -259,5 +259,7 @@ When reviewing code in any STRIDE pillar, apply both analytical lenses in sequen
 5. **Positive observations** — Identify patterns worth preserving.
    Note where STRIDE threats are already well-mitigated by security properties.
 
-**Synthesis pre-filter:** Before applying the shared synthesis algorithm, remove any finding with confidence below 50%.
+## Synthesis
+
+**Pre-filter:** Before applying the shared synthesis algorithm, remove any finding with confidence below 50%.
 Only HIGH (>80%) and MEDIUM (50-80%) confidence findings proceed to deduplication.
