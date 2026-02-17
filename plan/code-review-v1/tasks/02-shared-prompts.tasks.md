@@ -24,7 +24,7 @@
   - **Details:** HIGH (must fix before merge), MEDIUM (follow-up ticket), LOW (nice to have). Note that each domain contextualises severity around its own impact framing.
   - **Verification:** File exists; defines 3 severity levels with merge-decision guidance; under 25 lines
 
-- [ ] **TASK-03: Create design-principles.md**
+- [x] **TASK-03: Create design-principles.md**
   - **Goal:** Distil the 5 core design principles into a concise prompt fragment
   - **Files:**
     - Create `plugins/code-review/prompts/shared/design-principles.md`
