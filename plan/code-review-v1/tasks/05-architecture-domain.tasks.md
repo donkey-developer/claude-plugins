@@ -63,7 +63,7 @@ Follows the pattern established by the SRE reference implementation.
   - **Details:** Bounded context alignment, layering violations, deployability, API design, dependency direction.
   - **Verification:** File exists; ~80-120 lines; has checklist
 
-- [ ] **TASK-04: Create Architecture system.md pillar prompt**
+- [x] **TASK-04: Create Architecture system.md pillar prompt**
   - **Goal:** Create the System zoom-level pillar prompt with focus areas, anti-patterns, and checklist
   - **Files:**
     - Create `plugins/code-review/prompts/architecture/system.md`
