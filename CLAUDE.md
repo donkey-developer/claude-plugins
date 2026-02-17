@@ -82,16 +82,17 @@ Work follows three phases with hard gates between them. **You MUST NOT skip phas
 1. Read the specified task file (e.g., `plan/{milestone}/tasks/01-sre.tasks.md`)
 2. Find the next unchecked `- [ ]` task
 3. Read the task's brief references
-4. Execute the task (create branch if first task, write code, verify)
+4. Execute the task (create branch from base branch if first task in this issue, write code, verify)
 5. Mark the task `- [x]` in the task file
 6. **STOP.** Report what was done. The next invocation picks up the next task.
 
 ### Phase 3: Issue Completion
 
 **Trigger:** All tasks in a task file are `[x]`.
-**Action:** Create PR targeting `main`, referencing the GitHub Issue.
+**Action:** Create a stacked PR targeting the **base branch** (the preceding issue's branch, or `main` for the first issue), referencing the GitHub Issue.
 
 The user then moves to the next task file (next issue) or reviews the PR first.
+When the base PR merges, GitHub automatically retargets the stacked PR.
 
 ### Phase 4: Milestone Completion
 
