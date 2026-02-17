@@ -59,7 +59,7 @@ Follows the pattern established by the SRE reference implementation.
   - **Details:** Schema design, domain boundaries, contract completeness, data product boundaries. Describe structural properties, not modelling approaches.
   - **Verification:** File exists; ~80-120 lines; does NOT prescribe modelling approaches; has checklist
 
-- [ ] **TASK-03: Create Data engineering.md pillar prompt**
+- [x] **TASK-03: Create Data engineering.md pillar prompt**
   - **Goal:** Create the Data Engineering pillar prompt with focus areas, anti-patterns, and checklist
   - **Files:**
     - Create `plugins/code-review/prompts/data/engineering.md`
