@@ -95,7 +95,7 @@ Follows the pattern established by the SRE reference implementation.
     - `data` skill entry
   - **Verification:** compile.conf has 4 Data agent entries (all sonnet) and 1 Data skill entry
 
-- [ ] **TASK-07: Run compile.sh and verify generated files**
+- [x] **TASK-07: Run compile.sh and verify generated files**
   - **Goal:** Generate the 4 Data agent files and the Data skill file from prompts
   - **Files generated:**
     - `plugins/code-review/agents/data-architecture.md`
