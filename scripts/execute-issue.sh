@@ -18,12 +18,14 @@ fi
 
 echo "Starting issue: ${TASK_FILE}"
 
+mkdir -p .logs
+LOG_FILE=".logs/$(date -u +%Y-%m-%dT%H%M%SZ).log"
+
 PREV_INCOMPLETE=-1
 
 while :; do
-  rm -f agent_output.log
   echo "Follow EXECUTE.prompt.md for ${TASK_FILE}" \
-    | claude --print --output-format stream-json --verbose --permission-mode dontAsk 2>&1 | tee agent_output.log
+    | claude --print --output-format stream-json --verbose --permission-mode dontAsk 2>&1 | tee -a "$LOG_FILE"
 
   # Check task file state
   INCOMPLETE=$(grep -c '^\- \[ \]' "$TASK_FILE" || true)
@@ -32,6 +34,7 @@ while :; do
   if [ "$INCOMPLETE" -eq 0 ]; then
     echo "---"
     echo "Issue complete: ${TASK_FILE}"
+    echo "Log: ${LOG_FILE}"
     echo "==="
     break
   fi
@@ -40,7 +43,7 @@ while :; do
   if [ "$INCOMPLETE" -eq "$PREV_INCOMPLETE" ]; then
     echo "Error: No progress detected. ${INCOMPLETE} tasks remain incomplete." >&2
     echo "Human intervention required for: ${TASK_FILE}" >&2
-    echo "Agent output: agent_output.log"  >&2
+    echo "Log: ${LOG_FILE}" >&2
     exit 1
   fi
 

@@ -24,3 +24,6 @@ build/
 
 # Code review plugin output
 .code-review/
+
+# Agent execution logs
+.logs/
