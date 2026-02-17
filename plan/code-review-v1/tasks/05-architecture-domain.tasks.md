@@ -28,7 +28,7 @@ Follows the pattern established by the SRE reference implementation.
 
 ## Tasks
 
-- [ ] **TASK-01: Create Architecture _base.md**
+- [x] **TASK-01: Create Architecture _base.md**
   - **Goal:** Distil the Architecture domain foundation into a base prompt covering C4 zoom levels, principles/erosion duality, maturity criteria, and glossary
   - **Brief ref:** BRIEF.md Section 6 (domain `_base.md`: ~200-250 lines)
   - **Files:**
