@@ -50,7 +50,7 @@ Follows the pattern established by the SRE reference implementation.
     - `## Synthesis Pre-filter` section: data-specific file scoping (SQL, dbt, Spark, pipeline configs)
   - **Verification:** File exists; ~200-250 lines; covers Four Pillars, duality, consumer-first, fail-safe; has synthesis pre-filter
 
-- [ ] **TASK-02: Create Data architecture.md pillar prompt**
+- [x] **TASK-02: Create Data architecture.md pillar prompt**
   - **Goal:** Create the Data Architecture pillar prompt with focus areas, anti-patterns, and checklist
   - **Brief ref:** BRIEF.md Section 6 (pillar prompts: ~80-120 lines)
   - **Files:**
