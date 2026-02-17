@@ -78,7 +78,7 @@ Follows the pattern established by the SRE reference implementation.
   - **Details:** STRIDE categories: Repudiation, Denial of Service. Covers audit logging, rate limiting, circuit breakers, error handling (information leakage). Binary checklist nature (present/absent).
   - **Verification:** File exists; ~80-120 lines; includes anti-patterns; has checklist
 
-- [ ] **TASK-06: Add Security entries to compile.conf**
+- [x] **TASK-06: Add Security entries to compile.conf**
   - **Goal:** Add the 4 Security agent entries and 1 Security skill entry to compile.conf
   - **Files:**
     - Edit `plugins/code-review/prompts/compile.conf`
