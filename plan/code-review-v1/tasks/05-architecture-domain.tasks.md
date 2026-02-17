@@ -55,7 +55,7 @@ Follows the pattern established by the SRE reference implementation.
   - **Details:** SOLID compliance (describe properties, not acronyms), coupling/cohesion, naming, testability. Describe structural properties, not pattern names.
   - **Verification:** File exists; ~80-120 lines; does NOT prescribe patterns by name; has checklist
 
-- [ ] **TASK-03: Create Architecture service.md pillar prompt**
+- [x] **TASK-03: Create Architecture service.md pillar prompt**
   - **Goal:** Create the Service zoom-level pillar prompt with focus areas, anti-patterns, and checklist
   - **Files:**
     - Create `plugins/code-review/prompts/architecture/service.md`
