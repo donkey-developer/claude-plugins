@@ -12,7 +12,7 @@
   - **Details:** Review all PRs merged during this milestone. Identify patterns not yet captured in specs (e.g. compile pipeline pattern, three-tier file structure, flat dispatch strategy, prompt size targets).
   - **Verification:** Each new pattern has a section in the appropriate spec file
 
-- [ ] **TASK-02: Capture decision rationale**
+- [x] **TASK-02: Capture decision rationale**
   - **Goal:** Extract rationale from `BRIEF.md` and implementation experience — trade-offs considered, alternatives rejected, constraints that drove decisions — and add to the relevant spec files under `spec/`
   - **Details:** Key decisions to capture: flat dispatch vs nested dispatch, haiku vs sonnet model selection, compilation vs runtime file reads, confidence filter threshold, prompt size budgets.
   - **Verification:** Each significant decision from BRIEF.md has rationale captured in a spec file
