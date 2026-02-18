@@ -28,7 +28,7 @@ Follows the pattern established by the SRE reference implementation.
 
 ## Tasks
 
-- [ ] **TASK-01: Create Architecture _base.md**
+- [x] **TASK-01: Create Architecture _base.md**
   - **Goal:** Distil the Architecture domain foundation into a base prompt covering C4 zoom levels, principles/erosion duality, maturity criteria, and glossary
   - **Brief ref:** BRIEF.md Section 6 (domain `_base.md`: ~200-250 lines)
   - **Files:**
@@ -46,7 +46,7 @@ Follows the pattern established by the SRE reference implementation.
     - No domain-specific synthesis rules for Architecture (note explicitly)
   - **Verification:** File exists; ~200-250 lines; covers C4, duality, adaptive scaling; has Review Instructions
 
-- [ ] **TASK-02: Create Architecture code.md pillar prompt**
+- [x] **TASK-02: Create Architecture code.md pillar prompt**
   - **Goal:** Create the Code zoom-level pillar prompt with focus areas, anti-patterns, and checklist
   - **Brief ref:** BRIEF.md Section 6 (pillar prompts: ~80-120 lines)
   - **Files:**
@@ -55,7 +55,7 @@ Follows the pattern established by the SRE reference implementation.
   - **Details:** SOLID compliance (describe properties, not acronyms), coupling/cohesion, naming, testability. Describe structural properties, not pattern names.
   - **Verification:** File exists; ~80-120 lines; does NOT prescribe patterns by name; has checklist
 
-- [ ] **TASK-03: Create Architecture service.md pillar prompt**
+- [x] **TASK-03: Create Architecture service.md pillar prompt**
   - **Goal:** Create the Service zoom-level pillar prompt with focus areas, anti-patterns, and checklist
   - **Files:**
     - Create `plugins/code-review/prompts/architecture/service.md`
@@ -63,7 +63,7 @@ Follows the pattern established by the SRE reference implementation.
   - **Details:** Bounded context alignment, layering violations, deployability, API design, dependency direction.
   - **Verification:** File exists; ~80-120 lines; has checklist
 
-- [ ] **TASK-04: Create Architecture system.md pillar prompt**
+- [x] **TASK-04: Create Architecture system.md pillar prompt**
   - **Goal:** Create the System zoom-level pillar prompt with focus areas, anti-patterns, and checklist
   - **Files:**
     - Create `plugins/code-review/prompts/architecture/system.md`
@@ -71,7 +71,7 @@ Follows the pattern established by the SRE reference implementation.
   - **Details:** Inter-service coupling, stability patterns, data flow, integration patterns. May return "no findings" for monoliths.
   - **Verification:** File exists; ~80-120 lines; has checklist
 
-- [ ] **TASK-05: Create Architecture landscape.md pillar prompt**
+- [x] **TASK-05: Create Architecture landscape.md pillar prompt**
   - **Goal:** Create the Landscape zoom-level pillar prompt with focus areas, anti-patterns, and checklist
   - **Files:**
     - Create `plugins/code-review/prompts/architecture/landscape.md`
@@ -79,7 +79,7 @@ Follows the pattern established by the SRE reference implementation.
   - **Details:** Governance, context maps, ADR traceability, technology radar alignment. Most likely to return "no findings" on smaller projects.
   - **Verification:** File exists; ~80-120 lines; has checklist
 
-- [ ] **TASK-06: Add Architecture entries to compile.conf**
+- [x] **TASK-06: Add Architecture entries to compile.conf**
   - **Goal:** Add the 4 Architecture agent entries and 1 Architecture skill entry to compile.conf
   - **Files:**
     - Edit `plugins/code-review/prompts/compile.conf`
@@ -91,7 +91,7 @@ Follows the pattern established by the SRE reference implementation.
     - `architecture` skill entry
   - **Verification:** compile.conf has 4 Architecture agent entries (all sonnet) and 1 Architecture skill entry
 
-- [ ] **TASK-07: Run compile.sh and verify generated files**
+- [x] **TASK-07: Run compile.sh and verify generated files**
   - **Goal:** Generate the 4 Architecture agent files and the Architecture skill file from prompts
   - **Files generated:**
     - `plugins/code-review/agents/architecture-code.md`
@@ -105,7 +105,7 @@ Follows the pattern established by the SRE reference implementation.
     - No pattern names prescribed in agent content
     - `scripts/compile.sh --check` exits 0
 
-- [ ] **TASK-08: Final verification**
+- [x] **TASK-08: Final verification**
   - **Goal:** Verify the complete Architecture domain is correctly built
   - **Verification:**
     - 5 prompt source files exist in `prompts/architecture/`
