@@ -7,7 +7,7 @@
 
 ## Tasks
 
-- [ ] **TASK-01: Update specs with new patterns**
+- [x] **TASK-01: Update specs with new patterns**
   - **Goal:** Add any implementation patterns introduced during this milestone to the relevant spec files under `spec/`
   - **Details:** Review all PRs merged during this milestone. Identify patterns not yet captured in specs (e.g. compile pipeline pattern, three-tier file structure, flat dispatch strategy, prompt size targets).
   - **Verification:** Each new pattern has a section in the appropriate spec file
