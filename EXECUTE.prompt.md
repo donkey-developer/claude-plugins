@@ -29,10 +29,12 @@ If ALL tasks in this file are marked `- [x]`, go to **Step 5: Issue Completion**
 
 ### Step 2: Prepare
 
-1. **Determine base branch** — list the task files in `plan/{milestone}/tasks/` in numbered order. If this is the first task file (or `Depends on` is `none`), the base branch is `main`. Otherwise, the base branch is the `Branch` declared in the **immediately preceding** task file. This creates a linear stack regardless of logical dependencies.
-2. **Check dependencies** — if the task file's **Depends on** lists other issues, verify those issues are complete: all tasks in their task files are marked `[x]` and their branches exist. If not, STOP and report the blocker. (In a stacked workflow, dependency PRs are open but not yet merged to `main`.)
-3. **Check branch** — if the branch declared in the task file header doesn't exist yet, create it from the **base branch** (not `main`, unless this is the first task file). If it exists, switch to it.
-4. **Verify predecessor tasks** — confirm that deliverables from earlier tasks in this file exist.
+> **Note:** Branch creation and checkout is handled by the calling script (`execute-milestone.sh`).
+> You are already on the correct branch when this prompt runs.
+> The base branch for PR creation is provided in the prompt (e.g., "Base branch for PR: main").
+
+1. **Check dependencies** — if the task file's **Depends on** lists other issues, verify those issues are complete: all tasks in their task files are marked `[x]` and their branches exist. If not, STOP and report the blocker. (In a stacked workflow, dependency PRs are open but not yet merged to `main`.)
+2. **Verify predecessor tasks** — confirm that deliverables from earlier tasks in this file exist.
 
 ### Step 3: Execute
 
@@ -64,7 +66,7 @@ Remaining: {count} tasks in this issue
 When all tasks in this task file are `- [x]`:
 
 1. Run any final verification defined in the last task
-2. Push the branch and create a **stacked PR** against the **base branch** (determined in Step 2.1 — `main` for the first issue, the preceding issue's branch for all others)
+2. Push the branch and create a **stacked PR** against the **base branch** provided in the prompt (e.g., "Base branch for PR: main")
    - PR title: the issue title
    - PR body: summary of completed tasks, link to the issue with `Closes #{issue-number}`
    - Note: when the base PR is merged, GitHub automatically retargets the stacked PR to the next base
@@ -92,7 +94,7 @@ When the task file being processed is the **close-out issue** (`{NN}-close.tasks
    - `spec/README.md` index updated
 3. **Plan directory deleted** by earlier task in this file
 4. **GitHub Milestone closed** by earlier task in this file
-5. Push the branch and create a **stacked PR** against the **base branch** (the preceding issue's branch, continuing the stack)
+5. Push the branch and create a **stacked PR** against the **base branch** provided in the prompt
    - PR title: "Close milestone: {milestone name}"
    - PR body: summary of spec updates, link to milestone, `Closes #{issue-number}`
 6. Report to the user:

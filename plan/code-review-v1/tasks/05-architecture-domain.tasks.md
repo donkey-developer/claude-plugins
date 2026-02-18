@@ -1,7 +1,7 @@
 # Create Architecture domain review
 
 **Issue:** #22
-**Branch:** feat/architecture-domain
+**Branch:** feat/05-architecture-domain
 **Depends on:** #19
 **Brief ref:** BRIEF.md Sections 1-6
 

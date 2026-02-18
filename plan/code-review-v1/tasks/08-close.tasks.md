@@ -1,7 +1,7 @@
 # Close milestone: Code Review Plugin v1.0
 
 **Issue:** #25
-**Branch:** chore/close-code-review-v1
+**Branch:** feat/08-close
 **Depends on:** #18, #19, #20, #21, #22, #23, #24
 **Brief ref:** BRIEF.md (entire document — read as source material before updating specs)
 

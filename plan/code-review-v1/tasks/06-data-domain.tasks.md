@@ -1,7 +1,7 @@
 # Create Data domain review
 
 **Issue:** #23
-**Branch:** feat/data-domain
+**Branch:** feat/06-data-domain
 **Depends on:** #19
 **Brief ref:** BRIEF.md Sections 1-6
 
