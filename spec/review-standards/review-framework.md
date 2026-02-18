@@ -17,28 +17,39 @@ Each review domain manifests as files within the plugin following the same struc
 ```
 code-review/
   agents/
-    <domain>-<subagent>.md     # Subagent: one per review dimension
-  prompts/<domain>/
-    _base.md                   # Shared context: frameworks, maturity model, output format
-    <subagent>.md              # Subagent checklist
+    <domain>-<subagent>.md     # Subagent: one per review dimension (16 total)
+  prompts/
+    compile.conf               # Agent and skill registry (name, model, description)
+    shared/                    # Cross-domain content inlined into every agent
+    <domain>/
+      _base.md                 # Domain context: framework, maturity criteria, synthesis rules
+      <subagent>.md            # Pillar checklist
+    all/
+      _base.md                 # code-review:all orchestration instructions only
+  scripts/
+    compile.sh                 # Generates agents/ and skills/ from prompts/
   skills/
-    <domain>/SKILL.md          # Orchestrator: scope, parallel dispatch, synthesis, output
+    <domain>/SKILL.md          # Domain orchestrator: dispatch 4 agents, synthesise, write report
+    all/SKILL.md               # Cross-domain orchestrator: dispatch 16 agents, write 5 reports
 ```
 
 ### Composition rules
 
 1. **Each agent file is self-contained.** It embeds the full content of `_base.md` + its subagent prompt. Agents do not reference external files at runtime — all context must be inlined.
 2. **Prompts are the source of truth.** The `prompts/<domain>/` directory contains the human-readable, LLM-agnostic checklists. Agent files are compiled from these.
-3. **The skill orchestrator dispatches and synthesises.** It does not contain review logic — that lives in the agents.
+3. **Domain SKILL.md files contain only the synthesis algorithm.** Scope detection and agent dispatch are handled by the Claude Code skill runtime. The `all/SKILL.md` is the exception: it contains full orchestration instructions (scope detection, batch naming, dispatch table, synthesis, and cross-domain summary) because the 16-agent cross-domain review requires explicit guidance.
 
 ### When modifying files
 
 | Change type | Files to update |
 |-------------|-----------------|
-| Add/change a checklist item | `prompts/<domain>/<subagent>.md` then recompile the corresponding `agents/<domain>-<subagent>.md` |
-| Change shared context (severity, maturity, output format) | `prompts/<domain>/_base.md` then recompile ALL agent files for that domain |
-| Change orchestration logic | `skills/<domain>/SKILL.md` only |
-| Add a new subagent | New prompt file, new agent file, update SKILL.md to spawn additional agent |
+| Add/change a pillar checklist item | `prompts/<domain>/<subagent>.md` then recompile the corresponding `agents/<domain>-<subagent>.md` |
+| Change shared context (severity, maturity, output format) | `prompts/shared/<file>.md` then recompile ALL agent files |
+| Change domain context (framework, maturity criteria) | `prompts/<domain>/_base.md` then recompile all agents for that domain |
+| Change domain synthesis rules | `prompts/<domain>/_base.md` (the `## Synthesis` section) then recompile `skills/<domain>/SKILL.md` and `skills/all/SKILL.md` |
+| Change `code-review:all` orchestration logic | `prompts/all/_base.md` then recompile `skills/all/SKILL.md` |
+| Add a new domain skill | Add to `compile.conf`, create `prompts/<domain>/`, recompile |
+| Add a new subagent | New prompt file, new `compile.conf` entry, recompile to generate agent file, update `skills/<domain>/SKILL.md` |
 
 ## Compilation Pipeline
 
