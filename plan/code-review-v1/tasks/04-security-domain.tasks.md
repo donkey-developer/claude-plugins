@@ -104,7 +104,7 @@ Follows the pattern established by the SRE reference implementation.
     - Security skill includes confidence filter in synthesis rules
     - `scripts/compile.sh --check` exits 0
 
-- [ ] **TASK-08: Final verification**
+- [x] **TASK-08: Final verification**
   - **Goal:** Verify the complete Security domain is correctly built
   - **Verification:**
     - 5 prompt source files exist in `prompts/security/`
