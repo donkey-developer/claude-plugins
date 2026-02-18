@@ -45,3 +45,15 @@ Order the final findings list:
 1. `HYG` findings first
 2. Then by severity: `HIGH` > `MEDIUM` > `LOW`
 3. Within the same severity, order by file path
+
+## Synthesis Pre-filter
+
+**Apply before deduplication.**
+
+Remove any finding with confidence below 50% (LOW confidence).
+These are theoretical concerns that add noise without value.
+
+After removing LOW confidence findings, continue with the shared synthesis algorithm: deduplicate, aggregate, and prioritise.
+
+Domain-specific synthesis rule: the confidence filter runs **before** deduplication.
+A finding removed by the confidence filter does not appear in the synthesised output, even if multiple pillars raised the same low-confidence concern.
