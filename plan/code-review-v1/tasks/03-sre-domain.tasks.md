@@ -65,7 +65,7 @@ This is the **reference implementation** — the first domain built, establishin
   - **Spec ref:** `spec/domains/sre/anti-patterns.md` (DP-01 through DP-09), `spec/domains/sre/calibration.md`
   - **Verification:** File exists; ~80-120 lines; includes all DP anti-patterns; has checklist
 
-- [ ] **TASK-06: Add SRE entries to compile.conf**
+- [x] **TASK-06: Add SRE entries to compile.conf**
   - **Goal:** Add the 4 SRE agent entries and 1 SRE skill entry to compile.conf
   - **Files:**
     - Edit `plugins/code-review/prompts/compile.conf`
@@ -77,7 +77,7 @@ This is the **reference implementation** — the first domain built, establishin
     - `sre` skill: description references SRE domain review
   - **Verification:** compile.conf has 4 SRE agent entries with correct models and 1 SRE skill entry
 
-- [ ] **TASK-07: Run compile.sh and verify generated files**
+- [x] **TASK-07: Run compile.sh and verify generated files**
   - **Goal:** Generate the 4 SRE agent files and the SRE skill file from prompts
   - **Files generated:**
     - `plugins/code-review/agents/sre-response.md`
@@ -93,7 +93,7 @@ This is the **reference implementation** — the first domain built, establishin
     - Skill file contains synthesis rules compiled from `synthesis.md`
     - `scripts/compile.sh --check` exits 0 (files are in sync)
 
-- [ ] **TASK-08: Final verification**
+- [x] **TASK-08: Final verification**
   - **Goal:** Verify the complete SRE domain is correctly built and sets the reference pattern
   - **Verification:**
     - 5 prompt source files exist in `prompts/sre/`
