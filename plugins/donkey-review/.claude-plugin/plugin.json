@@ -6,5 +6,5 @@
     "name": "Donkey Developer"
   },
   "repository": "https://github.com/donkey-developer/claude-plugins",
-  "keywords": ["donkey-review", "architecture", "security", "sre", "data-engineering"]
+  "keywords": ["donkey-review", "code-review", "architecture", "security", "sre", "data-engineering"]
 }
