@@ -1,6 +1,6 @@
 ---
-name: data-quality
-description: Data Quality pillar review — validation, testing, freshness, and data integrity patterns. Spawned by /code-review:data or /code-review:all.
+name: data-architecture
+description: Data Architecture pillar review — schema design, modelling choices, and data structure patterns. Spawned by /donkey-review:data or /donkey-review:all.
 model: sonnet
 tools: Read, Grep, Glob
 ---
@@ -406,142 +406,131 @@ Non-data files (application code, UI components, configuration unrelated to data
 A schema change that the producer considers minor may be a breaking change for consumers.
 Prioritise findings that affect data consumers over findings that only affect internal implementation.
 
-# Quality
+# Architecture
 
-Does the data meet expectations?
+Is the data designed right?
 
-The Quality pillar evaluates whether the data delivered to consumers meets their expectations for freshness, correctness, completeness, and understandability.
-It focuses on what consumers experience — not what the pipeline produces.
-When this pillar is weak, consumers discover quality issues by noticing wrong results rather than through monitoring, and tribal knowledge gates data access.
-
-**Consumer-first perspective:** Always evaluate from the downstream consumer's perspective.
-The question is not "did the pipeline run successfully?" but "can consumers trust and use this data?"
+The Architecture pillar evaluates schema design, domain boundaries, data contracts, and structural properties that determine whether the data product will hold up as the system evolves.
+When this pillar is weak, schema changes break consumers silently, cross-domain coupling makes independent evolution impossible, and data products lack the structural properties needed for their use case.
 
 ## Focus Areas
 
-The Quality pillar applies the duality through two specific lenses.
+The Architecture pillar applies the duality through two specific lenses.
 
 ### Decay Pattern focus (how the data is going wrong)
 
-- **Freshness degradation** — Quality owns timeliness.
-  If data is late, stale, or missing, consumers make decisions on outdated information.
-  Look for: no `loaded_at` timestamps, no freshness SLOs, no alerting on processing delays, batch processing when consumers need near-real-time data.
-- **Ownership erosion** — Quality owns usability.
-  If data is undocumented, undiscoverable, or full of tribal knowledge, it fails the consumer regardless of correctness.
-  Look for: undocumented magic numbers, no schema descriptions, business rules locked in the author's head.
+- **Schema drift** — Architecture owns schema design decisions.
+  A column rename, type change, or semantic change is an architectural choice that cascades to all consumers.
+  Look for: breaking column renames, type changes without migration, naming inconsistencies, missing data contracts.
+- **Silent corruption** — Deadly diamonds and cross-domain coupling are architectural flaws that produce silent corruption at the structural level.
+  Look for: fan-out DAG paths to the same target, cross-domain direct table access, schemas inappropriate for their access pattern.
 
 ### Quality Dimension focus (what should protect against failure)
 
-- **Timeliness** — Freshness SLOs, processing latency, appropriate update frequency.
-- **Completeness** — Expected row counts, required fields not NULL, no missing loads.
-- **Accuracy** — Reconciliation between source and target.
-  Bitemporality for audit-critical data.
+- **Consistency** — Schema design determines whether data is consistent across domains.
+  Polysemes without global identifiers create systemic inconsistency.
+  Published interfaces without contracts create invisible coupling.
+- **Validity** — Schema constraints, type choices, and design decisions determine what data can exist.
+  A schema appropriate for its use case enforces valid data by construction.
 
 ## Anti-Pattern Catalogue
 
-### QP-01: No freshness tracking
+### AP-01: Cross-domain table coupling
 
-A table with no `loaded_at` timestamp, no watermark column, and no way to tell when the data was last updated.
+Direct JOIN to another domain's internal tables rather than consuming from a published interface.
 
-**Why it matters:** Consumers cannot tell if data is current or stale.
-If the pipeline fails silently, yesterday's data is served as today's.
-No monitoring can be built because there's nothing to measure.
-Decay Pattern: Freshness degradation (Timeliness).
-Typical severity: MEDIUM / L2.
-Escalates to HYG if the data feeds real-time operational decisions.
-
-### QP-02: No uniqueness constraint on business key
-
-Business key (order_number, customer_id + date) without a UNIQUE constraint, relying on the surrogate key for uniqueness.
-
-**Why it matters:** Duplicate business records accumulate silently.
-Aggregations are inflated.
-The duplicates may not be discovered until a downstream report is questioned.
-Decay Pattern: Silent corruption (Uniqueness).
+**Why it matters:** Any schema change in the other domain breaks this query.
+The coupling is invisible to the other domain — they don't know they have a consumer.
+Decay Pattern: Schema drift (Consistency).
 Typical severity: HIGH / L1.
-Escalates to HYG if the table feeds billing or financial reporting.
 
-### QP-03: Undocumented magic numbers
+### AP-02: Deadly diamond
 
-`df[df['status'].isin([1, 3, 7])]` — filtering by numeric codes with no documentation of what the codes mean.
+A DAG where the same source data reaches a target via two or more independent paths with different processing times.
 
-**Why it matters:** New team members can't maintain the code.
-If the source system adds a new status code, this filter silently excludes it.
-The business logic is locked in the author's head.
-Decay Pattern: Ownership erosion (Completeness).
+**Why it matters:** The target sees data from different points in time.
+Fast path has today's data, slow path has yesterday's.
+Joins between the paths produce wrong results.
+Decay Pattern: Silent corruption (Accuracy).
+Typical severity: HIGH / L1.
+Escalates to HYG if the target feeds financial or regulatory reporting.
+
+### AP-03: Breaking column rename or drop
+
+`ALTER TABLE ... RENAME COLUMN` or `ALTER TABLE ... DROP COLUMN` without a multi-phase migration strategy.
+
+**Why it matters:** All downstream consumers break immediately.
+The rename cannot be undone without a backup restore.
+Decay Pattern: Schema drift (Consistency).
+Typical severity: HIGH / HYG (Irreversible — consumers broken, schema permanently changed).
+
+### AP-04: Inconsistent naming conventions
+
+Mixed casing styles in the same table or across related tables: `user_id`, `firstName`, `LAST_NAME`.
+
+**Why it matters:** Consumers cannot predict column names.
+Copy-paste queries fail on case-sensitive platforms.
+Decay Pattern: Schema drift (Consistency).
 Typical severity: MEDIUM / L1.
-Escalates to HIGH if the filtered-out statuses represent active records that consumers need.
 
-### QP-04: No volume monitoring
+### AP-05: Missing global identifier for polyseme
 
-A pipeline that loads data with no check on whether the load delivered a reasonable number of rows.
+A table that references a cross-domain concept (customer, product, order) using only a local ID with no global identifier.
 
-**Why it matters:** An empty load or a tiny load is accepted without question.
-Consumers see a gap in data but no alert fires.
-Decay Pattern: Freshness degradation (Completeness — expected records missing).
+**Why it matters:** Cross-domain joins are impossible or require a fragile mapping table.
+Decay Pattern: Schema drift (Consistency).
+Typical severity: MEDIUM / L1.
+
+### AP-06: Schema inappropriate for use case
+
+Schema design that does not match the intended access pattern — for example, a highly normalised schema serving analytical queries requiring expensive multi-table joins.
+
+**Why it matters:** Wrong schema design creates permanent performance problems.
+Describe the structural property the data should exhibit for its use case — do not prescribe specific modelling approaches.
+Decay Pattern: Silent corruption via update anomalies (Validity).
+Typical severity: MEDIUM / L1.
+
+### AP-07: No data contract for published interface
+
+A table consumed by multiple teams or systems with no documentation of schema stability, quality expectations, or change management process.
+
+**Why it matters:** Consumers have no way to know what's stable, what might change, or what quality to expect.
+Breaking changes are discovered by breakage.
+Decay Pattern: Schema drift + Ownership erosion (Consistency + Completeness).
 Typical severity: MEDIUM / L2.
-
-### QP-05: No schema change detection
-
-Pipeline ingests data from an external source with no check on whether the source schema has changed.
-
-**Why it matters:** Source adds a column — no impact.
-Source renames a column — pipeline either crashes or silently drops the column's data.
-Source changes a type — implicit coercion may produce wrong results.
-Decay Pattern: Schema drift (Consistency — source and target can diverge undetected).
-Typical severity: MEDIUM / L2.
-
-### QP-06: Over-engineered update frequency
-
-Real-time streaming pipeline for data that consumers only check daily.
-
-**Why it matters:** Costs more to run.
-More complex to maintain.
-More failure modes.
-The extra timeliness provides no business value.
-Decay Pattern: Engineering trade-off (Timeliness over-specified).
-Typical severity: LOW / L2.
 
 ## Review Checklist
 
-When assessing the Quality pillar, work through each item in order.
+When assessing the Architecture pillar, work through each item in order.
 
-1. **Freshness expectations** — Is there a defined freshness SLO (documented or in configuration)?
-   Is there a `loaded_at` timestamp, watermark, or other mechanism to measure processing latency?
-   Is there monitoring or alerting that detects when data is stale before consumers do?
+1. **Domain boundaries** — Does the code access other domains through published interfaces or by joining internal tables directly?
+   Are shared concepts (customers, products, orders) identified with global identifiers or only domain-local IDs?
 
-2. **Volume monitoring** — Is there a check on whether the expected number of rows arrived?
-   Does the pipeline detect and alert on empty loads or anomalously small/large loads?
-   What happens if the source system delivers 0 rows?
+2. **Schema change safety** — Do any changes rename, retype, or remove columns?
+   Is there a multi-phase migration strategy (add new → backfill → deprecate old → remove old)?
+   Will downstream consumers break immediately if this is deployed?
 
-3. **Uniqueness** — Are business keys constrained to prevent duplicate records?
-   Is there a UNIQUE constraint on the business key, not just the surrogate key?
-   Is there deduplication in the pipeline if the constraint can't be enforced at the database level?
+3. **Structural properties** — Does the schema design exhibit the structural properties appropriate for its use case?
+   Is the schema appropriate for the query patterns it will serve?
+   Describe what the schema should look like — do not prescribe specific modelling approaches.
 
-4. **Documentation and discoverability** — Can a new team member understand this data without asking someone?
-   Are business rules (status codes, category values, magic numbers) documented alongside the code?
-   Are schema descriptions present with consumer-facing language?
+4. **Contract completeness** — For published interfaces (tables consumed by multiple teams), is there documentation of schema stability, quality expectations, and change management process?
+   Are there stability labels (stable/experimental) on fields?
 
-5. **Schema change detection** — If the source schema changes, will the pipeline detect it?
-   Is there a schema validation step at the ingestion boundary?
-   What happens if the source adds, renames, or removes a column?
+5. **Deadly diamond check** — Are there DAG paths where the same source data reaches the same target via multiple independent routes with different processing times?
+   Are all upstream dependencies gated on completing the same partition before the target is written?
 
-6. **Update frequency appropriateness** — Does the update frequency match what consumers actually need?
-   Is the pipeline more complex and costly than the business value of the timeliness requires?
+6. **Naming consistency** — Are naming conventions consistent within the table and across related tables?
+   Can a consumer predict column names without consulting documentation?
 
 ## Severity Framing
 
-Severity for Quality findings is about the **consumer experience** — what do consumers lose if the code ships as-is.
+Severity for Architecture findings is about the **structural consequence** to data consumers.
 
-- **Freshness findings** — Is there a way to detect stale data before consumers do?
-  No `loaded_at` timestamp at all is MEDIUM / L2.
-  `loaded_at` exists but no monitoring is LOW / L2.
-  Real-time operational data with no freshness tracking is HIGH / HYG.
-- **Uniqueness findings** — Will duplicates inflate financial or operational metrics?
-  Missing business key uniqueness on financial data is HIGH / L1.
-  Missing uniqueness on internal operational data is HIGH / L1.
-  Downstream deduplication exists as a mitigation: MEDIUM / L1.
-- **Documentation findings** — Is the data usable by a new team member?
-  Magic numbers that make filters unmaintainable are MEDIUM / L1.
-  No schema descriptions on any fields is MEDIUM / L1.
-  Some descriptions exist but incomplete is LOW / L1.
+- **Schema drift findings** — How many consumers are affected? Is the change breaking or additive?
+  Breaking changes on widely-consumed tables are HIGH / HYG.
+  Naming inconsistency on internal-only tables is MEDIUM / L1.
+- **Contract gaps** — Is this table consumed by multiple teams without a contract?
+  Missing contracts are MEDIUM / L2 unless breaking changes are already happening.
+- **Deadly diamond** — Does the dual-path corruption feed financial reporting or regulated data?
+  Escalate to HYG if so.

@@ -8,11 +8,11 @@
   },
   "plugins": [
     {
-      "name": "code-review",
-      "source": "./plugins/code-review",
+      "name": "donkey-review",
+      "source": "./plugins/donkey-review",
       "description": "Domain-specific code reviews across Architecture, Security, SRE, and Data Engineering",
       "version": "1.0.0",
-      "keywords": ["code-review", "architecture", "security", "sre", "data-engineering"]
+      "keywords": ["donkey-review", "architecture", "security", "sre", "data-engineering"]
     }
   ]
 }

@@ -15,7 +15,7 @@
 Each review domain manifests as files within the plugin following the same structure. See [Plugin Structure](https://code.claude.com/docs/en/plugins-reference) for file layout conventions.
 
 ```
-code-review/
+donkey-review/
   agents/
     <domain>-<subagent>.md     # Subagent: one per review dimension (16 total)
   prompts/
@@ -25,7 +25,7 @@ code-review/
       _base.md                 # Domain context: framework, maturity criteria, synthesis rules
       <subagent>.md            # Pillar checklist
     all/
-      _base.md                 # code-review:all orchestration instructions only
+      _base.md                 # donkey-review:all orchestration instructions only
   scripts/
     compile.sh                 # Generates agents/ and skills/ from prompts/
   skills/
@@ -47,7 +47,7 @@ code-review/
 | Change shared context (severity, maturity, output format) | `prompts/shared/<file>.md` then recompile ALL agent files |
 | Change domain context (framework, maturity criteria) | `prompts/<domain>/_base.md` then recompile all agents for that domain |
 | Change domain synthesis rules | `prompts/<domain>/_base.md` (the `## Synthesis` section) then recompile `skills/<domain>/SKILL.md` and `skills/all/SKILL.md` |
-| Change `code-review:all` orchestration logic | `prompts/all/_base.md` then recompile `skills/all/SKILL.md` |
+| Change `donkey-review:all` orchestration logic | `prompts/all/_base.md` then recompile `skills/all/SKILL.md` |
 | Add a new domain skill | Add to `compile.conf`, create `prompts/<domain>/`, recompile |
 | Add a new subagent | New prompt file, new `compile.conf` entry, recompile to generate agent file, update `skills/<domain>/SKILL.md` |
 

@@ -47,9 +47,9 @@ Individual domains may add domain-specific synthesis steps (e.g., Security appli
 
 Produce the maturity assessment report per the output format defined in `_base.md`.
 
-## code-review:all — Flat Dispatch Across All Domains
+## donkey-review:all — Flat Dispatch Across All Domains
 
-The `/code-review:all` skill runs all 16 domain agents in parallel, producing four domain reports and one cross-domain summary.
+The `/donkey-review:all` skill runs all 16 domain agents in parallel, producing four domain reports and one cross-domain summary.
 
 ### Why flat dispatch
 
@@ -96,7 +96,7 @@ Algorithm (applied in order of preference):
 3. `<YYYY-MM-DD>-<7-char-commit-hash>` (e.g., `2024-01-15-a1b2c3d`)
 
 If the target directory already exists, append `-2`, `-3`, etc., until the name is unique.
-Output directory: `.code-review/<batch-name>/`
+Output directory: `.donkey-review/<batch-name>/`
 
 ### Per-domain synthesis
 
@@ -105,14 +105,14 @@ Each domain also applies its own domain-specific synthesis steps (e.g., Security
 
 Output files written by the all skill:
 
-- `.code-review/<batch-name>/sre.md`
-- `.code-review/<batch-name>/security.md`
-- `.code-review/<batch-name>/architecture.md`
-- `.code-review/<batch-name>/data.md`
+- `.donkey-review/<batch-name>/sre.md`
+- `.donkey-review/<batch-name>/security.md`
+- `.donkey-review/<batch-name>/architecture.md`
+- `.donkey-review/<batch-name>/data.md`
 
 ### Cross-domain summary
 
-After all four domain reports are written, produce a cross-domain summary at `.code-review/<batch-name>/summary.md`.
+After all four domain reports are written, produce a cross-domain summary at `.donkey-review/<batch-name>/summary.md`.
 
 The summary must contain:
 

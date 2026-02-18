@@ -23,7 +23,7 @@ build/
 .env.local
 
 # Code review plugin output
-.code-review/
+.donkey-review/
 
 # Agent execution logs
 .logs/

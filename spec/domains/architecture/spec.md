@@ -127,7 +127,7 @@ Architecture reviews evaluate **design-time decisions**, not run-time behaviour.
 
 ## 6. Orchestration Process
 
-The `/code-review:architecture` skill follows the shared orchestration pattern (see `../../review-standards/orchestration.md`) with these domain-specific details:
+The `/donkey-review:architecture` skill follows the shared orchestration pattern (see `../../review-standards/orchestration.md`) with these domain-specific details:
 
 ### Step 2: Parallel dispatch
 
@@ -159,7 +159,7 @@ Known gaps that future work should address, in priority order:
 | 5 | **No technology-specific supplements** | Checklists can't recognise framework-specific patterns (e.g., Django vs Spring DI conventions) | Future: add optional supplements for Python, Java, Go, Node, .NET |
 | 6 | **DDD tactical assessment is shallow** | The code-level DDD checklist identifies Value Objects and Aggregates but doesn't evaluate their correctness deeply | Future: add concrete guidance on aggregate sizing, eventual consistency boundaries, event design |
 | 7 | **No design-decision impact analysis** | Reviews identify what's wrong but don't estimate the cost of the architectural debt | Future: add optional "change cost" qualifier (trivial / moderate / significant refactor) |
-| 8 | **No cross-review learning** | Each review is stateless | Future: use `.code-review/` history to track architectural maturity progression |
+| 8 | **No cross-review learning** | Each review is stateless | Future: use `.donkey-review/` history to track architectural maturity progression |
 
 ## 8. Constraints
 

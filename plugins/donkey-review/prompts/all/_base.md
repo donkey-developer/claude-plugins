@@ -20,9 +20,9 @@ Apply the following algorithm in order of preference:
 2. **Branch and short hash** — use `<branch-name>-<7-char-commit-hash>` (e.g., `feat/my-feature-a1b2c3d`).
 3. **Date and short hash** — use `<YYYY-MM-DD>-<7-char-commit-hash>` (e.g., `2024-01-15-a1b2c3d`).
 
-**Collision handling:** if `.code-review/<batch-name>/` already exists, append `-2`, `-3`, etc., until the name is unique.
+**Collision handling:** if `.donkey-review/<batch-name>/` already exists, append `-2`, `-3`, etc., until the name is unique.
 
-Create the output directory: `mkdir -p .code-review/<batch-name>/`
+Create the output directory: `mkdir -p .donkey-review/<batch-name>/`
 
 ## Dispatch — 16 Agents in Parallel
 
@@ -75,16 +75,16 @@ For each domain, apply the synthesis algorithm below and write a domain report.
 
 Output files:
 
-- `.code-review/<batch-name>/sre.md`
-- `.code-review/<batch-name>/security.md`
-- `.code-review/<batch-name>/architecture.md`
-- `.code-review/<batch-name>/data.md`
+- `.donkey-review/<batch-name>/sre.md`
+- `.donkey-review/<batch-name>/security.md`
+- `.donkey-review/<batch-name>/architecture.md`
+- `.donkey-review/<batch-name>/data.md`
 
 ## Cross-Domain Summary
 
 After all four domain reports are written, produce a cross-domain summary.
 
-Output file: `.code-review/<batch-name>/summary.md`
+Output file: `.donkey-review/<batch-name>/summary.md`
 
 The summary must contain:
 
@@ -100,13 +100,13 @@ After writing all files, report to the user:
 
 ```
 Batch: <batch-name>
-Output: .code-review/<batch-name>/
+Output: .donkey-review/<batch-name>/
 
 Domain reports:
-  SRE:          .code-review/<batch-name>/sre.md          (<N> findings)
-  Security:     .code-review/<batch-name>/security.md     (<N> findings)
-  Architecture: .code-review/<batch-name>/architecture.md (<N> findings)
-  Data:         .code-review/<batch-name>/data.md         (<N> findings)
+  SRE:          .donkey-review/<batch-name>/sre.md          (<N> findings)
+  Security:     .donkey-review/<batch-name>/security.md     (<N> findings)
+  Architecture: .donkey-review/<batch-name>/architecture.md (<N> findings)
+  Data:         .donkey-review/<batch-name>/data.md         (<N> findings)
 
-Summary: .code-review/<batch-name>/summary.md
+Summary: .donkey-review/<batch-name>/summary.md
 ```

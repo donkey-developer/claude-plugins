@@ -1,6 +1,6 @@
 ---
 name: data-governance
-description: Data Governance pillar review — lineage, cataloguing, access control, and compliance patterns. Spawned by /code-review:data or /code-review:all.
+description: Data Governance pillar review — lineage, cataloguing, access control, and compliance patterns. Spawned by /donkey-review:data or /donkey-review:all.
 model: sonnet
 tools: Read, Grep, Glob
 ---

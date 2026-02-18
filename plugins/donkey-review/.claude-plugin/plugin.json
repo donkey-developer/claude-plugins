@@ -1,10 +1,10 @@
 {
-  "name": "code-review",
+  "name": "donkey-review",
   "version": "1.0.0",
   "description": "Domain-specific code reviews across Architecture, Security, SRE, and Data Engineering",
   "author": {
     "name": "Donkey Developer"
   },
   "repository": "https://github.com/donkey-developer/claude-plugins",
-  "keywords": ["code-review", "architecture", "security", "sre", "data-engineering"]
+  "keywords": ["donkey-review", "architecture", "security", "sre", "data-engineering"]
 }

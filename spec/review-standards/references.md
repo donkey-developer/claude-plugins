@@ -21,7 +21,7 @@ Key PRs that shaped the plugin across all domains:
 |----|-------------|---------------|
 | #18 | Cascading maturity model added | Domain-specific maturity criteria (HYG/L1/L2/L3) in `_base.md` and `SKILL.md` for all domains |
 | #19 | Universal Hygiene gate, outcome-based levels | Removed technique names from criteria. Hygiene uses consequence-severity tests. All domain criteria rewritten as observable outcomes. |
-| #21 | Batch orchestrator `/code-review:all` | All 4 domains run in parallel, each producing a sub-report |
+| #21 | Batch orchestrator `/donkey-review:all` | All 4 domains run in parallel, each producing a sub-report |
 | #23 | Namespace attempt (closed, not merged) | Skill namespacing via subdirectories didn't work as expected. Led to plugin-based distribution approach (`donkey-dev/`). |
 
 ## Cross-Domain Design Decisions

@@ -1,6 +1,6 @@
 ---
-name: architecture-service
-description: Architecture Service level review — API design, service boundaries, and integration patterns. Spawned by /code-review:architecture or /code-review:all.
+name: architecture-code
+description: Architecture Code level review — module structure, coupling, cohesion, and code-level design patterns. Spawned by /donkey-review:architecture or /donkey-review:all.
 model: sonnet
 tools: Read, Grep, Glob
 ---
@@ -343,143 +343,146 @@ Produce output following the standard output format.
 No domain-specific synthesis rules for Architecture.
 The shared synthesis algorithm applies without modification.
 
-# Service
+# Code
 
-Is the service well-designed?
+Is the code well-structured?
 
-The Service zoom level evaluates whether a deployable unit serves a single cohesive domain concept, can be changed and deployed independently, and keeps business logic separate from infrastructure concerns.
-When this zoom level is weak, services grow without bound, deployments require coordination across teams, and changes in one service silently break another.
+The Code zoom level evaluates whether individual classes, functions, and modules are well-designed.
+A weak Code level is characterised by classes that are hard to understand, test, or change without breaking unrelated behaviour.
 
 ## Focus Areas
 
 ### Design Principles focus (what should this look like?)
 
-- **Domain coherence** — A service should serve one cohesive domain concept.
-  You should be able to describe what the service does without using "and" to connect unrelated concerns.
-- **Dependency direction** — Business logic should have no imports from infrastructure frameworks.
-  Infrastructure (databases, HTTP, messaging) depends on the domain, not the reverse.
-- **Deployment independence** — A service should be deployable without coordinating with other services.
-  Each service owns its own data store; no shared schema crosses service boundaries.
-- **Explicit interface** — The service boundary is a coarse-grained, versioned contract.
-  External systems interact through the interface, not through shared internal state.
-- **External model isolation** — Models from upstream systems are translated at the boundary.
-  The domain structure is determined by domain needs, not by whatever the upstream system happens to produce.
+- **Separation of concerns** — Each class or module has a single, clearly defined purpose.
+  A class with more than ~500 lines, more than ~10 dependencies, or methods that operate on unrelated data likely violates this principle.
+- **Loose coupling** — Modules depend on abstractions, not concrete implementations.
+  The dependency graph between modules is a directed acyclic graph with no cycles.
+- **High cohesion** — Related behaviour lives together.
+  A method that uses another class's data more than its own is a signal of misplaced behaviour.
+- **Testability** — Business logic can be exercised without infrastructure.
+  Dependencies are injectable; side effects are isolated behind interfaces.
 
 ### Erosion Patterns focus (how does this go wrong?)
 
-- **Shared database** — Two services read or write the same database tables.
-  Invisible coupling makes independent deployment and schema evolution impossible.
-- **Distributed monolith** — Services must be deployed together.
-  Shared libraries carry domain logic across service boundaries; one call chain requires all participants to be running simultaneously.
-- **Domain logic in infrastructure** — Business rules live in HTTP handlers, queue consumers, or persistence adapters.
-  The logic cannot be tested without the infrastructure it is embedded in.
-- **Service too broad** — A single service serves multiple unrelated domain concepts with different change cadences and different stakeholders.
-  It will grow without bound and resist decomposition.
-- **Upstream model leakage** — External DTOs or upstream API responses are used directly in domain logic.
-  The upstream model now dictates the downstream domain structure.
-- **Flat error model** — All errors are treated the same.
-  Callers cannot distinguish between a transient failure they should retry and a permanent failure they should not.
+- **God class** — A class accumulating too many responsibilities.
+  Often named `*Manager`, `*Service`, `*Helper`, or `*Utils`.
+  Every change risks breaking unrelated behaviour.
+- **Circular dependency** — Module A imports Module B, and Module B imports Module A.
+  Neither can be extracted, tested, or deployed independently.
+- **Persistence in domain** — Infrastructure frameworks (ORM annotations, SQL queries) appear in domain classes.
+  Business logic cannot be tested without a database.
+- **Primitive obsession** — Domain concepts (email, money, identifier) represented as raw strings or numbers.
+  Validation rules are scattered rather than encapsulated.
+- **Hidden dependencies** — A class constructs its own dependencies internally.
+  The dependency graph is invisible from the constructor or public interface.
 
 ## Anti-Pattern Catalogue
 
-### SL-01: Shared database
-
-Two services reading from or writing to the same database tables.
-
-**Why it matters:** Schema changes made for one service break the other without any API change.
-Deployment of either service must be coordinated with the other.
-Data ownership is ambiguous — two services can write conflicting state to the same rows.
-Erosion pattern: Tight coupling across service boundaries.
-Typical severity: HIGH / HYG (Irreversible — shared tables create data corruption risk across service boundaries; Total — one migration can break all consumers simultaneously).
-
-### SL-02: Distributed monolith
-
-Services that must be deployed together.
-Shared libraries containing domain logic.
-Synchronous call chains where all participants must be running for any to succeed.
-
-**Why it matters:** The organisational benefits of separate services (independent teams, independent deployments, isolated failure) are absent.
-The operational costs of distributed systems (network latency, partial failure, distributed tracing) remain.
-Erosion pattern: Tight coupling.
-Typical severity: HIGH / HYG (Total — one deployment failure or network partition cascades to all participants in the chain).
-
-### SL-03: Domain logic in controllers
+### CL-01: God class
 
 ```python
-@app.route("/orders", methods=["POST"])
-def create_order():
-    if request.json["total"] > 1000:
-        request.json["total"] *= 0.9  # domain logic in HTTP handler
-    db.session.add(Order(**request.json))
+class OrderService:
+    def create_order(self, items): ...
+    def calculate_tax(self, amount): ...
+    def send_email(self, recipient): ...
+    def generate_pdf(self, order): ...
+    def validate_credit_card(self, card): ...
+    def sync_inventory(self, items): ...
 ```
 
-**Why it matters:** Business rules are not testable without an HTTP framework and a running server.
-Moving to a different transport (a queue consumer, a CLI, a scheduled job) requires finding and re-implementing scattered rules.
-Erosion pattern: Hidden dependencies, Mixed responsibilities.
+**Why it matters:** Six unrelated responsibilities in one class.
+Every change to one responsibility risks breaking the others.
+Testing requires constructing all dependencies simultaneously.
+Erosion pattern: Mixed responsibilities.
 Typical severity: HIGH / L1.
 
-### SL-04: Service too broad
+### CL-02: Circular dependency
 
-A service described as "manages users AND handles billing AND sends notifications".
-Different concerns with different change cadences, different stakeholders, and different operational profiles coexist in a single deployable.
+```python
+# order/service.py
+from billing.service import BillingService
 
-**Why it matters:** Every deployment carries risk for all three concerns simultaneously.
-Teams working on unrelated features contend for the same codebase and release cycle.
-The service will grow without bound as new "and" concerns are added.
-Erosion pattern: Mixed responsibilities.
+# billing/service.py
+from order.service import OrderService
+```
+
+**Why it matters:** Neither module can be extracted, tested, or deployed independently.
+Circular dependencies compound — once one exists, more are attracted.
+Erosion pattern: Tight coupling.
+Typical severity: HIGH / HYG (Total — if the cycle spans services, one failure cascades to all participants).
+
+### CL-03: Persistence in domain
+
+```python
+# BAD: Domain depends on infrastructure
+from sqlalchemy import Column, Integer, String
+
+class Order:
+    id = Column(Integer, primary_key=True)
+    status = Column(String)
+```
+
+**Why it matters:** The domain model cannot be tested without a database.
+Changing the persistence layer requires rewriting domain logic.
+Erosion pattern: Hidden dependencies.
+Typical severity: HIGH / L1.
+
+### CL-04: Primitive obsession
+
+```python
+# BAD: Primitives everywhere
+def create_order(user_id: int, email: str, amount: float, currency: str): ...
+```
+
+**Why it matters:** No validation at the type level — invalid emails, negative amounts, and mismatched currency pairs all compile and pass.
+Business rules about these concepts are scattered rather than encapsulated.
+Erosion pattern: Scattered behaviour.
 Typical severity: MEDIUM / L1.
 
-### SL-05: Missing anti-corruption layer
+### CL-05: Hidden dependencies
 
-External DTOs or upstream API response models used directly inside domain logic, with no translation at the service boundary.
+```python
+class OrderService:
+    def __init__(self):
+        self.db = DatabaseConnection()        # hidden
+        self.email = EmailClient()            # hidden
+        self.cache = RedisCache()             # hidden
+```
 
-**Why it matters:** When the upstream system changes its model, the change propagates into domain logic unchanged.
-The domain vocabulary is shaped by the upstream system rather than by the domain's own language.
-Erosion pattern: Tight coupling, Implicit contracts.
-Typical severity: MEDIUM / L1.
-
-### SL-07: Missing error hierarchy
-
-All errors propagated or logged identically, with no distinction between transient failures (timeout, rate limit), permanent failures (validation error, not found), and infrastructure failures (connection refused).
-
-**Why it matters:** Callers cannot make correct retry decisions.
-Retrying a permanent failure wastes resources and delays resolution.
-Not retrying a transient failure produces unnecessary errors.
-Erosion pattern: Mixed responsibilities, Implicit contracts.
+**Why it matters:** Dependencies cannot be substituted for testing.
+The class's full cost is invisible from its public interface.
+Erosion pattern: Hidden dependencies, Magic and indirection.
 Typical severity: MEDIUM / L1.
 
 ## Review Checklist
 
-When assessing the Service zoom level, work through each item in order.
+When assessing the Code zoom level, work through each item in order.
 
-1. **Domain coherence** — Does the service serve a single cohesive domain concept?
-   Can you describe what the service does without using "and" to connect unrelated concerns?
-2. **Dependency direction** — Does business logic import infrastructure frameworks (databases, HTTP, messaging)?
-   Dependencies should flow toward the domain, not away from it.
-3. **Deployment independence** — Can this service be deployed without coordinating with other services?
-   Are there shared libraries containing domain logic that cross service boundaries?
-4. **Database ownership** — Does each service own its own data store?
-   Are there database tables accessed by more than one service?
-5. **External model isolation** — Are external system models (third-party DTOs, upstream API responses) used directly in domain logic, or are they translated at the service boundary?
-6. **Error model** — Does the service distinguish between transient errors (retry appropriate), permanent errors (do not retry), and infrastructure errors?
-   Does each error type communicate the correct retry semantics to callers?
+1. **Responsibility scope** — Does each class have a single, clearly defined purpose?
+   Does any class exceed ~500 lines or have more than ~10 distinct dependencies?
+2. **Dependency direction** — Do domain and business logic classes import infrastructure frameworks (databases, HTTP clients, messaging)?
+   The answer should be no.
+3. **Circular dependencies** — Are there any import cycles between modules or packages?
+   Check both direct and transitive cycles.
+4. **Testability** — Can business logic be unit tested without a running database, HTTP server, or message broker?
+   Are dependencies injectable or constructed internally?
+5. **Domain vocabulary** — Are domain concepts (identifiers, money, status, dates) represented as typed objects or as raw primitives?
+6. **Behaviour placement** — Are there methods that use another class's data more than their own?
+   Is business logic scattered across many classes rather than encapsulated in the class that owns the data?
 
 ## Severity Framing
 
-Severity for Service findings is about coupling consequence — how much harder will the system be to change and deploy independently if this ships.
+Severity for Code findings is about structural consequence — how much harder will the system be to change, test, and extend if this ships.
 
-- **Shared database and distributed monolith** — These are structural blockers.
-  Changes by one team cascade to others without any API change.
+- **Circular dependencies and domain-infrastructure coupling** — These are structural blockers.
+  They prevent independent testing, prevent safe extraction, and compound over time.
   Typically HIGH or HYG.
-- **Domain logic in infrastructure** — Business logic cannot be tested without infrastructure.
-  Moving to a different transport requires finding and re-implementing scattered rules.
-  Typically HIGH / L1.
-- **Service too broad** — The service accumulates unrelated concerns and grows without bound.
-  Decomposition becomes progressively harder with each addition.
+- **God classes and anemic domain models** — These accumulate technical debt.
+  Every new feature makes them harder to work with.
+  Typically HIGH / L1 when the class is already large; MEDIUM / L1 when still early.
+- **Primitive obsession and missing value objects** — These scatter business rules.
+  The cost is in maintenance and bug risk, not immediate structural failure.
   Typically MEDIUM / L1.
-- **Missing anti-corruption layer** — Upstream models leak into domain logic.
-  The cost appears when the upstream system changes its model.
-  Typically MEDIUM / L1.
-- **Missing error hierarchy** — Callers cannot make correct retry decisions.
-  Permanent failures are retried; transient failures surface as unrecoverable errors.
-  Typically MEDIUM / L1.
+- **Minor naming and style issues** — Inconvenient but not structurally dangerous.
+  Typically LOW / L2.

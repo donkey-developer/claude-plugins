@@ -23,11 +23,11 @@
 | Term | Definition |
 |------|-----------|
 | **Subagent** | A specialised reviewer that analyses code against one dimension's checklist. Runs in parallel with the other subagents. Each domain uses 4 subagents. |
-| **Skill orchestrator** | The `/code-review:<domain>` skill that dispatches subagents, collects results, deduplicates, and synthesises the final report. |
+| **Skill orchestrator** | The `/donkey-review:<domain>` skill that dispatches subagents, collects results, deduplicates, and synthesises the final report. |
 | **Synthesis** | The process of merging 4 subagent reports into one consolidated maturity assessment. |
 | **Deduplication** | When two subagents flag the same file:line, merging into one finding with the highest severity and most restrictive maturity tag. |
-| **Flat dispatch** | The pattern used by `/code-review:all` to spawn all 16 agents directly from the skill, rather than nesting through domain orchestrators. Required because subagents cannot spawn their own subagents (platform constraint). |
-| **Batch** | A single review run. Each batch has a unique name derived from the git context (annotated tag, branch+hash, or date+hash) and produces output in `.code-review/<batch-name>/`. |
+| **Flat dispatch** | The pattern used by `/donkey-review:all` to spawn all 16 agents directly from the skill, rather than nesting through domain orchestrators. Required because subagents cannot spawn their own subagents (platform constraint). |
+| **Batch** | A single review run. Each batch has a unique name derived from the git context (annotated tag, branch+hash, or date+hash) and produces output in `.donkey-review/<batch-name>/`. |
 | **Batch name** | The unique identifier for a batch's output directory. Algorithm: annotated git tag > `<branch>-<7-char-hash>` > `<YYYY-MM-DD>-<7-char-hash>`. Collisions resolved by appending `-2`, `-3`, etc. |
 
 Note: Each domain uses its own structural term for the review dimension — "Zoom Level" (Architecture), "Pillar" (Security, SRE, Data). These are functionally equivalent: one subagent per dimension, dispatched in parallel.

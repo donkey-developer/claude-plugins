@@ -121,7 +121,7 @@ The Security domain maintains a deliberate exclusion list (see `glossary.md`). T
 
 ## 6. Orchestration Process
 
-The `/code-review:security` skill follows the shared orchestration pattern (see `../../review-standards/orchestration.md`) with these domain-specific details:
+The `/donkey-review:security` skill follows the shared orchestration pattern (see `../../review-standards/orchestration.md`) with these domain-specific details:
 
 ### Step 2: Parallel dispatch
 
@@ -155,9 +155,9 @@ Known gaps that future work should address, in priority order:
 | 3 | **No technology-specific supplements** | Checklists can't recognise framework-specific patterns beyond the basic table | Future: add optional supplements for Python, Java, Go, Node, .NET, React, Django, Rails |
 | 4 | **DREAD-lite is applied inconsistently** | Some findings use DREAD factors explicitly, others just state HIGH/MEDIUM/LOW | Future: enforce that each finding includes Damage/Exploitability/Affected Scope assessment |
 | 5 | **Audit-resilience model mismatch** | Audit (Repudiation) and DoS (Denial of Service) are fundamentally different concern types paired in one agent | Evaluate whether splitting into two agents would improve focus. Counter-argument: both are "operational security" concerns and haiku handles the lighter workload |
-| 6 | **No threat model composition** | Reviews are stateless — no way to build a cumulative threat model across multiple reviews | Future: use `.code-review/` history to build up a threat model over time |
+| 6 | **No threat model composition** | Reviews are stateless — no way to build a cumulative threat model across multiple reviews | Future: use `.donkey-review/` history to build up a threat model over time |
 | 7 | **Supply chain security not covered** | No pillar addresses dependency supply chain risks | Currently excluded (handled by dependency scanning tools). Evaluate if actionable code-level patterns exist |
-| 8 | **No cross-review learning** | Each review starts from scratch | Future: use `.code-review/` history to track security posture progression |
+| 8 | **No cross-review learning** | Each review starts from scratch | Future: use `.donkey-review/` history to track security posture progression |
 
 ## 8. Constraints
 
