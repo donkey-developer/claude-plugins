@@ -50,7 +50,7 @@
     - `compile.sh --check` exits 0 for all files
     - `plugin.json` correctly declares all 5 skills
 
-- [ ] **TASK-04: Final verification**
+- [x] **TASK-04: Final verification**
   - **Goal:** Verify the complete code-review:all orchestrator works end-to-end
   - **Verification:**
     - `skills/all/SKILL.md` exists with flat dispatch of 16 agents
