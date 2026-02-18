@@ -48,7 +48,7 @@ for TASK_FILE in "${PLAN_DIR}"/*.tasks.md; do
   # Skip completed issues
   INCOMPLETE=$(grep -c '^\- \[ \]' "$TASK_FILE" || true)
   if [ "$INCOMPLETE" -eq 0 ]; then
-    echo "=== Skipping (complete): ${TASK_FILE} ==="
+    echo -e "\033[0;33m=== Skipping (complete): ${TASK_FILE} ===\033[0m"
     # Track branch for next issue's base (if branch exists, content is there;
     # if not, content was merged to main/upstream, PREV_BRANCH stays as-is)
     git rev-parse --verify "$BRANCH" >/dev/null 2>&1 && PREV_BRANCH="$BRANCH"
@@ -63,9 +63,9 @@ for TASK_FILE in "${PLAN_DIR}"/*.tasks.md; do
     git checkout -b "$BRANCH" "$PREV_BRANCH"
   fi
 
-  echo "=== Starting issue: ${TASK_FILE} ==="
+  echo -e "\033[0;32m=== Starting issue: ${TASK_FILE} ===\033[0m"
   "${SCRIPT_DIR}/execute-issue.sh" "$TASK_FILE" "$PREV_BRANCH"
-  echo "=== Completed issue: ${TASK_FILE} ==="
+  echo -e "\033[0;32m=== Completed issue: ${TASK_FILE} ===\033[0m"
   echo
 
   PREV_BRANCH="$BRANCH"
