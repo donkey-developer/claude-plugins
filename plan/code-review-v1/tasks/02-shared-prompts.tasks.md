@@ -48,7 +48,7 @@
   - **Details:** Read-only (no auto-fix), no cross-domain findings, no numeric scores, no tool prescriptions. These are non-negotiable rules every agent must follow.
   - **Verification:** File exists; lists all constraints; under 20 lines
 
-- [ ] **TASK-06: Create synthesis.md**
+- [x] **TASK-06: Create synthesis.md**
   - **Goal:** Define the synthesis algorithm used by skill orchestrators to combine pillar results
   - **Files:**
     - Create `plugins/code-review/prompts/shared/synthesis.md`
