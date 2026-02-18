@@ -5,7 +5,7 @@ set -euo pipefail
 # If out of sync, the commit is rejected with instructions to regenerate.
 
 REPO_ROOT="$(git rev-parse --show-toplevel)"
-COMPILE_SCRIPT="${REPO_ROOT}/plugins/code-review/scripts/compile.sh"
+COMPILE_SCRIPT="${REPO_ROOT}/plugins/donkey-review/scripts/compile.sh"
 
 # Only run if the compile script exists
 if [[ ! -x "${COMPILE_SCRIPT}" ]]; then
@@ -19,7 +19,7 @@ if ! "${COMPILE_SCRIPT}" --check; then
     echo "Compiled files are out of sync with prompt sources."
     echo "Run the following command and commit the updated files:"
     echo ""
-    echo "  ./plugins/code-review/scripts/compile.sh"
+    echo "  ./plugins/donkey-review/scripts/compile.sh"
     echo ""
     exit 1
 fi

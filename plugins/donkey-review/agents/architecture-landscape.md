@@ -1,6 +1,6 @@
 ---
 name: architecture-landscape
-description: Architecture Landscape level review — cross-system integration, platform constraints, and ecosystem patterns. Spawned by /code-review:architecture or /code-review:all.
+description: Architecture Landscape level review — cross-system integration, platform constraints, and ecosystem patterns. Spawned by /donkey-review:architecture or /donkey-review:all.
 model: sonnet
 tools: Read, Grep, Glob
 ---

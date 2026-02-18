@@ -1,6 +1,6 @@
 ---
 name: architecture-system
-description: Architecture System level review — component composition, data flow, and system-level design patterns. Spawned by /code-review:architecture or /code-review:all.
+description: Architecture System level review — component composition, data flow, and system-level design patterns. Spawned by /donkey-review:architecture or /donkey-review:all.
 model: sonnet
 tools: Read, Grep, Glob
 ---

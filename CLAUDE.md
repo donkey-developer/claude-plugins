@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-A Code Review Plugin for Claude Code that enables generalist software engineers to extend their review capability across Architecture, Security, Site Reliability Engineering (SRE), and Data Engineering disciplines. The plugin provides slash commands (`code-review:all`, `code-review:sre`, `code-review:security`, `code-review:architecture`, `code-review:data`) that perform domain-specific code reviews with progressive level reporting.
+A Code Review Plugin for Claude Code that enables generalist software engineers to extend their review capability across Architecture, Security, Site Reliability Engineering (SRE), and Data Engineering disciplines. The plugin provides slash commands (`donkey-review:all`, `donkey-review:sre`, `donkey-review:security`, `donkey-review:architecture`, `donkey-review:data`) that perform domain-specific code reviews with progressive level reporting.
 
 ## Markdown standards
 
@@ -27,7 +27,7 @@ Milestone          → The deliverable (what stakeholders care about)
 **Example:**
 
 ```text
-Milestone: "Code-Review Plugin v1"
+Milestone: "Donkey-Review Plugin v1"
 ├── Issue #1: Create SRE code review        → PR: feat/sre-domain → closes #1
 │   ├── TASK-01: Create SRE base prompt
 │   ├── TASK-02: Create SRE Response agent
@@ -35,7 +35,7 @@ Milestone: "Code-Review Plugin v1"
 ├── Issue #2: Create Security code review   → PR: feat/security-domain → closes #2
 ├── Issue #3: Create Architecture code review
 ├── Issue #4: Create Data code review
-└── Issue #5: Create comprehensive review   → PR: feat/code-review-all → closes #5
+└── Issue #5: Create comprehensive review   → PR: feat/donkey-review-all → closes #5
 ```
 
 ### File structure for plans

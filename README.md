@@ -29,7 +29,7 @@ A pre-commit hook runs `compile.sh --check` to ensure compiled output stays in s
 
 ## Plugins
 
-### code-review
+### donkey-review
 
 Domain-specific code reviews across Architecture, Security, SRE, and Data Engineering.
 
@@ -42,11 +42,11 @@ Domain-specific code reviews across Architecture, Security, SRE, and Data Engine
 
 **Slash commands:**
 
-- `/code-review:all` — run all four domain reviews and produce a combined report
-- `/code-review:sre` — SRE review (response, observability, availability, delivery)
-- `/code-review:security` — Security review (authn/authz, data protection, input validation, audit & resilience)
-- `/code-review:architecture` — Architecture review (code, service, system, landscape)
-- `/code-review:data` — Data Engineering review (architecture, engineering, quality, governance)
+- `/donkey-review:all` — run all four domain reviews and produce a combined report
+- `/donkey-review:sre` — SRE review (response, observability, availability, delivery)
+- `/donkey-review:security` — Security review (authn/authz, data protection, input validation, audit & resilience)
+- `/donkey-review:architecture` — Architecture review (code, service, system, landscape)
+- `/donkey-review:data` — Data Engineering review (architecture, engineering, quality, governance)
 
 ## Installation
 
@@ -58,10 +58,10 @@ Add the marketplace:
 /plugin marketplace add https://github.com/donkey-developer/claude-plugins.git
 ```
 
-Install the code-review plugin:
+Install the donkey-review plugin:
 
 ```bash
-/plugin install code-review@donkey-developer
+/plugin install donkey-review@donkey-developer
 ```
 
 ## Usage
@@ -69,7 +69,7 @@ Install the code-review plugin:
 Run a comprehensive code review:
 
 ```bash
-/code-review:all
+/donkey-review:all
 ```
 
 This dispatches all 16 subagents in parallel, then synthesises the results into a combined report.
@@ -77,10 +77,10 @@ This dispatches all 16 subagents in parallel, then synthesises the results into 
 Run a single domain review:
 
 ```bash
-/code-review:sre
+/donkey-review:sre
 ```
 
-Output reports are written to `.code-review/<batch-name>/` in your working directory.
+Output reports are written to `.donkey-review/<batch-name>/` in your working directory.
 
 ## Configuration
 

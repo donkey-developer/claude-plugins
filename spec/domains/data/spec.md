@@ -126,7 +126,7 @@ Data handling should be **explicit, not silent**. When a data pipeline encounter
 
 ## 6. Orchestration Process
 
-The `/code-review:data` skill follows the shared orchestration pattern (see `../../review-standards/orchestration.md`) with these domain-specific details:
+The `/donkey-review:data` skill follows the shared orchestration pattern (see `../../review-standards/orchestration.md`) with these domain-specific details:
 
 ### Step 1: Scope identification (domain-specific addition)
 
@@ -162,7 +162,7 @@ Known gaps that future work should address, in priority order:
 | 5 | **No technology-specific supplements** | Checklists can't recognise framework-specific patterns (dbt vs SQLMesh vs Airflow vs Spark) | Future: add optional supplements for dbt, Spark, Airflow, Dagster, BigQuery, Snowflake |
 | 6 | **Governance assessment is document-heavy** | Governance agent sometimes expects policy documents rather than looking for evidence in code | Refine to focus on code evidence: TTL columns, partition expiration, soft-delete flags, access controls in DDL |
 | 7 | **No streaming data patterns** | Checklists are batch-oriented; streaming-specific concerns (watermarks, late data, exactly-once semantics) are underrepresented | Future: add streaming supplement covering Kafka, Flink, event sourcing patterns |
-| 8 | **No cross-review learning** | Each review is stateless | Future: use `.code-review/` history to track data maturity progression |
+| 8 | **No cross-review learning** | Each review is stateless | Future: use `.donkey-review/` history to track data maturity progression |
 
 ## 8. Constraints
 

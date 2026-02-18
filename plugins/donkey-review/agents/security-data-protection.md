@@ -1,7 +1,7 @@
 ---
-name: security-audit-resilience
-description: Security Audit and Resilience pillar review — audit logging, tamper detection, and recovery patterns. Spawned by /code-review:security or /code-review:all.
-model: haiku
+name: security-data-protection
+description: Security Data Protection pillar review — encryption, data handling, and privacy patterns. Spawned by /donkey-review:security or /donkey-review:all.
+model: sonnet
 tools: Read, Grep, Glob
 ---
 
@@ -372,182 +372,127 @@ After removing LOW confidence findings, continue with the shared synthesis algor
 Domain-specific synthesis rule: the confidence filter runs **before** deduplication.
 A finding removed by the confidence filter does not appear in the synthesised output, even if multiple pillars raised the same low-confidence concern.
 
-# Audit & Resilience
+# Data Protection
 
-Can an attacker act without accountability, or exhaust the service to deny others access?
+Can an attacker read data they should not see, or modify data they should not touch?
 
-The Audit & Resilience pillar evaluates whether the application records security-relevant events with sufficient fidelity for investigation, and whether it can withstand resource-exhaustion attacks.
-It covers STRIDE threats **Repudiation** (actions without evidence) and **Denial of Service** (resource exhaustion), and checks the Security properties **Non-Repudiation** and **Availability** that defend against them.
-When this pillar is weak, malicious insiders can act without leaving evidence, and attackers can render the service unresponsive through crafted requests or timing attacks.
-
-Note: the presence or absence of audit logging and rate limiting is largely binary — either the control exists or it does not.
-The review focuses on completeness (are all sensitive operations covered?) and integrity (can logs be tampered with?).
+The Data Protection pillar evaluates whether sensitive data is properly protected from disclosure and unauthorised modification.
+It covers STRIDE threats **Information Disclosure** (data exposed to unauthorised parties) and **Tampering** (data modified without authorisation), and checks the Security properties **Confidentiality** and **Integrity** that defend against them.
+The Tampering threat is scoped to the code boundary — infrastructure-level tampering (network interception handled by a load balancer, storage encryption handled by the cloud provider) is out of scope unless the code explicitly disables or bypasses those controls.
+When this pillar is weak, attackers can read credentials, access PII, intercept traffic, or silently corrupt stored data.
 
 ## Focus Areas
 
 ### STRIDE Threats (attack lens)
 
-- **Repudiation** — Can a user or attacker deny having performed an action?
-  Sensitive operations with no audit log, logs with insufficient context, mutable audit records.
-- **Denial of Service** — Can an attacker exhaust resources to make the service unavailable?
-  No rate limiting on authentication, unbounded queries, no request size limits, missing timeouts on external calls, recursive processing without depth limits.
+- **Information Disclosure** — Can an attacker read data they are not authorised to see?
+  Secrets in source code, PII in logs, stack traces in API responses, weak encryption, unencrypted storage.
+- **Tampering** — Can an attacker modify data in transit or at rest within the code boundary?
+  Disabled TLS verification (enabling MITM), missing integrity checks on stored data, mutable audit records.
 
 ### Security Properties (defence lens)
 
-- **Non-Repudiation** — Every security-relevant action produces an immutable, contextual audit record.
-  Logs capture who, what, when, outcome. Logs are append-only or shipped to a system the application cannot modify.
-- **Availability** — The service continues to function under abusive request patterns.
-  Rate limiting, result pagination, request size limits, timeouts on all I/O, depth limits on recursive parsing.
+- **Confidentiality** — Sensitive data is accessible only to authorised parties.
+  Secrets management, data classification, encryption at rest and in transit, minimal data exposure in responses.
+- **Integrity** — Data cannot be silently altered without detection.
+  TLS verification enabled, integrity checks on sensitive data, immutable audit records.
 
 ## Anti-Pattern Catalogue
 
-### AR-01: Missing audit log on sensitive operation
+### DP-01: Secrets in source code
 
 ```python
-@app.route('/api/users/<user_id>', methods=['DELETE'])
-@login_required
-@admin_required
-def delete_user(user_id):
-    User.query.filter_by(id=user_id).delete()
-    db.session.commit()
-    return {"status": "deleted"}, 200
+AWS_SECRET_KEY = "AKIAIOSFODNN7EXAMPLE"
+DB_PASSWORD = "production_p@ssw0rd!"
 ```
 
-STRIDE: Repudiation. Security property missing: Non-Repudiation.
-**Exploit scenario:** A rogue admin deletes user accounts or financial records.
-With no audit trail there is no record of who acted, when, or on which records — incident investigation is impossible and the action is unattributable.
-Typical severity: MEDIUM / L2. Escalates to HIGH / HYG when the operation touches regulated data (health records, financial records) where audit trails are legally required.
+STRIDE: Information Disclosure. Security property missing: Confidentiality.
+**Exploit scenario:** Developer or contractor with repo access extracts the production credential and authenticates directly to the AWS account or database — no exploitation required beyond reading the file.
+Typical severity: HIGH / HYG (Irreversible — once committed, the secret exists in git history permanently; rotation requires a code change and deploy).
 
-### AR-02: Logs modifiable by application
+### DP-02: PII in log output
 
 ```python
-# Audit log written to a table the application user can DELETE or UPDATE
-db.execute("INSERT INTO audit_log (action, user_id) VALUES (?, ?)", (action, uid))
-# Or: log file in a directory the process can overwrite
-logging.FileHandler('/var/app/audit.log')
+logger.info(f"User registered: {user.email}, SSN: {user.ssn}")
 ```
 
-STRIDE: Repudiation. Security property missing: Non-Repudiation.
-**Exploit scenario:** An attacker who compromises the application — or a malicious insider — deletes or overwrites audit records to cover their actions.
-Writable audit logs are not evidence; they are editable narratives.
-Typical severity: MEDIUM / L2.
+STRIDE: Information Disclosure. Security property missing: Confidentiality.
+**Exploit scenario:** Attacker or malicious insider with access to the log aggregation platform (Datadog, Splunk, ELK) extracts email addresses and SSNs; logs are retained for months and often have weaker access controls than the production database.
+Typical severity: MEDIUM / HYG (Regulated — PII in logs violates GDPR, CCPA, HIPAA depending on the data type).
 
-### AR-03: No rate limiting on authentication
+### DP-03: Broken cryptographic algorithm
 
 ```python
-@app.route('/login', methods=['POST'])
-def login():
-    user = User.query.filter_by(username=request.form['username']).first()
-    if user and check_password_hash(user.password_hash, request.form['password']):
-        session['user_id'] = user.id
-        return redirect('/dashboard')
-    return render_template('login.html', error='Invalid credentials')
+password_hash = hashlib.md5(password.encode()).hexdigest()
+cipher = AES.new(key, AES.MODE_ECB)
 ```
 
-STRIDE: Denial of Service + Spoofing. Security property missing: Availability + Non-Repudiation.
-**Exploit scenario:** Automated tools attempt thousands of password guesses per second per account (credential stuffing) or per IP (brute force).
-Concurrently, flooding the login endpoint exhausts the database connection pool and makes the service unavailable to legitimate users.
-Typical severity: MEDIUM / L1. Escalates to HIGH / HYG if account lockout is also absent and password complexity is weak (Irreversible — compromised accounts can take destructive actions).
+STRIDE: Information Disclosure. Security property missing: Confidentiality.
+**Exploit scenario:** Attacker obtains the password hash database (via SQL injection or backup theft) and recovers passwords using pre-computed rainbow tables — MD5 hashes for common passwords crack in milliseconds.
+ECB mode leaks patterns in plaintext (identical blocks produce identical ciphertext), enabling data inference from encrypted records.
+Typical severity: MEDIUM / L1. Escalates to HYG if the data is regulated or if a SQL injection path already exists (direct exploitation chain).
 
-### AR-04: Unbounded query without pagination
+### DP-04: Sensitive data in error responses
 
 ```python
-@app.route('/api/search')
-def search():
-    term = request.args.get('q')
-    results = Product.query.filter(Product.name.like(f"%{term}%")).all()
-    return jsonify([r.to_dict() for r in results])
+return {"error": str(e), "query": sql_query, "stack": traceback.format_exc()}
 ```
 
-STRIDE: Denial of Service. Security property missing: Availability.
-**Exploit scenario:** Attacker sends `q=%` (matches every row) — the query returns millions of records, exhausting database connections, application memory, and network bandwidth.
-Repeated requests can make the service completely unresponsive.
-Typical severity: HIGH / HYG (Total — single request can render the service unresponsive; no authentication required).
+STRIDE: Information Disclosure. Security property missing: Confidentiality.
+**Exploit scenario:** Attacker sends a malformed request to trigger an exception; the error response reveals the SQL query structure, table names, file paths, and dependency versions — providing reconnaissance data to plan a more precise attack.
+Typical severity: MEDIUM / L1. Escalates to HYG if the response contains credentials or PII.
 
-### AR-05: No request size limits
+### DP-05: Disabled TLS verification
 
 ```python
-@app.route('/api/upload', methods=['POST'])
-def upload():
-    data = request.get_data()   # No Content-Length check, no size cap
-    process(data)
+requests.get(url, verify=False)
+ssl_context.check_hostname = False
 ```
 
-STRIDE: Denial of Service. Security property missing: Availability.
-**Exploit scenario:** Attacker sends a 1 GB POST body — the server buffers the entire payload into memory before any application logic runs.
-Multiple concurrent oversized requests exhaust server memory and bring down the process.
-Typical severity: MEDIUM / L2. Escalates to HYG if the upload endpoint is unauthenticated.
+STRIDE: Information Disclosure + Tampering. Security properties missing: Confidentiality, Integrity.
+**Exploit scenario:** On a shared or corporate network, attacker performs a MITM attack; because the client does not verify the server certificate, the attacker intercepts all traffic, reads API responses (Information Disclosure), and silently modifies requests (Tampering) — all without detection.
+Typical severity: MEDIUM / L1.
 
-### AR-06: Missing timeout on external calls
+### DP-06: Excessive data in API responses
 
 ```python
-response = requests.post(url, json=payload)   # No timeout parameter
-result = db.execute(query)                    # No statement timeout configured
+return User.query.get(user_id).to_dict()  # Returns all fields including password_hash, admin_flag
 ```
 
-STRIDE: Denial of Service. Security property missing: Availability.
-**Exploit scenario:** A slow or hung downstream service (network partition, overloaded database) keeps the calling thread blocked indefinitely.
-Under sustained failure, all worker threads are consumed waiting on I/O — the service becomes completely unresponsive even to requests that don't touch the failing dependency.
-Typical severity: HIGH / HYG (Total — in the request path; cascading failure exhausts all worker threads).
+STRIDE: Information Disclosure. Security property missing: Confidentiality.
+**Exploit scenario:** Authenticated user inspects the API response in browser dev tools and discovers their `password_hash`, `is_admin` flag, and other users' internal IDs — data not displayed in the UI but present in the JSON payload.
+Typical severity: MEDIUM / L1. Escalates to HYG if password hashes or regulated data (PII, health, financial) are included.
 
-### AR-07: Recursive processing without depth limit
+### DP-07: Unencrypted sensitive data at rest
 
 ```python
-def process(node):
-    for child in node.get('children', []):
-        process(child)   # No depth counter, no limit
+user.credit_card = card_number  # Stored as plaintext in the database
+user.ssn = social_security_number
 ```
 
-STRIDE: Denial of Service. Security property missing: Availability.
-**Exploit scenario:** Attacker sends a JSON or XML payload with 10,000 levels of nesting — each level adds a stack frame until a stack overflow occurs, or CPU consumption grows exponentially.
-Typical severity: MEDIUM / L2. Escalates to HYG if the endpoint is public and unauthenticated.
-
-### AR-08: Audit log missing critical context
-
-```python
-logger.info("User action performed")
-logger.info(f"Deleted record")
-```
-
-STRIDE: Repudiation. Security property missing: Non-Repudiation.
-**Exploit scenario:** The log proves something happened but not who did it, which record was affected, or what the outcome was.
-During an incident investigation, "Deleted record" without a user ID, record ID, and timestamp with timezone is forensically useless.
-Typical severity: LOW / L2.
-
-### AR-09: Secrets or PII in audit logs
-
-```python
-logger.info(f"Login attempt: user={username}, password={password}")
-logger.info(f"API request: headers={request.headers}")  # May include Authorization
-```
-
-STRIDE: Information Disclosure (cross-pillar with data-protection). Security property missing: Confidentiality.
-**Exploit scenario:** Anyone with log access — log aggregation services, ops engineers, contractors — can harvest credentials or PII from audit records.
-Audit logs become an attack surface rather than a security control.
-Typical severity: MEDIUM / HYG (Regulated if PII; Irreversible if credentials — they must be rotated once exposed).
+STRIDE: Information Disclosure. Security property missing: Confidentiality.
+**Exploit scenario:** Attacker exfiltrates the database via SQL injection or a stolen backup — all credit card numbers and SSNs are immediately readable with no additional effort required.
+Typical severity: HIGH / HYG (Regulated — plaintext storage of PCI-DSS, HIPAA, or GDPR-regulated data; irreversible breach once data is exfiltrated).
 
 ## Review Checklist
 
-When assessing the Audit & Resilience pillar, work through each item in order.
+When assessing the Data Protection pillar, work through each item in order.
 
-1. **Audit coverage** — Do all sensitive operations (data deletion, permission changes, financial actions, admin functions) produce a structured audit log entry?
-2. **Audit context** — Does each log entry capture who (user ID, service identity), what (action and target resource), when (timestamp with timezone), and outcome (success or failure with reason)?
-3. **Log integrity** — Are audit logs shipped to an append-only sink (external log service, write-once storage) that the application process cannot modify or delete?
-4. **Sensitive data in logs** — Are passwords, tokens, session IDs, and PII absent from log output? Are request bodies logged only after redacting sensitive fields?
-5. **Authentication rate limiting** — Does the login endpoint enforce per-IP or per-user request throttling? Is there account lockout or CAPTCHA after repeated failures?
-6. **Query bounds** — Do all database queries that return collections have explicit `LIMIT` or pagination? Is `.all()` without a limit absent on endpoints accessible to untrusted callers?
-7. **Request size limits** — Are `Content-Length` limits or body size caps enforced on all endpoints that accept external data?
-8. **I/O timeouts** — Do all HTTP client calls, database queries, and external service calls have explicit timeout parameters?
-9. **Recursion limits** — Does recursive processing of external data (JSON, XML, YAML) enforce a maximum depth before rejecting the input?
+1. **Secrets hygiene** — Are credentials, API keys, and connection strings absent from source code, config files, and test fixtures? Are secrets loaded from environment variables or a secret manager?
+2. **Log content** — Do log statements avoid including PII (email, phone, national IDs), credentials, session tokens, or financial data? Is structured logging used rather than string interpolation that risks including entire objects?
+3. **Cryptographic strength** — Is password hashing using bcrypt, argon2, or scrypt (not MD5, SHA1, or SHA256 without stretching)? Is symmetric encryption using AES-GCM or ChaCha20-Poly1305 (not ECB mode or DES)?
+4. **Error response content** — Do error handlers return generic messages to clients? Are stack traces, SQL queries, and internal paths absent from API error responses?
+5. **TLS verification** — Is certificate verification enabled for all outbound HTTP calls? Are `verify=False`, `check_hostname=False`, and `InsecureRequestWarning` suppressions absent?
+6. **Response minimisation** — Do API responses include only fields the client needs? Are ORM serialisers explicitly allowlisting fields rather than serialising entire model instances?
+7. **Data at rest** — Are regulated data fields (PII, payment card data, health records) encrypted at the column or application level, not just relying on disk-level encryption?
+8. **Tampering boundary** — When flagging Tampering findings, confirm the issue is within the code boundary (e.g., disabled TLS verification in application code), not infrastructure handled outside the codebase.
 
 ## Severity Framing
 
-Severity for Audit & Resilience findings reflects the binary nature of most controls.
+Severity for Data Protection findings is about data sensitivity and exploitation directness.
 
-- **Unbounded queries and missing timeouts** — HIGH / HYG: single requests can exhaust resources and render the service totally unresponsive.
-- **Missing rate limiting on authentication** — MEDIUM / L1: enables brute force and DoS; escalates to HYG when account lockout is also absent.
-- **Missing audit logs on sensitive operations** — MEDIUM / L2: escalates to HYG on regulated data where audit trails are legally required.
-- **Mutable audit logs** — MEDIUM / L2: undermines all other audit controls.
-- **No request size limits and unbounded recursion** — MEDIUM / L2: escalate to HYG on public unauthenticated endpoints.
-- **Secrets or PII in logs** — MEDIUM / HYG: credentials require rotation once exposed (Irreversible); PII is a regulatory violation.
-- **Audit log with insufficient context** — LOW / L2: the log exists but is forensically inadequate.
+- **Secrets in code** — HIGH / HYG: any repo reader can extract and use the credential; irreversible once committed.
+- **Unencrypted regulated data** — HIGH / HYG: a database breach immediately exposes all data; regulatory violation is automatic.
+- **Weak cryptography** — MEDIUM / L1: requires a secondary attack (database access) to exploit; escalates to HYG when that access is readily available.
+- **PII in logs and information leakage** — MEDIUM / HYG when regulated data is involved; MEDIUM / L1 for non-regulated internal details.
+- **Disabled TLS** — MEDIUM / L1: requires network position to exploit; severity increases in cloud or shared-network environments.

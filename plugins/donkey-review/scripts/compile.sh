@@ -7,7 +7,7 @@ set -euo pipefail
 #   ./scripts/compile.sh          # Compile all agents and skills in-place
 #   ./scripts/compile.sh --check  # Verify compiled files are up to date (exit 1 if stale)
 #
-# Must be run from plugins/code-review/ or handles path resolution automatically.
+# Must be run from plugins/donkey-review/ or handles path resolution automatically.
 
 # ---------------------------------------------------------------------------
 # Path resolution — resolve all paths relative to the script's own location
@@ -200,7 +200,7 @@ while IFS='|' read -r type name model description; do
     # Build YAML frontmatter
     frontmatter="---
 name: ${name}
-description: ${description}. Spawned by /code-review:${local_domain} or /code-review:all.
+description: ${description}. Spawned by /donkey-review:${local_domain} or /donkey-review:all.
 model: ${model}
 tools: Read, Grep, Glob
 ---"

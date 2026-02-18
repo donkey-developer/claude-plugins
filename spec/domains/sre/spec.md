@@ -103,7 +103,7 @@ Severity is about the **production consequence** if the code ships as-is, not ab
 
 ## 6. Orchestration Process
 
-The `/code-review:sre` skill follows the shared orchestration pattern (see `../../review-standards/orchestration.md`) with these domain-specific details:
+The `/donkey-review:sre` skill follows the shared orchestration pattern (see `../../review-standards/orchestration.md`) with these domain-specific details:
 
 ### Step 2: Parallel dispatch
 
@@ -133,7 +133,7 @@ Known gaps that future work should address, in priority order:
 | 5 | **No technology-specific supplements** | Checklists can't recognise framework-specific patterns | Future: add optional supplements for Python, Java, Go, Node, .NET |
 | 6 | **SLO treatment is shallow** | SLOs mentioned but not operationalised | Future: add concrete guidance on SLO-aligned code patterns |
 | 7 | **No confidence signal** | Agents can't express uncertainty | Future: add optional confidence qualifier (confirmed / likely / possible) |
-| 8 | **No cross-review learning** | Each review is stateless | Future: use `.code-review/` history to track maturity progression |
+| 8 | **No cross-review learning** | Each review is stateless | Future: use `.donkey-review/` history to track maturity progression |
 
 ## 8. Constraints
 
