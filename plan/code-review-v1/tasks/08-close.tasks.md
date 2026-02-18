@@ -35,7 +35,7 @@
   - **Goal:** Remove `plan/code-review-v1/` — plans are transient, specs are permanent. Plans remain in git history.
   - **Verification:** `plan/code-review-v1/` does not exist
 
-- [ ] **TASK-07: Delete Planner.md**
+- [x] **TASK-07: Delete Planner.md**
   - **Goal:** Remove `Planner.md` from the repo root — its content has been migrated to the BRIEF.md (now deleted) and permanent specs.
   - **Verification:** `Planner.md` does not exist at repo root
 
