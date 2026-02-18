@@ -27,7 +27,7 @@
   - **Details:** Check for new terms in: compile.conf, compile.sh, skill orchestrators, agent frontmatter, synthesis rules.
   - **Verification:** All new terms are defined in a glossary
 
-- [ ] **TASK-05: Update spec index**
+- [x] **TASK-05: Update spec index**
   - **Goal:** Ensure every `.md` file under `spec/` has an entry in `spec/README.md` with title and one-line description
   - **Verification:** `spec/README.md` entries match the actual files in `spec/`
 
