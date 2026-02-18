@@ -31,7 +31,7 @@
   - **Goal:** Ensure every `.md` file under `spec/` has an entry in `spec/README.md` with title and one-line description
   - **Verification:** `spec/README.md` entries match the actual files in `spec/`
 
-- [ ] **TASK-06: Delete plan directory**
+- [x] **TASK-06: Delete plan directory**
   - **Goal:** Remove `plan/code-review-v1/` — plans are transient, specs are permanent. Plans remain in git history.
   - **Verification:** `plan/code-review-v1/` does not exist
 
