@@ -56,7 +56,7 @@
   - **Details:** Collect → deduplicate (same file:line → merge, highest severity, most restrictive maturity) → aggregate maturity → prioritise (HYG > HIGH > MED > LOW). Note placeholders for domain-specific pre-filters (Security confidence filter, Data scope filter). This file is inlined into every skill.
   - **Verification:** File exists; defines complete synthesis algorithm with dedup, aggregation, prioritisation; under 40 lines
 
-- [ ] **TASK-07: Final verification**
+- [x] **TASK-07: Final verification**
   - **Goal:** Verify all 6 shared prompt files exist with appropriate content and size
   - **Verification:**
     - All 6 files exist in `plugins/code-review/prompts/shared/`
