@@ -7,7 +7,7 @@
 
 ## Tasks
 
-- [ ] **TASK-01: Create maturity-model.md**
+- [x] **TASK-01: Create maturity-model.md**
   - **Goal:** Distil the maturity model (Hygiene gate, L1/L2/L3, status indicators) into a concise prompt fragment
   - **Brief ref:** BRIEF.md Section 6 (prompt size targets — shared content ~180 lines total)
   - **Files:**
