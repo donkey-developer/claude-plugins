@@ -16,7 +16,7 @@
   - **Details:** Include Hygiene gate rules (irreversible, total, regulated), level descriptions (L1/L2/L3), status indicators (pass/partial/fail/locked), promotion rules. Keep concise — this is inlined into every agent.
   - **Verification:** File exists; covers Hygiene gate, L1-L3 levels, status indicators; under 40 lines
 
-- [ ] **TASK-02: Create severity-framework.md**
+- [x] **TASK-02: Create severity-framework.md**
   - **Goal:** Distil the severity framework (HIGH/MEDIUM/LOW definitions) into a concise prompt fragment
   - **Files:**
     - Create `plugins/code-review/prompts/shared/severity-framework.md`
