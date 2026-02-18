@@ -83,6 +83,20 @@ These targets keep inlined agent context manageable:
 | Pillar prompt | ~80–120 lines |
 | **Total inlined per agent** | **~460–550 lines (~3–4 K tokens)** |
 
+### Why compile rather than read at runtime
+
+Compilation was chosen over having agents read prompt files at runtime for two reasons:
+
+1. **Startup cost.** Each agent spawned by the skill occupies its own context window.
+   Having every agent read 5–6 shared files before starting its review adds latency for each of 4–16 parallel agents.
+   Inlining eliminates this cost.
+
+2. **No tool overhead in agents.** Agents are read-only reviewers (Read, Grep, Glob tools only).
+   Removing the need to read their own prompt files keeps agent context focused on the codebase being reviewed.
+
+The trade-off is that generated files become stale if prompts change without recompiling.
+The pre-commit hook and `--check` mode address this.
+
 ### Checking compiled files
 
 Run `./scripts/compile.sh --check` to verify generated files are in sync with their sources.
