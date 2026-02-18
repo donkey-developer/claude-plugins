@@ -22,7 +22,7 @@
   - **Details:** Compare BRIEF.md and Planner.md against what was actually built. Update specs to reflect reality, not intent.
   - **Verification:** No contradictions between specs and implemented code
 
-- [ ] **TASK-04: Add new vocabulary**
+- [x] **TASK-04: Add new vocabulary**
   - **Goal:** Add any terms coined during implementation to the relevant glossary files
   - **Details:** Check for new terms in: compile.conf, compile.sh, skill orchestrators, agent frontmatter, synthesis rules.
   - **Verification:** All new terms are defined in a glossary
