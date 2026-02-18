@@ -9,7 +9,8 @@ set -euo pipefail
 # Usage:
 #   ./scripts/execute-issue.sh plan/v1/tasks/01-scaffolding.tasks.md
 
-TASK_FILE="${1:?Usage: $0 <task-file>}"
+TASK_FILE="${1:?Usage: $0 <task-file> [base-branch]}"
+BASE_BRANCH="${2:-main}"
 
 if [ ! -f "$TASK_FILE" ]; then
   echo "Error: Task file not found: $TASK_FILE" >&2
@@ -24,7 +25,7 @@ LOG_FILE=".logs/$(date -u +%Y-%m-%dT%H%M%SZ).log"
 PREV_INCOMPLETE=-1
 
 while :; do
-  echo "Follow EXECUTE.prompt.md for ${TASK_FILE}" \
+  echo "Follow EXECUTE.prompt.md for ${TASK_FILE}. Base branch for PR: ${BASE_BRANCH}" \
     | claude --print --output-format stream-json --verbose --permission-mode dontAsk 2>&1 | tee -a "$LOG_FILE"
 
   # Check task file state

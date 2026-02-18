@@ -1,7 +1,7 @@
 # Create marketplace and plugin scaffolding
 
 **Issue:** #18
-**Branch:** chore/marketplace-scaffolding
+**Branch:** feat/01-scaffolding
 **Depends on:** none
 **Brief ref:** BRIEF.md Sections 1-2
 

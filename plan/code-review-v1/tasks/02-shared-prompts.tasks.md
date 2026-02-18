@@ -1,7 +1,7 @@
 # Create shared cross-domain prompts
 
 **Issue:** #19
-**Branch:** feat/shared-prompts
+**Branch:** feat/02-shared-prompts
 **Depends on:** #18
 **Brief ref:** BRIEF.md Sections 2, 5, 6
 

@@ -1,7 +1,7 @@
 # Create SRE domain review
 
 **Issue:** #20
-**Branch:** feat/sre-domain
+**Branch:** feat/03-sre-domain
 **Depends on:** #19
 **Brief ref:** BRIEF.md Sections 1-6
 

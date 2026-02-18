@@ -38,11 +38,37 @@ fi
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 
+PREV_BRANCH="main"
+
 for TASK_FILE in "${PLAN_DIR}"/*.tasks.md; do
+  # Derive branch name from filename: 03-sre-domain.tasks.md → feat/03-sre-domain
+  PREFIX=$(basename "$TASK_FILE" .tasks.md)
+  BRANCH="feat/${PREFIX}"
+
+  # Skip completed issues
+  INCOMPLETE=$(grep -c '^\- \[ \]' "$TASK_FILE" || true)
+  if [ "$INCOMPLETE" -eq 0 ]; then
+    echo "=== Skipping (complete): ${TASK_FILE} ==="
+    # Track branch for next issue's base (if branch exists, content is there;
+    # if not, content was merged to main/upstream, PREV_BRANCH stays as-is)
+    git rev-parse --verify "$BRANCH" >/dev/null 2>&1 && PREV_BRANCH="$BRANCH"
+    continue
+  fi
+
+  # Create or checkout branch
+  if git rev-parse --verify "$BRANCH" >/dev/null 2>&1; then
+    git checkout "$BRANCH"
+  else
+    echo "Creating branch ${BRANCH} from ${PREV_BRANCH}..."
+    git checkout -b "$BRANCH" "$PREV_BRANCH"
+  fi
+
   echo "=== Starting issue: ${TASK_FILE} ==="
-  "${SCRIPT_DIR}/execute-issue.sh" "$TASK_FILE"
+  "${SCRIPT_DIR}/execute-issue.sh" "$TASK_FILE" "$PREV_BRANCH"
   echo "=== Completed issue: ${TASK_FILE} ==="
   echo
+
+  PREV_BRANCH="$BRANCH"
 done
 
 echo "All issues complete."
