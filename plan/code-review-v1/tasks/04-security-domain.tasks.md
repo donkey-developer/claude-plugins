@@ -45,7 +45,7 @@ Follows the pattern established by the SRE reference implementation.
     - `## Synthesis Pre-filter` section: confidence filter (remove <50% before dedup)
   - **Verification:** File exists; ~200-250 lines; covers STRIDE, confidence thresholds, exclusion list; has synthesis pre-filter section
 
-- [ ] **TASK-02: Create Security authn-authz.md pillar prompt**
+- [x] **TASK-02: Create Security authn-authz.md pillar prompt**
   - **Goal:** Create the Authentication & Authorisation pillar prompt with focus areas, anti-patterns, and checklist
   - **Brief ref:** BRIEF.md Section 6 (pillar prompts: ~80-120 lines)
   - **Files:**
