@@ -17,7 +17,7 @@
   - **Details:** Key decisions to capture: flat dispatch vs nested dispatch, haiku vs sonnet model selection, compilation vs runtime file reads, confidence filter threshold, prompt size budgets.
   - **Verification:** Each significant decision from BRIEF.md has rationale captured in a spec file
 
-- [ ] **TASK-03: Reconcile spec divergences**
+- [x] **TASK-03: Reconcile spec divergences**
   - **Goal:** Where implementation intentionally diverged from the planning brief, update the permanent specs under `spec/` to match reality
   - **Details:** Compare BRIEF.md and Planner.md against what was actually built. Update specs to reflect reality, not intent.
   - **Verification:** No contradictions between specs and implemented code
