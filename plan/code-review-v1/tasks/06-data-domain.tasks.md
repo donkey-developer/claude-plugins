@@ -31,7 +31,7 @@ Follows the pattern established by the SRE reference implementation.
 
 ## Tasks
 
-- [ ] **TASK-01: Create Data _base.md**
+- [x] **TASK-01: Create Data _base.md**
   - **Goal:** Distil the Data domain foundation into a base prompt covering Four Pillars, quality dimensions/decay patterns duality, maturity criteria, and glossary
   - **Brief ref:** BRIEF.md Section 6 (domain `_base.md`: ~200-250 lines)
   - **Files:**
@@ -50,7 +50,7 @@ Follows the pattern established by the SRE reference implementation.
     - `## Synthesis Pre-filter` section: data-specific file scoping (SQL, dbt, Spark, pipeline configs)
   - **Verification:** File exists; ~200-250 lines; covers Four Pillars, duality, consumer-first, fail-safe; has synthesis pre-filter
 
-- [ ] **TASK-02: Create Data architecture.md pillar prompt**
+- [x] **TASK-02: Create Data architecture.md pillar prompt**
   - **Goal:** Create the Data Architecture pillar prompt with focus areas, anti-patterns, and checklist
   - **Brief ref:** BRIEF.md Section 6 (pillar prompts: ~80-120 lines)
   - **Files:**
@@ -59,7 +59,7 @@ Follows the pattern established by the SRE reference implementation.
   - **Details:** Schema design, domain boundaries, contract completeness, data product boundaries. Describe structural properties, not modelling approaches.
   - **Verification:** File exists; ~80-120 lines; does NOT prescribe modelling approaches; has checklist
 
-- [ ] **TASK-03: Create Data engineering.md pillar prompt**
+- [x] **TASK-03: Create Data engineering.md pillar prompt**
   - **Goal:** Create the Data Engineering pillar prompt with focus areas, anti-patterns, and checklist
   - **Files:**
     - Create `plugins/code-review/prompts/data/engineering.md`
@@ -67,7 +67,7 @@ Follows the pattern established by the SRE reference implementation.
   - **Details:** Transformation correctness, idempotency, performance, pipeline reliability. Fail-safe defaults — silent data loss is a critical finding.
   - **Verification:** File exists; ~80-120 lines; has checklist
 
-- [ ] **TASK-04: Create Data quality.md pillar prompt**
+- [x] **TASK-04: Create Data quality.md pillar prompt**
   - **Goal:** Create the Data Quality pillar prompt with focus areas, anti-patterns, and checklist
   - **Files:**
     - Create `plugins/code-review/prompts/data/quality.md`
@@ -75,7 +75,7 @@ Follows the pattern established by the SRE reference implementation.
   - **Details:** Freshness SLOs, validation coverage, documentation adequacy, completeness, accuracy. Consumer-first — "how will consumers experience this data?"
   - **Verification:** File exists; ~80-120 lines; has checklist
 
-- [ ] **TASK-05: Create Data governance.md pillar prompt**
+- [x] **TASK-05: Create Data governance.md pillar prompt**
   - **Goal:** Create the Data Governance pillar prompt with focus areas, anti-patterns, and checklist
   - **Files:**
     - Create `plugins/code-review/prompts/data/governance.md`
@@ -83,7 +83,7 @@ Follows the pattern established by the SRE reference implementation.
   - **Details:** Compliance analysis, PII identification, lifecycle management, retention policies, access controls. Regulatory severity (GDPR, CCPA violations).
   - **Verification:** File exists; ~80-120 lines; has checklist
 
-- [ ] **TASK-06: Add Data entries to compile.conf**
+- [x] **TASK-06: Add Data entries to compile.conf**
   - **Goal:** Add the 4 Data agent entries and 1 Data skill entry to compile.conf
   - **Files:**
     - Edit `plugins/code-review/prompts/compile.conf`
@@ -95,7 +95,7 @@ Follows the pattern established by the SRE reference implementation.
     - `data` skill entry
   - **Verification:** compile.conf has 4 Data agent entries (all sonnet) and 1 Data skill entry
 
-- [ ] **TASK-07: Run compile.sh and verify generated files**
+- [x] **TASK-07: Run compile.sh and verify generated files**
   - **Goal:** Generate the 4 Data agent files and the Data skill file from prompts
   - **Files generated:**
     - `plugins/code-review/agents/data-architecture.md`
@@ -111,7 +111,7 @@ Follows the pattern established by the SRE reference implementation.
     - No modelling approaches prescribed
     - `scripts/compile.sh --check` exits 0
 
-- [ ] **TASK-08: Final verification**
+- [x] **TASK-08: Final verification**
   - **Goal:** Verify the complete Data domain is correctly built
   - **Verification:**
     - 5 prompt source files exist in `prompts/data/`
