@@ -51,7 +51,7 @@ This is the **reference implementation** — the first domain built, establishin
   - **Spec ref:** `spec/domains/sre/anti-patterns.md` (OP-01 through OP-07), `spec/domains/sre/calibration.md`
   - **Verification:** File exists; ~80-120 lines; includes all OP anti-patterns; has checklist
 
-- [ ] **TASK-04: Create SRE availability.md pillar prompt**
+- [x] **TASK-04: Create SRE availability.md pillar prompt**
   - **Goal:** Create the Availability pillar prompt with focus areas, anti-patterns (AP-01..AP-10), and checklist
   - **Files:**
     - Create `plugins/code-review/prompts/sre/availability.md`
