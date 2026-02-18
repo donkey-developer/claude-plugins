@@ -57,3 +57,16 @@ After removing LOW confidence findings, continue with the shared synthesis algor
 
 Domain-specific synthesis rule: the confidence filter runs **before** deduplication.
 A finding removed by the confidence filter does not appear in the synthesised output, even if multiple pillars raised the same low-confidence concern.
+
+## Synthesis
+
+### Data Pre-filter
+
+Before deduplication, apply the following domain-specific filters:
+
+**Scope filter:** Focus analysis on data-related files — SQL files, Python/Spark data processing scripts, dbt models, pipeline definitions, schema files, and migration scripts.
+Non-data files (application code, UI components, configuration unrelated to data) should receive lower analytical weight; flag findings only where data handling is directly implicated.
+
+**Consumer-first perspective:** For every finding, ask "How will downstream consumers experience this?"
+A schema change that the producer considers minor may be a breaking change for consumers.
+Prioritise findings that affect data consumers over findings that only affect internal implementation.
