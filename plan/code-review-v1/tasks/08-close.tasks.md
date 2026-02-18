@@ -39,6 +39,6 @@
   - **Goal:** Remove `Planner.md` from the repo root — its content has been migrated to the BRIEF.md (now deleted) and permanent specs.
   - **Verification:** `Planner.md` does not exist at repo root
 
-- [ ] **TASK-08: Close GitHub Milestone**
+- [x] **TASK-08: Close GitHub Milestone**
   - **Goal:** Verify all issues are closed, all PRs merged, then close the Milestone
   - **Verification:** GitHub Milestone shows as closed with 100% completion
