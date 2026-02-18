@@ -41,7 +41,7 @@
     - Per-domain synthesis includes domain-specific pre-filters (Security confidence, Data scope)
     - `scripts/compile.sh --check` exits 0
 
-- [ ] **TASK-03: Verify all 16 agents and 5 skills are complete**
+- [x] **TASK-03: Verify all 16 agents and 5 skills are complete**
   - **Goal:** Full inventory check of all generated files
   - **Verification:**
     - 16 agent files exist in `agents/` with correct frontmatter
