@@ -40,7 +40,7 @@
   - **Details:** Finding table columns, maturity table format, required sections (Summary, Findings, What's Good, Maturity Assessment). Include example templates.
   - **Verification:** File exists; defines finding table and maturity table formats; includes section headings; under 40 lines
 
-- [ ] **TASK-05: Create constraints.md**
+- [x] **TASK-05: Create constraints.md**
   - **Goal:** Define the hard constraints that apply to all agents
   - **Files:**
     - Create `plugins/code-review/prompts/shared/constraints.md`
