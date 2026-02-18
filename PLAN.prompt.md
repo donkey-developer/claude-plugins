@@ -147,14 +147,12 @@ The **last task file** in every milestone MUST be `{NN}-close.tasks.md`. This is
   - **Goal:** Ensure every `.md` file under `spec/` has an entry in `spec/README.md` with title and one-line description
   - **Verification:** `spec/README.md` entries match the actual files in `spec/`
 
-- [ ] **TASK-06: Delete plan directory**
-  - **Goal:** Remove `plan/{milestone-name}/` — plans are transient, specs are permanent. Plans remain in git history.
-  - **Verification:** `plan/{milestone-name}/` does not exist
-
-- [ ] **TASK-07: Close GitHub Milestone**
-  - **Goal:** Verify all issues are closed, all PRs merged, then close the Milestone
-  - **Verification:** GitHub Milestone shows as closed with 100% completion
 ```
+
+> **Note:** Plan directory deletion and GitHub Milestone closure are handled
+> automatically by `scripts/execute-milestone.sh` after all issues complete.
+> The close-out task file lives inside the plan directory, so the agent cannot
+> delete it during execution without breaking the loop.
 
 ### Step 6: Create GitHub Artifacts
 

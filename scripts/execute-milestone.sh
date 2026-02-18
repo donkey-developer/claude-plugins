@@ -71,4 +71,40 @@ for TASK_FILE in "${PLAN_DIR}"/*.tasks.md; do
   PREV_BRANCH="$BRANCH"
 done
 
+# --- Milestone cleanup: delete plan directory and close milestone ---
+# The close-out task file lives inside the plan directory, so the agent
+# cannot delete it during execution. The script handles this after all
+# issues (including close-out) are complete.
+
+MILESTONE_DIR="$(dirname "$PLAN_DIR")"
+
+if [ -d "$MILESTONE_DIR" ]; then
+  echo -e "\033[0;32m=== Milestone cleanup: deleting plan directory ===\033[0m"
+  git rm -rf "$MILESTONE_DIR"
+  git commit -m "$(cat <<'EOF'
+Delete plan directory — plans are transient, specs are permanent
+
+Plan remains auditable via git history, PRs, Issues, and Milestones.
+Handled by execute-milestone.sh after all close-out tasks completed.
+EOF
+  )"
+  git push
+  echo "Plan directory deleted and pushed."
+fi
+
+# Attempt to close the GitHub Milestone (best-effort).
+# Derives milestone name from the plan directory (e.g. plan/code-review-v1 → "code-review-v1").
+MILESTONE_SLUG="$(basename "$MILESTONE_DIR")"
+MILESTONE_NUMBER=$(gh api repos/:owner/:repo/milestones --jq \
+  ".[] | select(.title | ascii_downcase | gsub(\" \"; \"-\") | test(\"${MILESTONE_SLUG}\")) | .number" 2>/dev/null || true)
+
+if [ -n "$MILESTONE_NUMBER" ]; then
+  echo -e "\033[0;32m=== Closing GitHub Milestone #${MILESTONE_NUMBER} ===\033[0m"
+  gh api -X PATCH "repos/:owner/:repo/milestones/${MILESTONE_NUMBER}" -f state=closed || \
+    echo "Warning: Could not close milestone. Close it manually." >&2
+else
+  echo "Warning: Could not find GitHub Milestone matching '${MILESTONE_SLUG}'." >&2
+  echo "Close the milestone manually." >&2
+fi
+
 echo "All issues complete."
