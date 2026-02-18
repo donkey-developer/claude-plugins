@@ -40,6 +40,56 @@ code-review/
 | Change orchestration logic | `skills/<domain>/SKILL.md` only |
 | Add a new subagent | New prompt file, new agent file, update SKILL.md to spawn additional agent |
 
+## Compilation Pipeline
+
+Agent and skill files are generated from source prompts by `scripts/compile.sh`.
+The compilation process is automated — never edit generated files by hand.
+
+### compile.conf
+
+`prompts/compile.conf` is the single registry of all agents and skills.
+Each entry declares the type, name, model, and description:
+
+```
+type|name|model|description
+agent|sre-response|sonnet|SRE Response pillar review — ...
+skill|all|sonnet|Comprehensive code review across all domains — ...
+```
+
+The `compile.sh` script reads this file to know which files to generate.
+
+### How compilation works
+
+**Agent files** (`agents/<domain>-<pillar>.md`) are assembled from:
+
+1. YAML frontmatter — name, description, model, tools — derived from `compile.conf`
+2. All shared prompt files from `prompts/shared/` (alphabetical, excluding `synthesis.md`)
+3. The domain base file: `prompts/<domain>/_base.md`
+4. The pillar prompt file: `prompts/<domain>/<pillar>.md`
+
+**Skill files** (`skills/<domain>/SKILL.md`) are assembled from:
+
+- For domain skills: `prompts/shared/synthesis.md` + the `## Synthesis` section extracted from `prompts/<domain>/_base.md`
+- For the `all` skill: `prompts/all/_base.md` + `prompts/shared/synthesis.md` + the `## Synthesis` section from every domain's `_base.md`
+
+### Prompt size targets
+
+These targets keep inlined agent context manageable:
+
+| Source | Target size |
+|--------|-------------|
+| Shared content (all 6 files combined) | ~180 lines |
+| Domain `_base.md` | ~200–250 lines |
+| Pillar prompt | ~80–120 lines |
+| **Total inlined per agent** | **~460–550 lines (~3–4 K tokens)** |
+
+### Checking compiled files
+
+Run `./scripts/compile.sh --check` to verify generated files are in sync with their sources.
+A pre-commit hook runs this check automatically; commits are blocked if any generated file is stale.
+
+To regenerate all files: `./scripts/compile.sh`
+
 ## Maturity Model
 
 ### Hygiene Gate
