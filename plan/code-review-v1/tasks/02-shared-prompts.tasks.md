@@ -32,7 +32,7 @@
   - **Details:** Outcomes over techniques, questions over imperatives, positive observations, consequence-based hygiene, and the fifth principle. Keep actionable — agents must apply these, not just know them.
   - **Verification:** File exists; captures all 5 principles; under 40 lines
 
-- [ ] **TASK-04: Create output-format.md**
+- [x] **TASK-04: Create output-format.md**
   - **Goal:** Define the standard output format for agent findings
   - **Files:**
     - Create `plugins/code-review/prompts/shared/output-format.md`
