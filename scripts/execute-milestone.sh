@@ -78,6 +78,14 @@ done
 
 MILESTONE_DIR="$(dirname "$PLAN_DIR")"
 
+# Ensure we're on the close-out branch, not main. When all issues were
+# skipped (already complete), the loop never checks out a branch.
+CURRENT_BRANCH=$(git branch --show-current)
+if [ "$CURRENT_BRANCH" = "main" ] && [ "$PREV_BRANCH" != "main" ]; then
+  echo "Checking out ${PREV_BRANCH} for cleanup..."
+  git checkout "$PREV_BRANCH"
+fi
+
 if [ -d "$MILESTONE_DIR" ]; then
   echo -e "\033[0;32m=== Milestone cleanup: deleting plan directory ===\033[0m"
   git rm -rf "$MILESTONE_DIR"
