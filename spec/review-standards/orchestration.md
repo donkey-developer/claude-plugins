@@ -23,6 +23,9 @@ See each domain's `spec.md` Section 6 for the dispatch table.
 
 ## Step 3: Synthesis
 
+> **What lives in the compiled SKILL.md:** Only the synthesis algorithm (Steps 3 and 4) is compiled into each domain's `SKILL.md`.
+> Scope detection (Step 1) and dispatch (Step 2) are not written into the SKILL.md — the Claude Code skill model handles scope from the argument and knows which agents belong to the domain from the plugin registry.
+
 All domains follow the same synthesis algorithm:
 
 1. **Collect** findings from all 4 subagents
