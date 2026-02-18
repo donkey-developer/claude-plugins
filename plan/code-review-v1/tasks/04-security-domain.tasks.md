@@ -27,7 +27,7 @@ Follows the pattern established by the SRE reference implementation.
 
 ## Tasks
 
-- [ ] **TASK-01: Create Security _base.md**
+- [x] **TASK-01: Create Security _base.md**
   - **Goal:** Distil the Security domain foundation into a base prompt covering STRIDE framework, threat/property duality, confidence thresholds, and glossary
   - **Brief ref:** BRIEF.md Section 6 (domain `_base.md`: ~200-250 lines)
   - **Files:**
