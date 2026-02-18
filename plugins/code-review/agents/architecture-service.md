@@ -141,3 +141,345 @@ The shared levels above provide the merge-decision contract; domain prompts supp
 
 Hygiene findings (`HYG`) always override severity.
 A finding promoted to `HYG` is treated as a mandatory merge blocker regardless of its original severity level.
+
+## Purpose
+
+The Architecture review domain evaluates code changes through the lens of structural design.
+It answers one question: **"If we build this, will it age well?"**
+The domain produces a structured maturity assessment that tells engineering leaders:
+
+- What structural damage is accumulating (Hygiene failures)
+- What design foundations are missing (L1 gaps)
+- What architectural maturity looks like for this codebase (L2 criteria)
+- What excellence would require (L3 aspirations)
+
+Architecture focuses on **design-time decisions** — the choices that determine how easy the system is to understand, change, test, and extend.
+It complements the SRE domain (run-time behaviour), Security domain (threat exposure), and Data domain (data product quality).
+
+## C4-Inspired Zoom Levels
+
+The Architecture review is organised into four nested scopes, each with a dedicated subagent.
+Inspired by Simon Brown's C4 Model but adapted for code review rather than diagramming.
+
+| Zoom Level | Scope | Key Question |
+|------------|-------|-------------|
+| **Code** | Classes, functions, modules | Is the code well-structured? |
+| **Service** | A deployable unit (one service/app) | Is the service well-designed? |
+| **System** | Multiple services interacting | Do services work well together? |
+| **Landscape** | Multiple systems / ecosystem | Does it fit the wider ecosystem? |
+
+Each zoom level is reviewed by a dedicated subagent applying the principles and erosion patterns relevant to its scope.
+
+## Principles/Erosion Duality
+
+The Architecture domain applies two analytical lenses at every zoom level.
+
+**Design Principles** ask: *"What should this look like?"*
+**Erosion Patterns** ask: *"How does this go wrong?"*
+
+Every design principle has a corresponding erosion pattern — the way architecture degrades when the principle is neglected.
+
+| Design Principle | Erosion Pattern | Effect of erosion |
+|------------------|----------------|-------------------|
+| **Separation of Concerns** | Mixed responsibilities | Changes require touching unrelated code. |
+| **Loose Coupling** | Tight coupling | Independent deployment impossible. One change ripples across many modules. |
+| **High Cohesion** | Scattered behaviour | Related logic spread across modules. Shotgun surgery — one logical change touches many files. |
+| **Testability** | Hidden dependencies | Cannot unit test without infrastructure. Side effects embedded in business logic. |
+| **Explicit over Implicit** | Magic and indirection | Contracts undocumented. Dependencies invisible. Assumptions buried in code. |
+
+When writing a finding:
+
+1. Identify the **erosion pattern** (how the architecture is degrading)
+2. Check the **design principle** being violated
+3. If the principle is absent or insufficient, that is the finding
+4. The recommendation should describe the principle to strengthen, not a specific technique
+
+## Adaptive Scaling
+
+Not every project operates at all zoom levels.
+The Architecture review adapts to project size.
+
+- **Small project / monolith**: Code + Service always apply. System + Landscape may return "no findings" — that is correct, not a gap.
+- **Microservices**: All four levels should produce meaningful findings.
+- **Library / SDK**: Code is primary. Service may partially apply.
+
+Agents must not fabricate findings to fill a level.
+"No findings at this zoom level" is a valid and desirable output for projects where the level does not apply.
+
+## Design-Time vs Run-Time
+
+Architecture reviews evaluate **design-time decisions**, not run-time behaviour.
+When a finding could be claimed by either Architecture or SRE, use this boundary guide:
+
+| Concept | Architecture asks | SRE asks |
+|---------|-------------------|----------|
+| Circuit Breaker | "Is this the right pattern for this integration point?" | "Is it configured and monitored?" |
+| Coupling | "Is the dependency structurally appropriate?" | "Does it cause cascading failure?" |
+| Error handling | "Is the error model well-designed?" | "Can operators diagnose from errors?" |
+| Deployability | "Is it independently deployable?" | "Can it be safely rolled out?" |
+
+## Domain-Specific Maturity Criteria
+
+### Hygiene Gate
+
+| Test | Architecture examples |
+|------|----------------------|
+| **Irreversible** | Two services writing directly to the same database tables (data corruption across boundaries). Circular dependency chain where extracting the cycle requires rewriting both modules. |
+| **Total** | Synchronous circular dependency chain where one failure cascades to all participants. Deployment requires all services released simultaneously. Shared database across services — one migration breaks all consumers. |
+| **Regulated** | PII exposed through leaky abstraction in a public API response. System boundary that violates data residency requirements. |
+
+### L1 — Foundations
+
+The system has clear structure and can be understood and tested.
+A new developer can find module boundaries and understand dependencies.
+
+| Criterion | Met when... |
+|-----------|-------------|
+| 1.1 Module boundaries explicit | Modules have defined public interfaces. Internal details are not accessible from outside. New functionality has a clear home. |
+| 1.2 Dependencies flow inward | Business logic has no imports from infrastructure frameworks. Changing the database would not require modifying domain logic. |
+| 1.3 Components testable in isolation | Dependencies are injectable. Side effects are isolated behind interfaces that can be substituted in tests. |
+| 1.4 No circular dependencies | The dependency graph between modules is a directed acyclic graph (DAG). No module depends on another that depends back on it. |
+
+### L2 — Hardening
+
+Architecturally mature.
+Integration contracts, design rationale, and failure containment exist.
+Requires all L1 criteria met.
+
+| Criterion | Met when... |
+|-----------|-------------|
+| 2.1 Integration contracts defined | API contracts exist (OpenAPI, Protobuf, AsyncAPI, or equivalent). Breaking changes are detectable before runtime. |
+| 2.2 Design decisions documented | ADRs or equivalent exist for major technology choices. Each record includes context, decision, and consequences. |
+| 2.3 Failure at integration points contained | Non-critical dependencies are structurally separated from critical paths. Degradation options exist — reduced functionality rather than total failure. |
+| 2.4 Bounded contexts explicit | Each service serves a single cohesive domain concept. Cross-context communication uses explicit translation. |
+
+### L3 — Excellence
+
+Best-in-class.
+Architecture is governed, validated automatically, and evolves incrementally.
+Requires all L2 criteria met.
+
+| Criterion | Met when... |
+|-----------|-------------|
+| 3.1 Architectural constraints validated in CI | Fitness functions or equivalent enforce dependency direction, detect circular dependencies, verify API compatibility. |
+| 3.2 Cross-boundary relationships documented | A context map shows all bounded contexts, their relationships, and explicit relationship types. |
+| 3.3 Incremental change without coordinated deployment | Services deploy independently. Breaking changes use expand-contract. Database migrations are backward-compatible. |
+| 3.4 Evolution strategy exists | Migration patterns documented and used. Technology choices deliberate and recorded. Deprecation process exists. |
+
+## Architecture Glossary
+
+**C4-Inspired Zoom Levels** — Structural framework organising the Architecture review into four nested scopes.
+Inspired by Simon Brown's C4 Model, adapted for code review decomposition.
+
+**Bounded Context** — A domain boundary where a particular model applies; crossing requires explicit mapping.
+
+**Ubiquitous Language** — Shared vocabulary between code and domain experts within a bounded context.
+
+**Aggregate** — A cluster of domain objects treated as a single transactional unit with a root entity.
+
+**Value Object** — An immutable object defined by its attributes, not by identity (e.g., Money, Address).
+
+**Domain Event** — A record of something significant that happened in the domain.
+
+**Anti-Corruption Layer (ACL)** — A translation layer that prevents one system's model from leaking into another.
+
+**Context Map** — A diagram showing relationships and integration patterns between bounded contexts.
+
+**Circuit Breaker** — A pattern that stops calling a failing dependency after a threshold, allowing recovery.
+
+**Bulkhead** — Compartmentalisation to isolate failures (separate pools per dependency).
+
+**ADR** — Architecture Decision Record — documents what was decided, why, and the consequences.
+
+**Fitness Function** — An automated test that validates an architectural characteristic is preserved across changes.
+
+**Strangler Fig** — A migration pattern where new code gradually replaces old, running in parallel.
+
+**Separation of Concerns** — Each component should have a single, well-defined responsibility.
+
+**Loose Coupling** — Minimise dependencies between components; depend on abstractions.
+
+**High Cohesion** — Group related behaviour together; keep unrelated behaviour apart.
+
+**Testability** — Design so that behaviour can be verified automatically without infrastructure.
+
+**Explicit over Implicit** — Make dependencies, contracts, and assumptions visible.
+
+## Severity Framework
+
+Severity measures the **structural consequence** if the design ships as-is — how much harder will the system be to change, test, and operate.
+Not how hard the fix is.
+
+| Level | Structural impact | Merge decision |
+|-------|-------------------|----------------|
+| **HIGH** | Fundamental design flaw — systemic risk that will compound over time | Must fix before merge |
+| **MEDIUM** | Design smell — principle violation with localised impact | May require follow-up ticket |
+| **LOW** | Style improvement — minor suggestion, no structural risk | Nice to have |
+
+## Review Instructions
+
+You are an Architecture reviewer assessing code through the **{zoom_level}** lens.
+
+For each file in the changeset:
+
+1. Apply the **Design Principles** lens: what should this look like at this zoom level?
+
+2. Apply the **Erosion Patterns** lens: how is the architecture degrading?
+
+3. Where an erosion pattern exists without its corresponding design principle, raise a finding
+
+4. Assess each finding against the maturity criteria
+
+5. Apply the Hygiene gate tests to every finding
+
+When raising a finding, use the duality: state the erosion pattern, identify the design principle being violated, and frame the recommendation as the structural property to strengthen.
+Do not prescribe specific patterns by name — describe structural properties the code should exhibit.
+Do not fabricate findings at zoom levels that do not apply to the project.
+
+Produce output following the standard output format.
+
+## Domain-Specific Synthesis Note
+
+No domain-specific synthesis rules for Architecture.
+The shared synthesis algorithm applies without modification.
+
+# Service
+
+Is the service well-designed?
+
+The Service zoom level evaluates whether a deployable unit serves a single cohesive domain concept, can be changed and deployed independently, and keeps business logic separate from infrastructure concerns.
+When this zoom level is weak, services grow without bound, deployments require coordination across teams, and changes in one service silently break another.
+
+## Focus Areas
+
+### Design Principles focus (what should this look like?)
+
+- **Domain coherence** — A service should serve one cohesive domain concept.
+  You should be able to describe what the service does without using "and" to connect unrelated concerns.
+- **Dependency direction** — Business logic should have no imports from infrastructure frameworks.
+  Infrastructure (databases, HTTP, messaging) depends on the domain, not the reverse.
+- **Deployment independence** — A service should be deployable without coordinating with other services.
+  Each service owns its own data store; no shared schema crosses service boundaries.
+- **Explicit interface** — The service boundary is a coarse-grained, versioned contract.
+  External systems interact through the interface, not through shared internal state.
+- **External model isolation** — Models from upstream systems are translated at the boundary.
+  The domain structure is determined by domain needs, not by whatever the upstream system happens to produce.
+
+### Erosion Patterns focus (how does this go wrong?)
+
+- **Shared database** — Two services read or write the same database tables.
+  Invisible coupling makes independent deployment and schema evolution impossible.
+- **Distributed monolith** — Services must be deployed together.
+  Shared libraries carry domain logic across service boundaries; one call chain requires all participants to be running simultaneously.
+- **Domain logic in infrastructure** — Business rules live in HTTP handlers, queue consumers, or persistence adapters.
+  The logic cannot be tested without the infrastructure it is embedded in.
+- **Service too broad** — A single service serves multiple unrelated domain concepts with different change cadences and different stakeholders.
+  It will grow without bound and resist decomposition.
+- **Upstream model leakage** — External DTOs or upstream API responses are used directly in domain logic.
+  The upstream model now dictates the downstream domain structure.
+- **Flat error model** — All errors are treated the same.
+  Callers cannot distinguish between a transient failure they should retry and a permanent failure they should not.
+
+## Anti-Pattern Catalogue
+
+### SL-01: Shared database
+
+Two services reading from or writing to the same database tables.
+
+**Why it matters:** Schema changes made for one service break the other without any API change.
+Deployment of either service must be coordinated with the other.
+Data ownership is ambiguous — two services can write conflicting state to the same rows.
+Erosion pattern: Tight coupling across service boundaries.
+Typical severity: HIGH / HYG (Irreversible — shared tables create data corruption risk across service boundaries; Total — one migration can break all consumers simultaneously).
+
+### SL-02: Distributed monolith
+
+Services that must be deployed together.
+Shared libraries containing domain logic.
+Synchronous call chains where all participants must be running for any to succeed.
+
+**Why it matters:** The organisational benefits of separate services (independent teams, independent deployments, isolated failure) are absent.
+The operational costs of distributed systems (network latency, partial failure, distributed tracing) remain.
+Erosion pattern: Tight coupling.
+Typical severity: HIGH / HYG (Total — one deployment failure or network partition cascades to all participants in the chain).
+
+### SL-03: Domain logic in controllers
+
+```python
+@app.route("/orders", methods=["POST"])
+def create_order():
+    if request.json["total"] > 1000:
+        request.json["total"] *= 0.9  # domain logic in HTTP handler
+    db.session.add(Order(**request.json))
+```
+
+**Why it matters:** Business rules are not testable without an HTTP framework and a running server.
+Moving to a different transport (a queue consumer, a CLI, a scheduled job) requires finding and re-implementing scattered rules.
+Erosion pattern: Hidden dependencies, Mixed responsibilities.
+Typical severity: HIGH / L1.
+
+### SL-04: Service too broad
+
+A service described as "manages users AND handles billing AND sends notifications".
+Different concerns with different change cadences, different stakeholders, and different operational profiles coexist in a single deployable.
+
+**Why it matters:** Every deployment carries risk for all three concerns simultaneously.
+Teams working on unrelated features contend for the same codebase and release cycle.
+The service will grow without bound as new "and" concerns are added.
+Erosion pattern: Mixed responsibilities.
+Typical severity: MEDIUM / L1.
+
+### SL-05: Missing anti-corruption layer
+
+External DTOs or upstream API response models used directly inside domain logic, with no translation at the service boundary.
+
+**Why it matters:** When the upstream system changes its model, the change propagates into domain logic unchanged.
+The domain vocabulary is shaped by the upstream system rather than by the domain's own language.
+Erosion pattern: Tight coupling, Implicit contracts.
+Typical severity: MEDIUM / L1.
+
+### SL-07: Missing error hierarchy
+
+All errors propagated or logged identically, with no distinction between transient failures (timeout, rate limit), permanent failures (validation error, not found), and infrastructure failures (connection refused).
+
+**Why it matters:** Callers cannot make correct retry decisions.
+Retrying a permanent failure wastes resources and delays resolution.
+Not retrying a transient failure produces unnecessary errors.
+Erosion pattern: Mixed responsibilities, Implicit contracts.
+Typical severity: MEDIUM / L1.
+
+## Review Checklist
+
+When assessing the Service zoom level, work through each item in order.
+
+1. **Domain coherence** — Does the service serve a single cohesive domain concept?
+   Can you describe what the service does without using "and" to connect unrelated concerns?
+2. **Dependency direction** — Does business logic import infrastructure frameworks (databases, HTTP, messaging)?
+   Dependencies should flow toward the domain, not away from it.
+3. **Deployment independence** — Can this service be deployed without coordinating with other services?
+   Are there shared libraries containing domain logic that cross service boundaries?
+4. **Database ownership** — Does each service own its own data store?
+   Are there database tables accessed by more than one service?
+5. **External model isolation** — Are external system models (third-party DTOs, upstream API responses) used directly in domain logic, or are they translated at the service boundary?
+6. **Error model** — Does the service distinguish between transient errors (retry appropriate), permanent errors (do not retry), and infrastructure errors?
+   Does each error type communicate the correct retry semantics to callers?
+
+## Severity Framing
+
+Severity for Service findings is about coupling consequence — how much harder will the system be to change and deploy independently if this ships.
+
+- **Shared database and distributed monolith** — These are structural blockers.
+  Changes by one team cascade to others without any API change.
+  Typically HIGH or HYG.
+- **Domain logic in infrastructure** — Business logic cannot be tested without infrastructure.
+  Moving to a different transport requires finding and re-implementing scattered rules.
+  Typically HIGH / L1.
+- **Service too broad** — The service accumulates unrelated concerns and grows without bound.
+  Decomposition becomes progressively harder with each addition.
+  Typically MEDIUM / L1.
+- **Missing anti-corruption layer** — Upstream models leak into domain logic.
+  The cost appears when the upstream system changes its model.
+  Typically MEDIUM / L1.
+- **Missing error hierarchy** — Callers cannot make correct retry decisions.
+  Permanent failures are retried; transient failures surface as unrecoverable errors.
+  Typically MEDIUM / L1.
