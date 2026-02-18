@@ -44,7 +44,7 @@ This is the **reference implementation** — the first domain built, establishin
   - **Details:** Pillar scope, anti-pattern catalogue with concise code examples, review checklist. Severity is about production consequence (error propagation, missing runbooks, unsafe retries).
   - **Verification:** File exists; ~80-120 lines; includes all RP anti-patterns; has checklist
 
-- [ ] **TASK-03: Create SRE observability.md pillar prompt**
+- [x] **TASK-03: Create SRE observability.md pillar prompt**
   - **Goal:** Create the Observability pillar prompt with focus areas, anti-patterns (OP-01..OP-07), and checklist
   - **Files:**
     - Create `plugins/code-review/prompts/sre/observability.md`
