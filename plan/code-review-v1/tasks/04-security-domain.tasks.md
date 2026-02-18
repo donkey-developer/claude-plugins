@@ -90,7 +90,7 @@ Follows the pattern established by the SRE reference implementation.
     - `security` skill entry
   - **Verification:** compile.conf has 4 Security agent entries with correct models and 1 Security skill entry
 
-- [ ] **TASK-07: Run compile.sh and verify generated files**
+- [x] **TASK-07: Run compile.sh and verify generated files**
   - **Goal:** Generate the 4 Security agent files and the Security skill file from prompts
   - **Files generated:**
     - `plugins/code-review/agents/security-authn-authz.md`
