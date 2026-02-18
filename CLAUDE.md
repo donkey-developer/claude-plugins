@@ -107,9 +107,10 @@ When the base PR merges, GitHub automatically retargets the stacked PR.
    - **New vocabulary** — terms coined during implementation, added to relevant glossary
    - **No speculation** — only document what was actually built
 3. Update `spec/README.md` — ensure every spec file has an entry with title and one-line description
-4. Delete `plan/{milestone-name}/` directory — plans are transient; specs are permanent. Plans remain auditable via git history, PRs, Issues, and Milestones.
-5. Close the GitHub Milestone
-6. Commit, push, and create a final PR
+4. Commit, push, and create a final PR
+5. `scripts/execute-milestone.sh` handles the remaining cleanup automatically after all close-out tasks complete:
+   - Delete `plan/{milestone-name}/` directory — the close-out task file lives inside it, so the agent cannot delete it during execution
+   - Close the GitHub Milestone via the `gh` CLI
 
 ### Why This Matters
 
