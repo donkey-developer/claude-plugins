@@ -14,7 +14,7 @@
 
 ## Tasks
 
-- [ ] **TASK-01: Create all skill prompt source**
+- [x] **TASK-01: Create all skill prompt source**
   - **Goal:** Create or update the prompt source content that the compile script uses to generate `skills/all/SKILL.md`
   - **Brief ref:** BRIEF.md Section 3 (flat dispatch of 16 agents)
   - **Files:**
@@ -30,7 +30,7 @@
     - Report: summary to user with finding counts and file paths
   - **Verification:** Prompt source exists with complete orchestration logic
 
-- [ ] **TASK-02: Run compile.sh to generate skills/all/SKILL.md**
+- [x] **TASK-02: Run compile.sh to generate skills/all/SKILL.md**
   - **Goal:** Generate the all-domain skill file from prompts
   - **Files generated:**
     - `plugins/code-review/skills/all/SKILL.md`

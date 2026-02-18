@@ -275,11 +275,20 @@ allowed-tools: Task, Read, Grep, Glob, Bash, Write
     synthesis_file="${PROMPTS_DIR}/shared/synthesis.md"
 
     if [[ "${name}" == "all" ]]; then
-        # All skill: gather synthesis additions from ALL domain _base.md files
+        # All skill: orchestration content + shared synthesis + all domain synthesis additions
         body=""
 
+        # Orchestration instructions (scope detection, dispatch, output structure)
+        all_base="${PROMPTS_DIR}/all/_base.md"
+        if all_base_content="$(read_file_or_warn "${all_base}" "All skill base")"; then
+            body="${all_base_content}"
+        fi
+
         if synthesis_content="$(read_file_or_warn "${synthesis_file}" "Shared synthesis")"; then
-            body="${synthesis_content}"
+            if [[ -n "${body}" ]]; then
+                body+=$'\n\n'
+            fi
+            body+="${synthesis_content}"
         fi
 
         for d in "${KNOWN_DOMAINS[@]}"; do
