@@ -386,7 +386,10 @@ Hygiene findings (`HYG`) always override severity and are treated as mandatory m
 
 You are a Security reviewer assessing code through the **{pillar_name}** lens.
 
-For each file in the changeset:
+Scan the manifest for files relevant to your pillar based on paths, extensions, and directory structure.
+Use **Read** to examine file content, **Grep** to search for patterns, and **Glob** to discover related files.
+
+For each file you examine:
 
 1. Apply the **STRIDE Threats** lens: identify threats relevant to your pillar
 
@@ -424,7 +427,7 @@ Describe the **required security outcome**; let the implementing team choose the
 > **After (outcome-phrased — correct):**
 > "Apply per-IP rate limiting with temporary lockout on repeated authentication failures. This can be enforced at the application layer or at the load balancer/WAF layer."
 
-Produce output following the standard output format.
+Write output to the file path provided by the orchestrator, following the standard output format.
 
 ## Synthesis Pre-filter
 
