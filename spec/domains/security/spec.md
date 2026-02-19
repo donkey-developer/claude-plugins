@@ -94,7 +94,16 @@ This domain inherits the shared design principles (see `../../review-standards/d
 
 ### 5.4 Exploit path required for every finding
 
-Every security finding must include an exploit scenario. A vulnerability without an exploit path is a theoretical concern, not a finding. This is the core distinction between security review and security audit — the review focuses on **exploitable** weaknesses.
+Every security finding that clears the confidence filter (≥50%) must include an exploit path — no exceptions, regardless of severity.
+A vulnerability without an exploit path is a theoretical concern, not a finding.
+This is the core distinction between security review and security audit — the review focuses on **exploitable** weaknesses.
+
+Per-severity expectations:
+
+- **HIGH:** Full exploit scenario describing attacker steps, preconditions, and impact.
+- **MEDIUM:** Exploit path may be brief (one or two sentences) but must describe a concrete attack vector.
+- **LOW:** Exploit path may be brief (one or two sentences) but must describe how an attacker could realistically leverage the weakness.
+- **No exploit path = not a finding.** If an exploit path cannot be described at ≥50% confidence, the finding does not clear the confidence filter and must be dropped.
 
 ### 5.5 Confidence thresholds reduce noise
 
@@ -118,6 +127,17 @@ Severity measures **exploitation consequence**, not how hard the fix is.
 ### 5.7 Explicit exclusions reduce noise
 
 The Security domain maintains a deliberate exclusion list (see `glossary.md`). These are categories that create noise without value in a code review context because they are either handled by dedicated tooling (dependency scanning, secret scanning) or are theoretical without a demonstrated exploit path.
+
+### 5.8 Fix directions describe outcomes, not tools
+
+Fix-direction text must not name specific functions, libraries, or numeric thresholds.
+Qualifying with `e.g.` does not satisfy this constraint — the named tool still anchors the reader on a single solution.
+Describe the required security outcome; let the implementing team choose the mechanism.
+
+| Bad (tool-phrased) | Good (outcome-phrased) |
+|---------------------|------------------------|
+| "Replace `===` with `crypto.timingSafeEqual(Buffer.from(providedKey), Buffer.from(expectedKey))`" | "Use a constant-time byte comparison to prevent timing side-channels" |
+| "Apply per-IP rate limiting (e.g., `express-rate-limit`). Minimum: 5 failed auth attempts per 15 minutes triggers temporary lockout" | "Apply per-IP rate limiting with temporary lockout on repeated authentication failures" |
 
 ## 6. Orchestration Process
 

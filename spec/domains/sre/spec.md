@@ -101,6 +101,12 @@ This domain inherits the shared design principles (see `../../review-standards/d
 
 Severity is about the **production consequence** if the code ships as-is, not about how hard the fix is.
 
+### 5.5 Positive observations with code evidence
+
+The SRE review instructions require a "What's Good" section identifying operational patterns worth preserving.
+Each positive observation must cite specific file references (e.g. `src/health.ts:12`) and concrete evidence such as structured logging, timeout configuration, graceful degradation paths, health check implementations, or error handling that aids diagnosis.
+Generic praise without code evidence is prohibited.
+
 ## 6. Orchestration Process
 
 The `/donkey-review:sre` skill follows the shared orchestration pattern (see `../../review-standards/orchestration.md`) with these domain-specific details:
