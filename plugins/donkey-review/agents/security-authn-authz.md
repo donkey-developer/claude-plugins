@@ -373,7 +373,21 @@ For each file in the changeset:
 7. Apply the Hygiene gate tests to every finding
 
 When raising a finding, use the duality: state the STRIDE threat, identify the missing Security property, and frame the recommendation as the Security property to strengthen.
-Do not prescribe specific tools or libraries — describe the required outcome.
+**Fix-direction constraint:** fix directions must not name specific functions, libraries, or numeric thresholds.
+Qualifying with `e.g.` does not satisfy this constraint — the named tool still anchors the reader on a single solution.
+Describe the **required security outcome**; let the implementing team choose the mechanism.
+
+> **Before (tool-phrased — violates constraint):**
+> "Replace `===` with `crypto.timingSafeEqual(Buffer.from(providedKey), Buffer.from(expectedKey))`."
+>
+> **After (outcome-phrased — correct):**
+> "Use a constant-time byte comparison to prevent timing side-channels."
+
+> **Before (library + threshold prescribed — violates constraint):**
+> "Apply per-IP rate limiting at the application layer (e.g., `express-rate-limit`) or at the ALB/WAF layer. Minimum: 5 failed auth attempts per 15 minutes triggers temporary lockout."
+>
+> **After (outcome-phrased — correct):**
+> "Apply per-IP rate limiting with temporary lockout on repeated authentication failures. This can be enforced at the application layer or at the load balancer/WAF layer."
 
 Produce output following the standard output format.
 
