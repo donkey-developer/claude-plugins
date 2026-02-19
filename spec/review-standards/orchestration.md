@@ -3,6 +3,22 @@
 > The orchestration process that all domain review skills follow.
 > Each domain inherits this pattern and customises Step 2 (parallel dispatch) and may add domain-specific synthesis steps.
 
+## Design context
+
+The manifest-driven architecture replaced an earlier content-dumping approach where the orchestrator read the full diff or codebase into its own context, passed the entire content to all 16 agents, and collected all 16 outputs back in-context.
+That design worked for small changesets (under 1500 lines) but hit context limits on every subagent when reviewing a moderate-sized mono-repo (~4000-line diff, ~60 files).
+
+Three bottlenecks drove the redesign:
+
+1. **Agent input saturation** — each agent received the full diff or codebase content (~60k+ tokens) in its task prompt, regardless of pillar relevance.
+   Agents had Read, Grep, and Glob tools but were never instructed to use them for file discovery.
+2. **Agent output accumulation** — each agent returned its findings as in-context text to the orchestrator.
+   Sixteen agent outputs (5–15k tokens each) accumulated in the orchestrator's context alongside the original content.
+3. **No selective filtering** — there was no mechanism to send only relevant files to each agent or to limit what the orchestrator held at any given time.
+
+The target after redesign is 100k-line codebases — roughly 25x larger than what previously caused context exhaustion.
+Each subsequent design decision (manifest input, file-based output, sequential synthesis) addresses one or more of these bottlenecks.
+
 ## Step 1: Scope identification
 
 All domains use the same scoping algorithm.
@@ -15,6 +31,13 @@ The scope determines which files appear in the manifest (Step 2) and which revie
 - **Dot (`.`)** — review changes from the main branch (`git diff main...HEAD`), changed files only.
 
 Individual domains may add domain-specific scoping guidance (e.g., which file types to focus on).
+
+### Why full codebase is the default (not diff)
+
+The original default was diff-based review, but this limits agents to reviewing only changed files and misses systemic issues in the surrounding codebase.
+Full-codebase review gives agents the complete picture — they can assess how a change fits into the broader architecture, identify pre-existing issues that interact with new code, and evaluate cross-cutting concerns (e.g., authentication patterns, observability gaps) that a diff alone would not surface.
+Diff-based review remains available as an opt-in narrowing mode for focused change review (via dot or PR number arguments).
+The manifest-driven architecture makes full-codebase review feasible at scale because agents self-select which files to read rather than receiving all content in-context.
 
 ### Unified flow
 
