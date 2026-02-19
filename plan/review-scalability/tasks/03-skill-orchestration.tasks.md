@@ -7,7 +7,7 @@
 
 ## Tasks
 
-- [ ] **TASK-01: Read current skill files and updated spec**
+- [x] **TASK-01: Read current skill files and updated spec**
   - **Goal:** Understand the current skill orchestration logic and the target architecture from the updated spec, so the skill rewrite preserves synthesis algorithms and output formats while replacing scope identification and dispatch
   - **Brief ref:** BRIEF.md — Solution
   - **Files:**
