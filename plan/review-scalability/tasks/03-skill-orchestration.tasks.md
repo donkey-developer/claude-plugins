@@ -19,7 +19,7 @@
     - Read `spec/review-standards/orchestration.md` (the updated spec from Issue 1)
   - **Verification:** You can describe the current skill orchestration flow and the specific changes required per the updated spec
 
-- [ ] **TASK-02: Rewrite `all` skill with manifest-based orchestration**
+- [x] **TASK-02: Rewrite `all` skill with manifest-based orchestration**
   - **Goal:** Rewrite `plugins/donkey-review/skills/all/SKILL.md` to implement the manifest-driven architecture: (1) new scope algorithm with whole-codebase default, (2) manifest generation (file paths + line counts or change stats), (3) dispatch agents with manifest + output file path instead of content, (4) sequential domain synthesis reading from raw output files, (5) cross-domain summary reading from domain report files. Preserve batch naming, synthesis algorithm, and output format unchanged
   - **Brief ref:** BRIEF.md — Solution (all subsections)
   - **Files:** `plugins/donkey-review/skills/all/SKILL.md`
