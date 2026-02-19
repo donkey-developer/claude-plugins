@@ -20,9 +20,9 @@ This file provides guidance on where to find standards and specifications for th
 ## Review standards and conventions
 
 - Review standards framework, maturity model, severity, constraints, plugin file layout, compilation pipeline, agent input/output pattern, manifest-based input, file-based output, tool-driven discovery - ./review-standards/review-framework.md
-- Review standards design principles, outcomes over techniques, questions over imperatives, positive observations, consequence-based hygiene - ./review-standards/design-principles.md
+- Review standards design principles, outcomes over techniques, questions over imperatives, positive observations, consequence-based hygiene, tool-driven discovery over content-dumping - ./review-standards/design-principles.md
 - Review standards orchestration, scope identification, manifest generation, file-based agent output, sequential domain synthesis, deduplication, flat dispatch, batch naming, output directory structure - ./review-standards/orchestration.md
-- Review standards glossary, maturity levels, status indicators, subagent, skill orchestrator, finding, maturity assessment - ./review-standards/glossary.md
+- Review standards glossary, maturity levels, status indicators, subagent, skill orchestrator, finding, maturity assessment, manifest, self-selection, tool-driven discovery, content-dumping, scope identification, full-codebase mode, diff mode, unified flow, batch, sequential synthesis - ./review-standards/glossary.md
 - Review standards references, project history, cross-domain PRs, Twelve-Factor App - ./review-standards/references.md
 
 ## GitHub
