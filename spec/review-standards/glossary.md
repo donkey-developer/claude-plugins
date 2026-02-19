@@ -27,6 +27,8 @@
 | **Synthesis** | The process of merging 4 subagent reports into one consolidated maturity assessment. |
 | **Deduplication** | When two subagents flag the same file:line, merging into one finding with the highest severity and most restrictive maturity tag. |
 | **Flat dispatch** | The pattern used by `/donkey-review:all` to spawn all 16 agents directly from the skill, rather than nesting through domain orchestrators. Required because subagents cannot spawn their own subagents (platform constraint). |
+| **Manifest** | A lightweight file inventory (paths and line counts or change stats) that agents receive in place of file content. Fits approximately 6k tokens for 500 files. Full-codebase manifests list all tracked files with line counts; diff manifests list changed files with addition/deletion stats. |
+| **Sequential synthesis** | Reading one domain's raw output files at a time, synthesising that domain's report, and writing it to file before moving to the next domain. Caps peak context to approximately 40k tokens of agent output per domain pass. |
 | **Batch** | A single review run. Each batch has a unique name derived from the git context (annotated tag, branch+hash, or date+hash) and produces output in `.donkey-review/<batch-name>/`. |
 | **Batch name** | The unique identifier for a batch's output directory. Algorithm: annotated git tag > `<branch>-<7-char-hash>` > `<YYYY-MM-DD>-<7-char-hash>`. Collisions resolved by appending `-2`, `-3`, etc. |
 
@@ -51,3 +53,4 @@ Note: Each domain uses its own structural term for the review dimension — "Zoo
 | **Immediate action** | The single most important thing to fix. Hygiene failure if any exist, otherwise the top finding from the next achievable level. |
 | **Maturity assessment** | Per-criterion evaluation (met/not met/partially met) for each maturity level. |
 | **Positive observation** | A "What's Good" entry identifying an operational or design pattern worth preserving, grounded in specific file references and code evidence. Generic praise without file references is prohibited. |
+| **Raw findings file** | A markdown file written by a single agent at `.donkey-review/<batch>/raw/<agent-name>.md` containing unprocessed findings before deduplication and synthesis. |

@@ -31,3 +31,11 @@ Every review MUST include a "What's Good" section. Reviews that only list proble
 ## 5. Hygiene gate is consequence-based
 
 The Hygiene gate uses three consequence-severity tests (Irreversible, Total, Regulated), not domain-specific checklists. This ensures consistent escalation logic across all domains.
+
+## 6. Tool-driven discovery over content-dumping
+
+Agents discover and read files themselves using Read, Grep, and Glob tools rather than receiving file content in their task prompt.
+
+**Rationale (Review Scalability, #4):** Passing file content in-context creates a hard ceiling on reviewable codebase size — a moderate mono-repo (~4000-line diff, ~60 files) exhausted every agent's context window.
+Manifest-driven architecture gives each agent a lightweight file inventory and lets it self-select what to read within its own context budget.
+Compilation still eliminates tool overhead for prompt loading, so tools are reserved exclusively for reviewing the target codebase.
