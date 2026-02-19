@@ -13,6 +13,9 @@ Each task file maps to one GitHub Issue, one branch, and one PR.
 - You MUST NOT work across task files (issues) — each invocation targets one file
 - You MUST mark the task as done in the task file when complete
 - You MUST STOP after completing one task
+- You MUST run all bash commands from the repo root using `./`-relative paths (e.g., `./plugins/donkey-review/scripts/compile.sh`, not `cd plugins/donkey-review && ./scripts/compile.sh`).
+  Bash permissions are matched against the command prefix — using `cd` before a script causes a silent denial in `dontAsk` mode.
+  If a task file says "run X from Y/", translate that to `./Y/X` from the repo root.
 
 ## Process
 
