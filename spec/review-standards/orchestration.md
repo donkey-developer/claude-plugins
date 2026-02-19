@@ -29,19 +29,21 @@ See each domain's `spec.md` Section 6 for the dispatch table.
 All domains follow the same synthesis algorithm:
 
 1. **Collect** findings from all 4 subagents
-2. **Deduplicate** — when two agents flag the same `file:line`, merge into one finding:
+2. **Domain pre-filters** — apply domain-specific filters before deduplication (see each domain's spec for details):
+   - **Security:** Remove findings with confidence below 50%. Every finding must include an exploit path.
+   - **Data:** Restrict scope to data-related files (SQL, dbt, Spark, pipeline definitions, schema files, migration scripts). Apply consumer-first perspective.
+   - **SRE, Architecture:** No domain-specific pre-filter. Proceed directly to deduplication.
+3. **Deduplicate** — when two agents flag the same `file:line`, merge into one finding:
    - Take the **highest severity**
    - Take the **most restrictive maturity level** (HYG > L1 > L2 > L3)
    - Combine recommendations from both agents
    - Credit both subagents in the category column
-3. **Aggregate maturity** — merge per-criterion assessments into one view:
+4. **Aggregate maturity** — merge per-criterion assessments into one view:
    - All criteria met = `pass`
    - Mix of met and not met = `partial`
    - All criteria not met = `fail`
    - Previous level not passed = `locked`
-4. **Prioritise** — HYG findings first, then by severity (HIGH > MEDIUM > LOW)
-
-Individual domains may add domain-specific synthesis steps (e.g., Security applies a confidence filter between Step 1 and Step 2 of synthesis).
+5. **Prioritise** — HYG findings first, then by severity (HIGH > MEDIUM > LOW)
 
 ## Step 4: Output
 
@@ -100,8 +102,8 @@ Output directory: `.donkey-review/<batch-name>/`
 
 ### Per-domain synthesis
 
-After collecting all 16 results, apply the standard synthesis algorithm (collect, deduplicate, aggregate maturity, prioritise) per domain.
-Each domain also applies its own domain-specific synthesis steps (e.g., Security confidence filter).
+After collecting all 16 results, apply the standard synthesis algorithm (collect, domain pre-filters, deduplicate, aggregate maturity, prioritise) per domain.
+Each domain applies its own pre-filters where defined (Security confidence filter, Data scope filter).
 
 Output files written by the all skill:
 
