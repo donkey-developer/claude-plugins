@@ -30,7 +30,7 @@
     - Batch naming and cross-domain summary are preserved
     - The skill instructs agents to write output to `.donkey-review/<batch>/raw/<agent-name>.md`
 
-- [ ] **TASK-03: Update domain skill files with manifest-based dispatch**
+- [x] **TASK-03: Update domain skill files with manifest-based dispatch**
   - **Goal:** Update the four domain skill files (`sre`, `security`, `architecture`, `data`) to use the same manifest-based dispatch pattern as the `all` skill. Domain skills dispatch 4 agents each. Apply the same scope algorithm, manifest generation, and file-based output/synthesis pattern. If domain skills currently lack scope identification (relying on the Claude Code runtime), add it per the updated spec
   - **Brief ref:** BRIEF.md — Solution
   - **Files:**
