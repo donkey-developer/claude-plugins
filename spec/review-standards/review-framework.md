@@ -102,8 +102,8 @@ Compilation was chosen over having agents read prompt files at runtime for two r
    Having every agent read 5–6 shared files before starting its review adds latency for each of 4–16 parallel agents.
    Inlining eliminates this cost.
 
-2. **No tool overhead in agents.** Agents are read-only reviewers (Read, Grep, Glob tools only).
-   Removing the need to read their own prompt files keeps agent context focused on the codebase being reviewed.
+2. **No tool overhead for self-configuration.** Agents actively use Read, Grep, and Glob tools for file discovery and review — this is central to the manifest-driven architecture.
+   Compilation ensures agents never waste tool calls loading their own prompts; tools are reserved exclusively for reviewing the target codebase.
 
 The trade-off is that generated files become stale if prompts change without recompiling.
 The pre-commit hook and `--check` mode address this.
@@ -114,6 +114,27 @@ Run `./scripts/compile.sh --check` to verify generated files are in sync with th
 A pre-commit hook runs this check automatically; commits are blocked if any generated file is stale.
 
 To regenerate all files: `./scripts/compile.sh`
+
+## Agent Input/Output Pattern
+
+### Agent input — manifest-based
+
+Agents receive a manifest — a lightweight file inventory of paths and line counts or change stats — rather than full file content.
+Agents use Read, Grep, and Glob to self-select and examine files relevant to their pillar.
+This keeps domain knowledge in the domain prompts and allows agents to discover cross-cutting concerns that a static file list might miss.
+
+### Agent output — file-based
+
+Each agent writes its raw findings to `.donkey-review/<batch>/raw/<agent-name>.md` rather than returning them as in-context text.
+This decouples agent context from orchestrator context.
+The orchestrator reads output files selectively and sequentially during synthesis.
+
+### Why tool-driven discovery
+
+The original design avoided tool use in agents to minimise overhead.
+The manifest-driven architecture reverses this decision because the alternative — passing all file content in-context — creates a hard ceiling on reviewable codebase size.
+Tool-based discovery lets agents operate within their own context windows while reviewing codebases of arbitrary size.
+Compilation still eliminates tool overhead for prompt loading — agents use tools exclusively for reviewing the target codebase.
 
 ## Maturity Model
 
@@ -171,7 +192,7 @@ Severity measures consequence, not implementation difficulty.
 
 These constraints apply to all review domains:
 
-- **No auto-fix.** The review is read-only. Agents have Read, Grep, Glob tools only — no Bash, no Write, no Edit.
+- **No auto-fix.** The review is read-only with respect to the codebase being reviewed. Agents have Read, Grep, Glob, and Write tools — no Bash, no Edit. Write is used exclusively for outputting findings to `.donkey-review/`; agents never modify the target codebase.
 - **No cross-domain findings.** Each domain reviews only its own concerns. Do not reference sibling domain names within a finding. Do not add parenthetical cross-domain attributions. Pillar credits must only list pillars from the domain's own framework.
 
   > **Wrong:** `**Pillars:** AuthN/AuthZ, Architecture (cross-domain)` — includes a sibling domain name as a pillar credit.
