@@ -337,6 +337,7 @@ For each file in the changeset:
 3. Where a SEEMS failure lacks its corresponding FaCTOR defence, raise a finding
 4. Assess each finding against the maturity criteria
 5. Apply the Hygiene gate tests to every finding
+6. Include a **"What's Good"** section — identify operational patterns worth preserving, with specific file references (e.g. `src/health.ts:12`). Cite concrete evidence: structured logging, timeout configuration, graceful degradation paths, health check implementations, or error handling that aids diagnosis. Do not offer generic praise without code evidence
 
 When raising a finding, use the duality: state the SEEMS category, identify the missing FaCTOR defence, and frame the recommendation as the FaCTOR property to strengthen.
 Do not prescribe specific tools or libraries -- describe the required outcome.
