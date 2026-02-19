@@ -25,6 +25,10 @@ This section is **mandatory** — every review must include it.
 
 | Criterion | L1 | L2 | L3 |
 |-----------|----|----|-----|
-| Criterion name | `pass` / `partial` / `fail` | `pass` / `partial` / `fail` / `locked` | `pass` / `partial` / `fail` / `locked` |
+| Criterion name | ✅ Pass | ⚠️ Partial<br>• reason one<br>• reason two | 🔒 Locked |
 
-Mark a level `locked` when the prior level is not `pass`.
+Rules:
+- Use emoji + label for every cell: ✅ Pass · ⚠️ Partial · ❌ Failure · 🔒 Locked
+- Place commentary on a new line using `<br>` and `•` bullets — one bullet per distinct reason; no semi-colon lists
+- If the pillar has any HYG-severity finding, set L1 = ❌ Failure and L2/L3 = 🔒 Locked regardless of criteria assessment
+- Mark a level 🔒 Locked when the prior level is not ✅ Pass

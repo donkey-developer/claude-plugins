@@ -147,22 +147,23 @@ Each domain provides its own one-line description that contextualises these leve
 
 Used in maturity assessment tables:
 
-| Indicator | Meaning |
-|-----------|---------|
-| `pass` | All criteria at this level are met |
-| `partial` | Some criteria met, some not |
-| `fail` | No criteria met, or critical criteria missing |
-| `locked` | Previous level not achieved; this level cannot be assessed |
+| Indicator | Symbol | Label | Meaning |
+|-----------|--------|-------|---------|
+| `pass` | ✅ | Pass | All criteria at this level are met |
+| `partial` | ⚠️ | Partial | Some criteria met, some not |
+| `fail` | ❌ | Failure | No criteria met, or critical criteria missing; or pillar has a HYG finding |
+| `locked` | 🔒 | Locked | Previous level not achieved; this level cannot be assessed |
 
 ## Severity Framework
 
-All domains use the same three-level severity structure. Each domain defines its own impact framing.
+All domains use the same severity structure. Each domain defines its own impact framing.
 
-| Level | Merge decision |
-|-------|----------------|
-| **HIGH** | Must fix before merge |
-| **MEDIUM** | May require follow-up ticket |
-| **LOW** | Nice to have |
+| Level | Merge decision | Meaning |
+|-------|----------------|---------|
+| **HYG (Hygiene Gate)** | Mandatory merge blocker | Consequence passes the Irreversible, Total, or Regulated test — fix before this change can proceed. |
+| **HIGH** | Must fix before merge | The change introduces or exposes a material risk that will manifest in production. |
+| **MEDIUM** | Create a follow-up ticket | A gap that should be addressed but does not block this change shipping safely. |
+| **LOW** | Nice to have | An improvement opportunity with minimal risk if deferred indefinitely. |
 
 Severity measures consequence, not implementation difficulty.
 
