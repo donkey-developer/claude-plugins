@@ -210,7 +210,7 @@ tools: Read, Grep, Glob
     if [[ -d "${PROMPTS_DIR}/shared" ]]; then
         while IFS= read -r f; do
             local_basename="$(basename "${f}")"
-            if [[ "${local_basename}" != "synthesis.md" && "${local_basename}" != ".gitkeep" ]]; then
+            if [[ "${local_basename}" != "synthesis.md" && "${local_basename}" != "domain-orchestration.md" && "${local_basename}" != ".gitkeep" ]]; then
                 shared_files+=("${f}")
             fi
         done < <(find "${PROMPTS_DIR}/shared" -maxdepth 1 -name '*.md' -type f | sort)
@@ -301,14 +301,34 @@ allowed-tools: Task, Read, Grep, Glob, Bash, Write
             fi
         done
     else
-        # Domain skill: gather synthesis from this domain's _base.md
+        # Domain skill: orchestration + dispatch + synthesis from this domain's _base.md
         domain_base="${PROMPTS_DIR}/${name}/_base.md"
+        domain_orchestration="${PROMPTS_DIR}/shared/domain-orchestration.md"
+        domain_dispatch="${PROMPTS_DIR}/${name}/dispatch.md"
         body=""
 
-        if synthesis_content="$(read_file_or_warn "${synthesis_file}" "Shared synthesis")"; then
-            body="${synthesis_content}"
+        # Shared orchestration (scope, manifest, batch naming)
+        if orchestration_content="$(read_file_or_warn "${domain_orchestration}" "Shared domain orchestration")"; then
+            body="${orchestration_content}"
         fi
 
+        # Domain-specific dispatch (agents, output paths, report format)
+        if dispatch_content="$(read_file_or_warn "${domain_dispatch}" "Domain dispatch")"; then
+            if [[ -n "${body}" ]]; then
+                body+=$'\n\n'
+            fi
+            body+="${dispatch_content}"
+        fi
+
+        # Shared synthesis algorithm
+        if synthesis_content="$(read_file_or_warn "${synthesis_file}" "Shared synthesis")"; then
+            if [[ -n "${body}" ]]; then
+                body+=$'\n\n'
+            fi
+            body+="${synthesis_content}"
+        fi
+
+        # Domain-specific synthesis additions (pre-filters)
         if domain_synthesis="$(extract_synthesis_section "${domain_base}")"; then
             if [[ -n "${body}" ]]; then
                 body+=$'\n\n'
