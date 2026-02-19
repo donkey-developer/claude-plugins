@@ -44,7 +44,7 @@
     - Each domain skill reads raw output files for synthesis
     - Synthesis algorithms per domain are preserved
 
-- [ ] **TASK-04: Recompile all skills**
+- [x] **TASK-04: Recompile all skills**
   - **Goal:** Recompile all skills so compiled output reflects the updated skill source files
   - **Brief ref:** BRIEF.md — Verification
   - **Files:** Run `./plugins/donkey-review/scripts/compile.sh`
