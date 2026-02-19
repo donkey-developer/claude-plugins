@@ -30,7 +30,7 @@
     - The shared prompt instructs agents to write output to the file path provided by the orchestrator
     - The shared prompt works for both full-codebase and diff modes
 
-- [ ] **TASK-03: Update domain `_base.md` Review Instructions sections**
+- [x] **TASK-03: Update domain `_base.md` Review Instructions sections**
   - **Goal:** Update the Review Instructions section in each domain's `_base.md` to reference the new review mode. Replace any language about reviewing "the changeset" or "the diff" with instructions to review files discovered via the manifest. Preserve all analytical framework instructions (STRIDE, ROAD, C4, data pillars) unchanged
   - **Brief ref:** BRIEF.md — Solution
   - **Files:**
