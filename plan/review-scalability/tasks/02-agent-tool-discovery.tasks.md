@@ -52,7 +52,7 @@
     - Run `./plugins/donkey-review/scripts/compile.sh`
   - **Verification:** `./plugins/donkey-review/scripts/compile.sh --check` exits 0
 
-- [ ] **TASK-05: Final verification**
+- [x] **TASK-05: Final verification**
   - **Goal:** Confirm all agent prompts correctly instruct tool-based file discovery and file-based output
   - **Verification:**
     - All 16 compiled agents in `plugins/donkey-review/agents/` contain the new review mode instructions
