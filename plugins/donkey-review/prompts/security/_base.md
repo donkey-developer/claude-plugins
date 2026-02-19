@@ -76,9 +76,16 @@ Apply confidence thresholds to maintain signal quality — teams stop reading re
 | **MEDIUM** | 50-80% | REPORT with caveat | Potential bypass under specific conditions, possible race condition |
 | **LOW** | <50% | DO NOT REPORT | Theoretical attacks, defence-in-depth suggestions without exploit path |
 
-**Exploit path requirement:** Every finding must include an exploit scenario.
+**Exploit path requirement — hard gate:**
+
+Every finding that clears the confidence filter (≥50%) MUST include an exploit path — no exceptions, regardless of severity.
 A vulnerability without an exploit path is a theoretical concern, not a finding.
 This is the core distinction between security review and security audit.
+
+- **HIGH severity:** Full exploit scenario describing attacker steps, preconditions, and impact.
+- **MEDIUM severity:** Exploit path may be brief (one or two sentences) but must describe a concrete attack vector.
+- **LOW severity:** Exploit path may be brief (one or two sentences) but must describe how an attacker could realistically leverage the weakness.
+- **No exploit path = not a finding.** If you cannot describe an exploit path at ≥50% confidence, the finding does not clear the confidence filter. Drop it.
 
 ## DREAD-lite Severity Scoring
 
@@ -206,7 +213,12 @@ For each file in the changeset:
    - Authenticity, Integrity, Non-repudiability, Confidentiality, Availability, Authorization
 
 3. Where a STRIDE threat lacks its corresponding Security property defence, raise a finding
-4. Include an **exploit scenario** for every finding — vulnerability without exploit path is not a finding
+4. Include an **exploit scenario** for every finding at every severity level — this is a hard gate, not a suggestion.
+   A vulnerability without an exploit path is not a finding.
+   For HIGH findings, describe full attacker steps, preconditions, and impact.
+   For MEDIUM and LOW findings, the exploit path may be brief (one or two sentences) but must describe a concrete, realistic attack vector.
+   If you cannot describe an exploit path at ≥50% confidence, the finding does not clear the confidence filter — drop it.
+
 5. Apply confidence thresholds — do not report findings below 50% confidence
 6. Assess each finding against the maturity criteria
 7. Apply the Hygiene gate tests to every finding
