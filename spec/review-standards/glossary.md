@@ -44,6 +44,10 @@ Note: Each domain uses its own structural term for the review dimension — "Zoo
 
 | Term | Definition |
 |------|-----------|
+| **Cross-domain attribution** | A parenthetical reference to a sibling domain within a finding (e.g., "(also flagged by Security)" or "Architecture (cross-domain)"). Prohibited by the universal constraints because it undermines domain independence. |
+| **Domain pre-filter** | A domain-specific filter applied during synthesis before deduplication. Examples: Security's confidence filter, Data's scope filter. Domains without pre-filters proceed directly to deduplication. |
 | **Finding** | A single identified issue: severity, maturity level, category, file location, description, and recommendation. Domains may add fields (e.g., Security adds confidence and exploit scenario). |
-| **Maturity assessment** | Per-criterion evaluation (met/not met/partially met) for each maturity level. |
+| **Fix direction** | The recommendation text within a finding that describes what should change. Must describe the required outcome, not name specific tools, libraries, or vendors. |
 | **Immediate action** | The single most important thing to fix. Hygiene failure if any exist, otherwise the top finding from the next achievable level. |
+| **Maturity assessment** | Per-criterion evaluation (met/not met/partially met) for each maturity level. |
+| **Positive observation** | A "What's Good" entry identifying an operational or design pattern worth preserving, grounded in specific file references and code evidence. Generic praise without file references is prohibited. |

@@ -82,6 +82,13 @@ Categories deliberately excluded from security review findings:
 | Missing rate limiting (unless trivially exploitable) | Operational concern unless directly exploitable | SRE domain |
 | Resource leaks | Memory/connection leaks are operational, not security | SRE domain |
 
+## Output Terms
+
+| Term | Definition |
+|------|-----------|
+| **Confidence filter** | The synthesis step that removes findings with confidence below 50%. Findings that survive the confidence filter must include an exploit path. |
+| **Exploit path** | A concrete description of how an attacker would exploit a weakness. Required for every security finding at all severities. HIGH findings need a full scenario (attacker steps, preconditions, impact); MEDIUM and LOW findings need at least a concrete attack vector. A finding without an exploit path does not clear the confidence filter. |
+
 ## Maturity Model
 
 This domain inherits the shared maturity model (see `../../review-standards/glossary.md` and `../../review-standards/review-framework.md`).
