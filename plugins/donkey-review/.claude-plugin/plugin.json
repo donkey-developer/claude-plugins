@@ -1,6 +1,6 @@
 {
   "name": "donkey-review",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Domain-specific code reviews across Architecture, Security, SRE, and Data Engineering",
   "author": {
     "name": "Donkey Developer"
