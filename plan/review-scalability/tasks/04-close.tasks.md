@@ -19,7 +19,7 @@
   - **Goal:** Where implementation intentionally diverged from the planning brief, update the permanent specs under `spec/` to match reality
   - **Verification:** No contradictions between specs and implemented code
 
-- [ ] **TASK-04: Add new vocabulary**
+- [x] **TASK-04: Add new vocabulary**
   - **Goal:** Add any terms coined during implementation to the relevant glossary files
   - **Verification:** All new terms are defined in a glossary
 
