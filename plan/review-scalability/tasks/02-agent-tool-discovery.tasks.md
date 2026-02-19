@@ -7,7 +7,7 @@
 
 ## Tasks
 
-- [ ] **TASK-01: Read current agent review instructions and shared prompts**
+- [x] **TASK-01: Read current agent review instructions and shared prompts**
   - **Goal:** Understand how agents currently receive and process review input, so the update targets only the input/output handling and preserves analytical frameworks
   - **Brief ref:** BRIEF.md — Problem Statement
   - **Files:**
