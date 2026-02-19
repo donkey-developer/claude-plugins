@@ -50,7 +50,7 @@
   - **Files:** Run `./plugins/donkey-review/scripts/compile.sh`
   - **Verification:** `./plugins/donkey-review/scripts/compile.sh --check` exits 0
 
-- [ ] **TASK-05: Final verification**
+- [x] **TASK-05: Final verification**
   - **Goal:** Confirm all skill files correctly implement manifest-based orchestration
   - **Verification:**
     - `plugins/donkey-review/skills/all/SKILL.md` implements full manifest-driven flow
