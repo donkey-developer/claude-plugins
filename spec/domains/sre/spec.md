@@ -107,6 +107,11 @@ The SRE review instructions require a "What's Good" section identifying operatio
 Each positive observation must cite specific file references (e.g. `src/health.ts:12`) and concrete evidence such as structured logging, timeout configuration, graceful degradation paths, health check implementations, or error handling that aids diagnosis.
 Generic praise without code evidence is prohibited.
 
+**Rationale (Review Output Conformance, #53):**
+Generic praise such as "good error handling" is indistinguishable from hallucination.
+Requiring file and line references forces the agent to ground positive observations in the actual codebase, applying the same evidentiary rigour already expected of negative findings.
+The trade-off is that the "What's Good" section may be shorter when genuine patterns are scarce, but a short, grounded section is more valuable than a long, generic one.
+
 ## 6. Orchestration Process
 
 The `/donkey-review:sre` skill follows the shared orchestration pattern (see `../../review-standards/orchestration.md`) with these domain-specific details:
