@@ -7,7 +7,7 @@
 
 ## Tasks
 
-- [ ] **TASK-01: Read current orchestration spec and review framework**
+- [x] **TASK-01: Read current orchestration spec and review framework**
   - **Goal:** Understand the current scope identification algorithm, dispatch pattern, and synthesis flow as defined in the specs, so the update preserves what works and replaces only what's broken
   - **Brief ref:** BRIEF.md — Problem Statement
   - **Files:**
