@@ -18,7 +18,7 @@
     - Read `spec/review-standards/review-framework.md` (Universal Constraints — no cross-domain findings)
   - **Verification:** You can state which file(s) need to be updated and why, and confirm that the chosen location(s) will be compiled into the affected agents
 
-- [ ] **TASK-02: Add cross-domain attribution prohibition**
+- [x] **TASK-02: Add cross-domain attribution prohibition**
   - **Goal:** Add an explicit rule prohibiting domain agents from referencing sibling domain names or attributing findings as "(cross-domain)" within their own report. Pillar credits must list only pillars from that domain's own framework. Cross-domain themes belong exclusively in `summary.md` via the synthesis step
   - **Brief ref:** BRIEF.md Section 4
   - **Files:** `plugins/donkey-review/prompts/shared/constraints.md` and/or the domain `_base.md` files, as determined in TASK-01
