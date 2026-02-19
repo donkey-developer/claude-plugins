@@ -25,7 +25,7 @@
   - **Files:** Relevant `spec/` files
   - **Verification:** No contradictions between specs and implemented code
 
-- [ ] **TASK-04: Add new vocabulary**
+- [x] **TASK-04: Add new vocabulary**
   - **Goal:** Add any terms coined during implementation to the relevant glossary files
   - **Files:** Relevant `spec/*/glossary.md` files
   - **Verification:** All new terms are defined in a glossary
