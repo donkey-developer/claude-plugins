@@ -37,7 +37,7 @@ donkey-review/
 
 1. **Each agent file is self-contained.** It embeds the full content of `_base.md` + its subagent prompt. Agents do not reference external files at runtime — all context must be inlined.
 2. **Prompts are the source of truth.** The `prompts/<domain>/` directory contains the human-readable, LLM-agnostic checklists. Agent files are compiled from these.
-3. **Domain SKILL.md files contain only the synthesis algorithm.** Scope detection and agent dispatch are handled by the Claude Code skill runtime. The `all/SKILL.md` is the exception: it contains full orchestration instructions (scope detection, batch naming, dispatch table, synthesis, and cross-domain summary) because the 16-agent cross-domain review requires explicit guidance.
+3. **Domain SKILL.md files contain the full orchestration flow.** Each domain's SKILL.md is compiled from shared orchestration (scope identification, manifest generation, batch naming), domain-specific dispatch, and the synthesis algorithm. The `all/SKILL.md` follows the same pattern but scales to 16 agents and adds cross-domain summary.
 
 ### When modifying files
 
@@ -46,6 +46,8 @@ donkey-review/
 | Add/change a pillar checklist item | `prompts/<domain>/<subagent>.md` then recompile the corresponding `agents/<domain>-<subagent>.md` |
 | Change shared context (severity, maturity, output format) | `prompts/shared/<file>.md` then recompile ALL agent files |
 | Change domain context (framework, maturity criteria) | `prompts/<domain>/_base.md` then recompile all agents for that domain |
+| Change scope/manifest/batch naming logic | `prompts/shared/domain-orchestration.md` then recompile all domain `skills/<domain>/SKILL.md` and `skills/all/SKILL.md` |
+| Change domain dispatch configuration | `prompts/<domain>/dispatch.md` then recompile `skills/<domain>/SKILL.md` and `skills/all/SKILL.md` |
 | Change domain synthesis rules | `prompts/<domain>/_base.md` (the `## Synthesis` section) then recompile `skills/<domain>/SKILL.md` and `skills/all/SKILL.md` |
 | Change `donkey-review:all` orchestration logic | `prompts/all/_base.md` then recompile `skills/all/SKILL.md` |
 | Add a new domain skill | Add to `compile.conf`, create `prompts/<domain>/`, recompile |
@@ -74,13 +76,13 @@ The `compile.sh` script reads this file to know which files to generate.
 **Agent files** (`agents/<domain>-<pillar>.md`) are assembled from:
 
 1. YAML frontmatter — name, description, model, tools — derived from `compile.conf`
-2. All shared prompt files from `prompts/shared/` (alphabetical, excluding `synthesis.md`)
+2. All shared prompt files from `prompts/shared/` (alphabetical, excluding `synthesis.md` and `domain-orchestration.md` which are skill-only sources)
 3. The domain base file: `prompts/<domain>/_base.md`
 4. The pillar prompt file: `prompts/<domain>/<pillar>.md`
 
 **Skill files** (`skills/<domain>/SKILL.md`) are assembled from:
 
-- For domain skills: `prompts/shared/synthesis.md` + the `## Synthesis` section extracted from `prompts/<domain>/_base.md`
+- For domain skills: `prompts/shared/domain-orchestration.md` + `prompts/<domain>/dispatch.md` + `prompts/shared/synthesis.md` + the `## Synthesis` section extracted from `prompts/<domain>/_base.md`
 - For the `all` skill: `prompts/all/_base.md` + `prompts/shared/synthesis.md` + the `## Synthesis` section from every domain's `_base.md`
 
 ### Prompt size targets

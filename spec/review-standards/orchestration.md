@@ -126,8 +126,8 @@ The orchestrator does not parse structured data — it reads the markdown findin
 
 ## Step 4: Sequential domain synthesis
 
-> **What lives in the compiled SKILL.md:** Only the synthesis algorithm (Steps 4 and 5) is compiled into each domain's `SKILL.md`.
-> Scope detection (Step 1), manifest generation (Step 2), and dispatch are not written into the SKILL.md — the Claude Code skill model handles scope from the argument and knows which agents belong to the domain from the plugin registry.
+> **What lives in the compiled SKILL.md:** Each domain's `SKILL.md` contains the full orchestration flow — scope identification (Step 1), manifest generation and dispatch (Step 2), file-based output instructions (Step 3), and the synthesis algorithm (Steps 4 and 5).
+> The skill file is self-contained: it is compiled from `prompts/shared/domain-orchestration.md` (scope, manifest, batch naming), `prompts/<domain>/dispatch.md` (agent table and report format), and `prompts/shared/synthesis.md` plus domain-specific synthesis additions.
 
 The orchestrator reads one domain's raw output files at a time, synthesises the domain report, writes it to a file, then moves to the next domain.
 This caps peak context to approximately 40k tokens of agent output per domain pass.
