@@ -123,9 +123,12 @@ When the base PR merges, GitHub automatically retargets the stacked PR.
 
 ## Shell Commands
 
-- **Always use relative paths** when running scripts or referencing project files in Bash commands (e.g. `./scripts/compile.sh`, not `/Users/foo/project/scripts/compile.sh`).
+- **Always use relative paths from the repo root** when running scripts or referencing project files in Bash commands (e.g. `./scripts/compile.sh`, not `/Users/foo/project/scripts/compile.sh`).
   Absolute paths break portability across machines, worktrees, and containers.
   Bash permissions in `.claude/settings.json` are defined with relative path patterns — absolute paths will be denied.
+- **Never use `cd` before running a script** — Bash permissions match the command prefix, so `cd foo && ./bar.sh` is denied even if `./foo/bar.sh` is allowed.
+  Instead of `cd plugins/donkey-review && ./scripts/compile.sh`, use `./plugins/donkey-review/scripts/compile.sh`.
+  This is critical in `dontAsk` permission mode where denials are silent.
 
 ## Git Workflow
 
