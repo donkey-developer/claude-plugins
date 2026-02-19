@@ -20,7 +20,7 @@
   - **Files:** Relevant `spec/` files as identified during implementation
   - **Verification:** Each significant decision from BRIEF.md has rationale captured in a spec file
 
-- [ ] **TASK-03: Reconcile spec divergences**
+- [x] **TASK-03: Reconcile spec divergences**
   - **Goal:** Where implementation intentionally diverged from the planning brief, update the permanent specs under `spec/` to match reality
   - **Files:** Relevant `spec/` files
   - **Verification:** No contradictions between specs and implemented code
