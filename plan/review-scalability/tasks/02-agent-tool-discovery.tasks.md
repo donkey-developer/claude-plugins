@@ -44,7 +44,7 @@
     - All analytical framework instructions are unchanged
     - All four domain `_base.md` files are consistent in their review mode instructions
 
-- [ ] **TASK-04: Update compile script if needed and recompile**
+- [x] **TASK-04: Update compile script if needed and recompile**
   - **Goal:** If the new shared prompt file (`review-mode.md`) needs to be included in the compile pipeline, update `plugins/donkey-review/scripts/compile.sh`. Then recompile all agents and skills
   - **Brief ref:** BRIEF.md — Verification
   - **Files:**
