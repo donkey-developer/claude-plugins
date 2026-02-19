@@ -16,7 +16,7 @@
     - Read `spec/review-standards/review-framework.md` (Universal Constraints section)
   - **Verification:** You know whether the "no specific tools" rule is already in `shared/constraints.md` and therefore already compiled into all agents, or whether it needs to be reinforced in `security/_base.md` with security-specific examples
 
-- [ ] **TASK-02: Add explicit tool-prescription prohibition with before/after examples to `security/_base.md`**
+- [x] **TASK-02: Add explicit tool-prescription prohibition with before/after examples to `security/_base.md`**
   - **Goal:** Add an explicit prohibition against naming specific libraries, functions, or exact thresholds in fix-direction text. Include a security-specific before/after example showing outcome-phrased vs tool-phrased recommendations, as called for in the issue body
   - **Brief ref:** BRIEF.md Section 3
   - **Files:** `plugins/donkey-review/prompts/security/_base.md`
@@ -24,7 +24,7 @@
     - An explicit statement that fix directions must not name specific functions, libraries, or numeric thresholds
     - At least one before/after example (tool-phrased → outcome-phrased) drawn from the issue evidence
 
-- [ ] **TASK-03: Recompile agents and skills**
+- [x] **TASK-03: Recompile agents and skills**
   - **Goal:** Regenerate all compiled agents and skills so they reflect the updated `security/_base.md`
   - **Brief ref:** BRIEF.md — Verification
   - **Files:** Run `./scripts/compile.sh` from `plugins/donkey-review/`
