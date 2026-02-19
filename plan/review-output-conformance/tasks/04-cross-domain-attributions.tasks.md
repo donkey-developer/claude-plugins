@@ -24,7 +24,7 @@
   - **Files:** `plugins/donkey-review/prompts/shared/constraints.md` and/or the domain `_base.md` files, as determined in TASK-01
   - **Verification:** The updated file(s) contain an unambiguous rule prohibiting sibling-domain references within a domain report, with the evidence cases from the issue as illustrative examples
 
-- [ ] **TASK-03: Recompile agents and skills**
+- [x] **TASK-03: Recompile agents and skills**
   - **Goal:** Regenerate all compiled agents and skills so they reflect the updated prompt sources
   - **Brief ref:** BRIEF.md — Verification
   - **Files:** Run `./scripts/compile.sh` from `plugins/donkey-review/`
