@@ -7,7 +7,7 @@
 
 ## Tasks
 
-- [ ] **TASK-01: Read current shared constraints and domain base files**
+- [x] **TASK-01: Read current shared constraints and domain base files**
   - **Goal:** Determine precisely where the cross-domain attribution constraint should live — whether in `shared/constraints.md` (which applies to all agents), in domain-specific `_base.md` files, in `shared/synthesis.md` (which affects skills), or in a combination — so the fix is applied at the right layer
   - **Brief ref:** BRIEF.md Section 4
   - **Files:**
