@@ -172,6 +172,12 @@ Severity measures consequence, not implementation difficulty.
 These constraints apply to all review domains:
 
 - **No auto-fix.** The review is read-only. Agents have Read, Grep, Glob tools only — no Bash, no Write, no Edit.
-- **No cross-domain findings.** Each domain reviews only its own concerns. Architecture does not flag SRE issues, Security does not flag Data issues, etc.
+- **No cross-domain findings.** Each domain reviews only its own concerns. Do not reference sibling domain names within a finding. Do not add parenthetical cross-domain attributions. Pillar credits must only list pillars from the domain's own framework.
+
+  > **Wrong:** `**Pillars:** AuthN/AuthZ, Architecture (cross-domain)` — includes a sibling domain name as a pillar credit.
+  > **Right:** `**Pillars:** AuthN/AuthZ`
+  >
+  > **Wrong:** `**Pillars:** Service, Code **(also flagged by Security)**` — parenthetical cross-domain attribution.
+  > **Right:** `**Pillars:** Service, Code`
 - **No numeric scores.** Status is pass/partial/fail/locked. No percentages, no weighted scores.
 - **No prescribing specific tools.** Never recommend a specific library, framework, or vendor. Describe the outcome, let the team choose the implementation.
