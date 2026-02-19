@@ -179,5 +179,16 @@ These constraints apply to all review domains:
   >
   > **Wrong:** `**Pillars:** Service, Code **(also flagged by Security)**` — parenthetical cross-domain attribution.
   > **Right:** `**Pillars:** Service, Code`
+
+  **Rationale (Review Output Conformance, #55):**
+  Cross-domain attributions undermine domain independence.
+  Each domain must stand on its own analytical framework — if a finding is relevant to multiple domains, each reports it independently using its own vocabulary.
+  Parenthetical attributions such as "(also flagged by Security)" add no analytical value; the reader will see each domain's report separately, and the synthesis step in the `all` review handles deduplication across domains.
+
 - **No numeric scores.** Status is pass/partial/fail/locked. No percentages, no weighted scores.
 - **No prescribing specific tools.** Never recommend a specific library, framework, or vendor. Describe the outcome, let the team choose the implementation.
+
+  **Rationale (Review Output Conformance, #54):**
+  Named tools anchor the reader on a single solution and implicitly endorse a vendor.
+  Even qualifying with "e.g." does not prevent anchoring — testing showed that agents and readers still treat the named tool as the recommendation.
+  Outcome-phrased recommendations respect that different teams have different stacks and constraints.

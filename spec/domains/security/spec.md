@@ -105,6 +105,12 @@ Per-severity expectations:
 - **LOW:** Exploit path may be brief (one or two sentences) but must describe how an attacker could realistically leverage the weakness.
 - **No exploit path = not a finding.** If an exploit path cannot be described at ≥50% confidence, the finding does not clear the confidence filter and must be dropped.
 
+**Rationale (Review Output Conformance, #56):**
+If the reviewing agent cannot articulate how an attacker would exploit a weakness, the developer reading the report certainly will not understand the risk.
+The per-severity scaling is a pragmatic compromise: LOW findings do not need a multi-step scenario, but they do need a concrete attack vector to be distinguishable from noise.
+Making exploit paths optional for LOW severity was considered and rejected because LOWs without exploit paths are indistinguishable from false positives.
+This reinforces the same philosophy as the confidence threshold — prefer fewer, actionable findings over comprehensive but vague reports.
+
 ### 5.5 Confidence thresholds reduce noise
 
 Security reviews are particularly prone to false positives. The confidence threshold system exists to maintain signal quality:
@@ -138,6 +144,11 @@ Describe the required security outcome; let the implementing team choose the mec
 |---------------------|------------------------|
 | "Replace `===` with `crypto.timingSafeEqual(Buffer.from(providedKey), Buffer.from(expectedKey))`" | "Use a constant-time byte comparison to prevent timing side-channels" |
 | "Apply per-IP rate limiting (e.g., `express-rate-limit`). Minimum: 5 failed auth attempts per 15 minutes triggers temporary lockout" | "Apply per-IP rate limiting with temporary lockout on repeated authentication failures" |
+
+**Rationale (Review Output Conformance, #54):**
+Named tools anchor the reader on a single solution and implicitly endorse a vendor.
+Testing showed that even qualifying with "e.g." does not prevent anchoring — agents and readers still treat the named tool as the recommendation.
+Outcome-phrased recommendations let teams choose tools that fit their existing stack and constraints.
 
 ## 6. Orchestration Process
 

@@ -15,7 +15,7 @@
     - `spec/review-standards/review-framework.md` — cross-domain attribution prohibition with illustrative cases (if strengthened beyond current wording)
   - **Verification:** Each new pattern has a section in the appropriate spec file
 
-- [ ] **TASK-02: Capture decision rationale**
+- [x] **TASK-02: Capture decision rationale**
   - **Goal:** Extract rationale from `BRIEF.md` and implementation experience — trade-offs considered, alternatives rejected, constraints that drove decisions — and add to the relevant spec files under `spec/`
   - **Files:** Relevant `spec/` files as identified during implementation
   - **Verification:** Each significant decision from BRIEF.md has rationale captured in a spec file
