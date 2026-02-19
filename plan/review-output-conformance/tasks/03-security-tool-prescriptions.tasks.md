@@ -30,7 +30,7 @@
   - **Files:** Run `./scripts/compile.sh` from `plugins/donkey-review/`
   - **Verification:** `./scripts/compile.sh --check` exits 0
 
-- [ ] **TASK-04: Final verification**
+- [x] **TASK-04: Final verification**
   - **Goal:** Confirm all deliverables for this issue are present and correct
   - **Verification:**
     - `plugins/donkey-review/prompts/security/_base.md` contains a tool-prescription prohibition with before/after examples
