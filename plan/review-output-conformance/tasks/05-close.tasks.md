@@ -7,7 +7,7 @@
 
 ## Tasks
 
-- [ ] **TASK-01: Update specs with new patterns**
+- [x] **TASK-01: Update specs with new patterns**
   - **Goal:** Add any implementation patterns introduced during this milestone to the relevant spec files under `spec/`. Specifically: the "What's Good" requirement in SRE output format, the mandatory exploit-path rule for all security findings, the tool-prescription prohibition with examples, and the cross-domain attribution prohibition
   - **Files:**
     - `spec/domains/sre/spec.md` — "What's Good" output format requirement (if not already present)
