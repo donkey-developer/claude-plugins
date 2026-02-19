@@ -35,7 +35,7 @@
     - Framework spec describes file-based output pattern
     - Rationale for tool-based discovery is documented
 
-- [ ] **TASK-04: Final verification**
+- [x] **TASK-04: Final verification**
   - **Goal:** Confirm all spec updates are consistent and complete
   - **Verification:**
     - `spec/review-standards/orchestration.md` defines manifest format, scope algorithm, file-based output, sequential synthesis
