@@ -20,7 +20,7 @@
     - Read `spec/review-standards/orchestration.md` (the updated spec from Issue 1)
   - **Verification:** You can describe how agents currently receive input, what their review instructions say, and what needs to change per the updated spec
 
-- [ ] **TASK-02: Add shared review-mode prompt for manifest-based file discovery**
+- [x] **TASK-02: Add shared review-mode prompt for manifest-based file discovery**
   - **Goal:** Create or update a shared prompt file that instructs agents on how to handle manifest-based input: receive a file manifest, use Glob/Grep/Read to selectively examine files relevant to their pillar, and write findings to a specified output file path. This shared prompt will be included in all agents via the compile step
   - **Brief ref:** BRIEF.md — Solution (manifest-driven review, file-based output)
   - **Files:** `plugins/donkey-review/prompts/shared/review-mode.md` (new file, or update existing if a suitable shared prompt exists)
