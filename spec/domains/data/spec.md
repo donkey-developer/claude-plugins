@@ -147,7 +147,11 @@ Spawn 4 subagents simultaneously:
 
 ### Step 3: Synthesis
 
-Follows the shared synthesis algorithm (see `../../review-standards/orchestration.md`). No domain-specific synthesis additions.
+Follows the shared synthesis algorithm (see `../../review-standards/orchestration.md`) with one domain-specific addition:
+
+1. **Apply scope filter** — focus analysis on data-related files (SQL, dbt models, Spark scripts, pipeline definitions, schema files, migration scripts). Non-data files receive lower analytical weight; findings are raised only where data handling is directly implicated.
+2. **Apply consumer-first perspective** — for every finding, assess "How will downstream consumers experience this?" A schema change that the producer considers minor may be a breaking change for consumers. Prioritise consumer-affecting findings over internal implementation findings.
+3. Continue with shared deduplication, aggregation, and prioritisation.
 
 ## 7. Improvement Vectors
 

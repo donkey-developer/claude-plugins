@@ -172,7 +172,7 @@ Spawn 4 subagents simultaneously:
 Follows the shared synthesis algorithm (see `../../review-standards/orchestration.md`) with one domain-specific addition:
 
 1. **Collect** findings from all 4 pillars
-2. **Apply confidence filter** — remove findings below 50% confidence
+2. **Apply confidence filter** — remove findings below 50% confidence. Every remaining finding must include an exploit path.
 3. Continue with shared deduplication, aggregation, and prioritisation
 
 ## 7. Improvement Vectors
