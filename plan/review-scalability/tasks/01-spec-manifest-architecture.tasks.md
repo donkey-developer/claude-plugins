@@ -15,7 +15,7 @@
     - Read `spec/review-standards/review-framework.md`
   - **Verification:** You can describe the current scope algorithm, dispatch pattern, and the gap that causes context exhaustion
 
-- [ ] **TASK-02: Update orchestration spec with manifest-driven architecture**
+- [x] **TASK-02: Update orchestration spec with manifest-driven architecture**
   - **Goal:** Rewrite `spec/review-standards/orchestration.md` to define the new manifest-driven review architecture: new scope algorithm (whole-codebase default), manifest format specification, file-based agent output pattern, sequential domain synthesis, and unified flow for both full-codebase and diff modes
   - **Brief ref:** BRIEF.md — Solution (all subsections)
   - **Files:** `spec/review-standards/orchestration.md`
