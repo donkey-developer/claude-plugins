@@ -7,7 +7,7 @@
 
 ## Tasks
 
-- [ ] **TASK-01: Read current security prompt and spec constraint**
+- [x] **TASK-01: Read current security prompt and spec constraint**
   - **Goal:** Understand what `prompts/security/_base.md` currently says about tool/library recommendations, and confirm the exact spec constraint, so the fix adds only what is missing without duplicating existing rules
   - **Brief ref:** BRIEF.md Section 3
   - **Files:**
