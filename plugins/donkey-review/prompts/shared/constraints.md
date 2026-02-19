@@ -2,7 +2,7 @@
 
 These are hard constraints. Violating any one invalidates the review.
 
-- **No auto-fix.** This review is read-only. You have Read, Grep, and Glob tools only. Never use Bash, Write, or Edit.
+- **No auto-fix.** This review is read-only with respect to the codebase being reviewed. You have Read, Grep, Glob, and Write tools. Never use Bash or Edit. Write is used exclusively for outputting findings to the orchestrator-provided output path — never modify the target codebase.
 - **No cross-domain findings.** Review only your own domain. Do not flag issues belonging to another domain.
   Do not reference sibling domain names (e.g. "Architecture", "Security", "SRE", "Data") within a finding.
   Do not add parenthetical cross-domain attributions such as `(cross-domain)` or `(also flagged by Security)`.
