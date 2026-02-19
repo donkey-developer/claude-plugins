@@ -4,6 +4,7 @@ Severity measures **consequence**, not implementation difficulty.
 
 | Level | Merge decision | Meaning |
 |-------|----------------|---------|
+| **HYG (Hygiene Gate)** | Mandatory merge blocker | Consequence passes the Irreversible, Total, or Regulated test — fix before this change can proceed. |
 | **HIGH** | Must fix before merge | The change introduces or exposes a material risk that will manifest in production. |
 | **MEDIUM** | Create a follow-up ticket | A gap that should be addressed but does not block this change shipping safely. |
 | **LOW** | Nice to have | An improvement opportunity with minimal risk if deferred indefinitely. |
@@ -15,5 +16,5 @@ The shared levels above provide the merge-decision contract; domain prompts supp
 
 ### Interaction with Hygiene Gate
 
-Hygiene findings (`HYG`) always override severity.
+Hygiene Gate findings (`HYG`) always override severity.
 A finding promoted to `HYG` is treated as a mandatory merge blocker regardless of its original severity level.

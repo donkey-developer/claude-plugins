@@ -9,7 +9,7 @@ Any finding is promoted to `HYG` if it passes any consequence-severity test:
 | **Total** | Can this take down the entire service or cascade beyond its boundary? |
 | **Regulated** | Does this violate a legal or compliance obligation? |
 
-Any "yes" = `HYG`.
+Any "yes" = **HYG (Hygiene Gate)**.
 The Hygiene flag trumps all maturity levels.
 
 ## Maturity Levels
@@ -29,9 +29,9 @@ If a prior level is not passed, subsequent levels are `locked`.
 
 ## Status Indicators
 
-| Indicator | Meaning |
-|-----------|---------|
-| `pass` | All criteria at this level are met |
-| `partial` | Some criteria met, some not |
-| `fail` | No criteria met, or critical criteria missing |
-| `locked` | Previous level not achieved; this level cannot be assessed |
+| Indicator | Symbol | Label | Meaning |
+|-----------|--------|-------|---------|
+| `pass` | ✅ | Pass | All criteria at this level are met |
+| `partial` | ⚠️ | Partial | Some criteria met, some not |
+| `fail` | ❌ | Failure | No criteria met, or critical criteria missing; or pillar has a HYG finding |
+| `locked` | 🔒 | Locked | Previous level not achieved; this level cannot be assessed |

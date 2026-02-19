@@ -64,7 +64,7 @@ Any finding is promoted to `HYG` if it passes any consequence-severity test:
 | **Total** | Can this take down the entire service or cascade beyond its boundary? |
 | **Regulated** | Does this violate a legal or compliance obligation? |
 
-Any "yes" = `HYG`.
+Any "yes" = **HYG (Hygiene Gate)**.
 The Hygiene flag trumps all maturity levels.
 
 ## Maturity Levels
@@ -84,12 +84,12 @@ If a prior level is not passed, subsequent levels are `locked`.
 
 ## Status Indicators
 
-| Indicator | Meaning |
-|-----------|---------|
-| `pass` | All criteria at this level are met |
-| `partial` | Some criteria met, some not |
-| `fail` | No criteria met, or critical criteria missing |
-| `locked` | Previous level not achieved; this level cannot be assessed |
+| Indicator | Symbol | Label | Meaning |
+|-----------|--------|-------|---------|
+| `pass` | ✅ | Pass | All criteria at this level are met |
+| `partial` | ⚠️ | Partial | Some criteria met, some not |
+| `fail` | ❌ | Failure | No criteria met, or critical criteria missing; or pillar has a HYG finding |
+| `locked` | 🔒 | Locked | Previous level not achieved; this level cannot be assessed |
 
 ## Output Format
 
@@ -118,9 +118,13 @@ This section is **mandatory** — every review must include it.
 
 | Criterion | L1 | L2 | L3 |
 |-----------|----|----|-----|
-| Criterion name | `pass` / `partial` / `fail` | `pass` / `partial` / `fail` / `locked` | `pass` / `partial` / `fail` / `locked` |
+| Criterion name | ✅ Pass | ⚠️ Partial<br>• reason one<br>• reason two | 🔒 Locked |
 
-Mark a level `locked` when the prior level is not `pass`.
+Rules:
+- Use emoji + label for every cell: ✅ Pass · ⚠️ Partial · ❌ Failure · 🔒 Locked
+- Place commentary on a new line using `<br>` and `•` bullets — one bullet per distinct reason; no semi-colon lists
+- If the pillar has any HYG-severity finding, set L1 = ❌ Failure and L2/L3 = 🔒 Locked regardless of criteria assessment
+- Mark a level 🔒 Locked when the prior level is not ✅ Pass
 
 ## Severity Framework
 
@@ -128,6 +132,7 @@ Severity measures **consequence**, not implementation difficulty.
 
 | Level | Merge decision | Meaning |
 |-------|----------------|---------|
+| **HYG (Hygiene Gate)** | Mandatory merge blocker | Consequence passes the Irreversible, Total, or Regulated test — fix before this change can proceed. |
 | **HIGH** | Must fix before merge | The change introduces or exposes a material risk that will manifest in production. |
 | **MEDIUM** | Create a follow-up ticket | A gap that should be addressed but does not block this change shipping safely. |
 | **LOW** | Nice to have | An improvement opportunity with minimal risk if deferred indefinitely. |
@@ -139,7 +144,7 @@ The shared levels above provide the merge-decision contract; domain prompts supp
 
 ### Interaction with Hygiene Gate
 
-Hygiene findings (`HYG`) always override severity.
+Hygiene Gate findings (`HYG`) always override severity.
 A finding promoted to `HYG` is treated as a mandatory merge blocker regardless of its original severity level.
 
 ## Purpose
