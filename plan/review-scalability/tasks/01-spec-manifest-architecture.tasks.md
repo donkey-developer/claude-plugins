@@ -26,7 +26,7 @@
     - Spec defines sequential domain synthesis (read 4 files per domain, write domain report, move to next)
     - Spec preserves the existing synthesis algorithm (collect, pre-filter, dedup, aggregate, prioritise)
 
-- [ ] **TASK-03: Update review framework spec with new agent input/output pattern**
+- [x] **TASK-03: Update review framework spec with new agent input/output pattern**
   - **Goal:** Update `spec/review-standards/review-framework.md` to reflect that agents receive a manifest (not content) and write output to files (not return in-context). Update the "No tool overhead in agents" rationale to explain why agents now actively use tools for file discovery
   - **Brief ref:** BRIEF.md — Design Decisions
   - **Files:** `spec/review-standards/review-framework.md`
